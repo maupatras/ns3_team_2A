@@ -5,8 +5,14 @@
 Organization
 ------------
 
+Οργάνωση
+--------
+
+
 This chapter describes the overall |ns3| software organization and the
 corresponding organization of this manual.
+
+Η συγκεκριμένη ενότητα περιγράφει την συνολική οργάνωση του λογισμικού που απαρτίζει τον |ns3| καθώς και την οργάνωση του συγκεκριμένου εγχειριδίου.
 
 |ns3| is a discrete-event network simulator in which the simulation core
 and models are implemented in C++. |ns3| is built as a library which may be

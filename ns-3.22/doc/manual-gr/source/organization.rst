@@ -6,8 +6,7 @@
 Οργάνωση
 --------
 
-..
-This chapter describes the overall |ns3| software organization and the corresponding organization of this manual.
+.. This chapter describes the overall |ns3| software organization and the corresponding organization of this manual.
 
 Η συγκεκριμένη ενότητα περιγράφει την συνολική οργάνωση του λογισμικού που απαρτίζει τον |ns3| καθώς και την οργάνωση του συγκεκριμένου εγχειριδίου.
 

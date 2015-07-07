@@ -11,7 +11,7 @@
 .. |ns3| contains a built-in pseudo-random number generator (PRNG). It is important for serious users of the simulator to understand the functionality, configuration, and usage of this PRNG, and to decide whether it is sufficient for his or her research use.  
 
 
-Ο |ns3| περιέχει μία ενσωματωμένη ψευδο-γεννήτρια τυχαίων αριθμών (PRNG). Είναι σημαντικό για τους ουσιαστικούς χρήστες του προσομοιωτή να κατανοήσουν τη λειτουργικότητα, τη διαμόρφωση και τη χρήση μίας τέτοιας PRNG, και να αποφασίσουνκατά πόσον είναι επαρκής  για τους σκοπούς της έρευνάς τους.
+Ο |ns3| περιέχει μία ενσωματωμένη ψευδο-γεννήτρια τυχαίων αριθμών (PRNG). Είναι σημαντικό για τους ουσιαστικούς χρήστες του προσομοιωτή να κατανοήσουν τη λειτουργικότητα, τη διαμόρφωση και τη χρήση μίας τέτοιας PRNG, και να αποφασίσουν κατά πόσον είναι επαρκής  για τους σκοπούς της έρευνάς τους.
 
 .. Quick Overview
 **************

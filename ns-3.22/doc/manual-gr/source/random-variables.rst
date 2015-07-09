@@ -55,19 +55,19 @@
 Παρασκήνιο
 **********
 
-Simulations use a lot of random numbers; one study 
-found that most network simulations spend as much as 50% 
-of the CPU generating random numbers.  Simulation users need
-to be concerned with the quality of the (pseudo) random numbers and
-the independence between different streams of random numbers.  
+.. Simulations use a lot of random numbers; one study found that most network simulations spend as much as 50% of the CPU generating random numbers.  Simulation users need to be concerned with the quality of the (pseudo) random numbers and the independence between different streams of random numbers.  
 
-Users need to be concerned with a few issues, such as:
+Οι προσομοιώσεις χρησιμοποιούν πλήθος τυχαίων αριθμών· Σε μία μελέτη ανακαλύφθηκε ότι στις περισσότερες προσομοιώσεις δικτύων τουλάχιστον το 50% της επεξεργαστικής ισχύος της CPU χρησιμοποιήθηκε για την παραγωγή τυχαίων αριθμών. Οι χρήστες των προσομοιώσεων πρέπει να είναι ενήμεροι σχετικά με την ποιότητα των (ψευδο) τυχαίων αριθμών και την ανεξαρτησία μεταξύ των διαφόρων ρευμάτων τυχαίων αριθμών.
 
-* the seeding of the random number generator and whether a 
-  simulation outcome is deterministic or not,
-* how to acquire different streams of random numbers that are 
-  independent from one another, and 
-* how long it takes for streams to cycle
+.. Users need to be concerned with a few issues, such as:
+Οι χρήστες πρέπει να είναι ενήμεροι σχετικά με ορισμένα θέματα, όπως:
+
+.. * the seeding of the random number generator and whether a simulation outcome is deterministic or not,
+* πώς γίνεται η αρχικοποίηση της γεννητριας παραγωγής τυχαίων αριθμών και και αν ένα αποτέλεσμα της προσομοίωσης είναι ντετερμινιστικό ή όχι, 
+.. * how to acquire different streams of random numbers that are independent from one another, and 
+* πώς να αποκτήσουν διαφορετικά ρεύματα τυχαίων αριθμών τα οποία είναι ανεξάρτητα το ένα από το άλλο, και
+.. * how long it takes for streams to cycle
+* Πόσος χρόνος αναμένεται να περάσει πριν ανακυκλωθούν τα ρευματα τυχαίων αριθμών
 
 We will introduce a few terms here:  a RNG provides a long sequence
 of (pseudo) random numbers.

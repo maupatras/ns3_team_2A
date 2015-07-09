@@ -69,24 +69,10 @@
 .. * how long it takes for streams to cycle
 * Πόσος χρόνος αναμένεται να περάσει πριν ανακυκλωθούν τα ρευματα τυχαίων αριθμών
 
-We will introduce a few terms here:  a RNG provides a long sequence
-of (pseudo) random numbers.
-The length of this sequence is called the *cycle length*
-or *period*, after which the RNG will repeat itself.  
-This sequence can
-be  partitioned into disjoint *streams*.  A stream of a
-RNG is a contiguous subset or block of the RNG sequence.
-For instance, if the
-RNG period is of length N, and two streams are provided from this
-RNG, then
-the first stream might use the first N/2 values and the second
-stream might produce the second N/2 values.  An important property
-here is that the two streams are uncorrelated.  Likewise, each
-stream can be partitioned disjointedly to a number of 
-uncorrelated *substreams*.  The underlying RNG hopefully
-produces a pseudo-random sequence of numbers with a very long
-cycle length, and partitions this into streams and substreams in an 
-efficient manner.
+.. We will introduce a few terms here:  a RNG provides a long sequence of (pseudo) random numbers. The length of this sequence is called the *cycle length* or *period*, after which the RNG will repeat itself. This sequence can be  partitioned into disjoint *streams*.  A stream of a RNG is a contiguous subset or block of the RNG sequence. For instance, if the RNG period is of length N, and two streams are provided from this RNG, then the first stream might use the first N/2 values and the second stream might produce the second N/2 values.  An important property here is that the two streams are uncorrelated.  Likewise, each stream can be partitioned disjointedly to a number of  uncorrelated *substreams*.  The underlying RNG hopefully produces a pseudo-random sequence of numbers with a very long cycle length, and partitions this into streams and substreams in an efficient manner.
+
+Οι προσομοιώσεις χρησιμοποιούν πλήθος τυχαίων αριθμών· Σε μία μελέτη ανακαλύφθηκε ότι στις περισσότερες προσομοιώσεις δικτύων τουλάχιστον το 50% της επεξεργαστικής ισχύος της CPU χρησιμοποιήθηκε για την παραγωγή τυχαίων αριθμών. Οι χρήστες των προσομοιώσεων πρέπει να είναι ενήμεροι σχετικά με την ποιότητα των (ψευδο) τυχαίων αριθμών και την ανεξαρτησία μεταξύ των διαφόρων ρευμάτων τυχαίων αριθμών. Για παράδειγμα, εάν το μήκος της RNG περιόδου είναι Ν, και δύο ρεύματα που προέρχονται από την συγκεκριμένη RNG, τότε το πρώτο ρεύμα θα μπορούσε να χρησιμοποιήσει τις πρώτες N/2 τιμές και το δεύτερο θα μπορούσε να παράγει τις υπόλοιπες N/2. Μια σημαντική ιδιότητα σε αυτή την περίπτωση είναι ότι τα δύο ρεύματα είναι ασυσχέτιστα. Ομοίως, κάθε ρεύμα μπορεί να διαχωριστεί σε ένα πλήθος ασύνδετων *υπορροών*. Η υποκείμενη RNG ενδεχομένως δημιουργεί μια ψευδο-τυχαία ακολουθία αριθμών με πολύ μεγάλο μήκος κύκλου, και την διαχωρίζει σε ρέματα και υπορεύματα με αποτελεσματικό τρόπο.
+
 
 |ns3| uses the same underlying random number generator as does |ns2|:  the
 MRG32k3a generator from Pierre L'Ecuyer.  A detailed description can be found in

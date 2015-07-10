@@ -74,29 +74,17 @@
 Οι προσομοιώσεις χρησιμοποιούν πλήθος τυχαίων αριθμών· Σε μία μελέτη ανακαλύφθηκε ότι στις περισσότερες προσομοιώσεις δικτύων τουλάχιστον το 50% της επεξεργαστικής ισχύος της CPU χρησιμοποιήθηκε για την παραγωγή τυχαίων αριθμών. Οι χρήστες των προσομοιώσεων πρέπει να είναι ενήμεροι σχετικά με την ποιότητα των (ψευδο) τυχαίων αριθμών και την ανεξαρτησία μεταξύ των διαφόρων ρευμάτων τυχαίων αριθμών. Για παράδειγμα, εάν το μήκος της RNG περιόδου είναι Ν, και δύο ρεύματα που προέρχονται από την συγκεκριμένη RNG, τότε το πρώτο ρεύμα θα μπορούσε να χρησιμοποιήσει τις πρώτες N/2 τιμές και το δεύτερο θα μπορούσε να παράγει τις υπόλοιπες N/2. Μια σημαντική ιδιότητα σε αυτή την περίπτωση είναι ότι τα δύο ρεύματα είναι ασυσχέτιστα. Ομοίως, κάθε ρεύμα μπορεί να διαχωριστεί σε ένα πλήθος ασύνδετων *υπορροών*. Η υποκείμενη RNG ενδεχομένως δημιουργεί μια ψευδο-τυχαία ακολουθία αριθμών με πολύ μεγάλο μήκος κύκλου, και την διαχωρίζει σε ρέματα και υπορεύματα με αποτελεσματικό τρόπο.
 
 
-|ns3| uses the same underlying random number generator as does |ns2|:  the
-MRG32k3a generator from Pierre L'Ecuyer.  A detailed description can be found in
-http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf.  The MRG32k3a
-generator provides :math:`1.8x10^{19}` independent streams of random numbers,
-each of which consists of :math:`2.3x10^{15}` substreams. Each substream has a
-period (*i.e.*, the number of random numbers before overlap) of
-:math:`7.6x10^{22}`. The period of the entire generator is :math:`3.1x10^{57}`. 
+.. |ns3| uses the same underlying random number generator as does |ns2|:  the MRG32k3a generator from Pierre L'Ecuyer.  A detailed description can be found in http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf.  The MRG32k3a generator provides :math:`1.8x10^{19}` independent streams of random numbers, each of which consists of :math:`2.3x10^{15}` substreams. Each substream has a period (*i.e.*, the number of random numbers before overlap) of :math:`7.6x10^{22}`. The period of the entire generator is :math:`3.1x10^{57}`. 
+
+Ο |ns3| χρησιμοποιεί την ίδια γεννήτρια τυχαίων αριθμών που χρησιμοποιεί και ο |ns2|: την γεννήτρια MRG32k3a του Pierre L'Ecuyer. Μία λεπτομερής περιγραφή μπορεί να βρεθεί στην διεύθυνση http://www.iro.umontreal.ca/~lecuyer/myftp/papers/streams00.pdf. Η γεννήτρια MRG32k3a μπορεί να παράξει :math:`1.8x10^{19}` ανεξάρτητα ρεύματα των τυχαίων αριθμών, καθένα από τα οποία αποτελείται από :math:`2.3x10^{15}` υπορεύματα. Κάθε υπορεύμα έχει περίοδο (*δηλ*, πλήθος τυχαίων αριθμών χωρίς επαναλληψη) :math:`7.6x10^{22}`. Η συνολική περίοδος της γεννήτριας είναι :math:`3.1x10^{57}`. 
 
 
-Class :cpp:class:`ns3::RandomVariableStream` is the public interface to this
-underlying random number generator.  When users create new random variables
-(such as :cpp:class:`ns3::UniformRandomVariable`,
-:cpp:class:`ns3::ExponentialRandomVariable`, etc.), they create an object that uses
-one of the distinct, independent streams of the random number generator.
-Therefore, each object of type :cpp:class:`ns3::RandomVariableStream` has,
-conceptually, its own "virtual" RNG.  Furthermore, each
-:cpp:class:`ns3::RandomVariableStream` can be configured to use one of the set of
-substreams drawn from the main stream.
+.. Class :cpp:class:`ns3::RandomVariableStream` is the public interface to this underlying random number generator.  When users create new random variables (such as :cpp:class:`ns3::UniformRandomVariable`, :cpp:class:`ns3::ExponentialRandomVariable`, etc.), they create an object that uses one of the distinct, independent streams of the random number generator. Therefore, each object of type :cpp:class:`ns3::RandomVariableStream` has, conceptually, its own "virtual" RNG.  Furthermore, each :cpp:class:`ns3::RandomVariableStream` can be configured to use one of the set of substreams drawn from the main stream.
 
-An alternate implementation would be to allow each RandomVariable to have its
-own (differently seeded) RNG.  However, we cannot guarantee as strongly that the
-different sequences would be uncorrelated in such a case; hence, we prefer to
-use a single RNG and streams and substreams from it.
+Η κλάση :cpp:class:`ns3::RandomVariableStream` αποτελεί την διασύνδεση (public interface) προς την υφιστάμενη γεννήτρια τυχαίων αριθμών. Όταν οι χρήστες δημιουργούν νέες τυχαίες μεταβλητές (όπως :cpp:class:`ns3::UniformRandomVariable`, :cpp:class:`ns3::ExponentialRandomVariable`, κ.λπ.), δημιουργούν ένα αντικείμενο που χρησιμοποιεί ένα από τα διακριτά και ανεξάρτητα ρεύματα της γεννήτριας τυχαίων αριθμών. Ως εκ τούτου, κάθε αντικείμενο τύπου :cpp:class:`ns3::RandomVariableStream`  έχει, "θεωρητικά", την δική της εικονική RNG. Επιπλέον, κάθε :cpp:class:`ns3::RandomVariableStream` μπορεί να ρυθμιστεί ώστε να χρησιμοποιεί ένα από τα σετ των υπορευμάτων που προέρχονται από το κύριο ρεύμα.
+
+
+An alternate implementation would be to allow each RandomVariable to have its own (differently seeded) RNG.  However, we cannot guarantee as strongly that the different sequences would be uncorrelated in such a case; hence, we prefer to use a single RNG and streams and substreams from it.
 
 .. _seeding-and-independent-replications:
 

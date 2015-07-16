@@ -8,13 +8,19 @@
    ============= Subsection (#.#.#)
    ############# Paragraph (no number)
 
-Events and Simulator
+.. Events and Simulator
 --------------------
 
-|ns3| is a discrete-event network simulator.  Conceptually, the simulator
-keeps track of a number of events that are scheduled to execute at a
-specified simulation time.  The job of the simulator is to execute the
-events in sequential time order.  Once the completion of an event occurs,
+Γεγονότα και Προσομοιωτής
+-------------------------
+
+
+.. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the
+events in sequential time order. 
+
+Ο |ns3| έιναι ένα προσομοιωτής δικτύων διακριτών γεγονότων.  Εννοιολογικά, ο προσομοιωτής καταγράφει ένα πλήθος γεγονότων που έχουν προγραμματιστεί για να εκτελέστούν σε καθορισμένο χρόνο προσομοίωσης. Το αντικείμενο της εργασίας  του προσομοιωτή είναι να εκτελέσει τα γεγονότα, διαδοχικά (με διαδοχική χρονική σειρά).
+
+Once the completion of an event occurs,
 the simulator will move to the next event (or will exit if there are no
 more events in the event queue).  If, for example, an event scheduled
 for simulation time "100 seconds" is executed, and the next event is not

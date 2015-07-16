@@ -15,8 +15,7 @@
 -------------------------
 
 
-.. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the
-events in sequential time order. 
+.. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the events in sequential time order. 
 
 Ο |ns3| έιναι ένα προσομοιωτής δικτύων διακριτών γεγονότων.  Εννοιολογικά, ο προσομοιωτής καταγράφει ένα πλήθος γεγονότων που έχουν προγραμματιστεί για να εκτελέστούν σε καθορισμένο χρόνο προσομοίωσης. Το αντικείμενο της εργασίας  του προσομοιωτή είναι να εκτελέσει τα γεγονότα, διαδοχικά (με διαδοχική χρονική σειρά).
 

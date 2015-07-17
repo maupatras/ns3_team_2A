@@ -17,15 +17,21 @@
 
 .. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the events in sequential time order. 
 
-Ο |ns3| έιναι ένα προσομοιωτής δικτύων διακριτών γεγονότων.  Εννοιολογικά, ο προσομοιωτής καταγράφει ένα πλήθος γεγονότων που έχουν προγραμματιστεί για να εκτελέστούν σε καθορισμένο χρόνο προσομοίωσης. Το αντικείμενο της εργασίας  του προσομοιωτή είναι να εκτελέσει τα γεγονότα, διαδοχικά (με διαδοχική χρονική σειρά).
+Ο |ns3| έιναι ένα προσομοιωτής δικτύου διακριτών γεγονότων.  Εννοιολογικά, ο προσομοιωτής καταγράφει ένα πλήθος γεγονότων που έχουν προγραμματιστεί για να εκτελέστούν με μία προκαθορισμένη χρονική σειρά. Το αντικείμενο της εργασίας  του προσομοιωτή είναι να εκτελέσει τα γεγονότα, διαδοχικά (με διαδοχική χρονική σειρά).
 
-Once the completion of an event occurs,
-the simulator will move to the next event (or will exit if there are no
-more events in the event queue).  If, for example, an event scheduled
-for simulation time "100 seconds" is executed, and the next event is not
-scheduled until "200 seconds", the simulator will immediately jump from 
-100 seconds to 200 seconds (of simulation time) to execute the next event.
-This is what is meant by "discrete-event" simulator.
+.. Once the completion of an event occurs, the simulator will move to the next event (or will exit if there are no
+more events in the event queue).  
+
+Μόλις εμφανιστεί η ολοκλήρωση της εκδήλωσης, ο προσομοιωτής θα προχωρήσουμε στην επόμενη εκδήλωση (ή θα τερματίσει όταν δεν υπάρχουν Περισσότερες εκδηλώσεις στην ουρά εκδήλωση).
+
+
+If, for example, an event scheduled for simulation time "100 seconds" is executed, and the next event is not scheduled until "200 seconds", the simulator will immediately jump from 100 seconds to 200 seconds (of simulation time) to execute the next event.
+
+.. This is what is meant by "discrete-event" simulator.
+
+Αυτο εννοούμε ότι σημαίνει προσωμοιωτής "διακριτών γεγονότων". 
+
+
 
 To make this all happen, the simulator needs a few things:
 

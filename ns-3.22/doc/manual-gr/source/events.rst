@@ -15,53 +15,51 @@
 -------------------------
 
 
-.. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the events in sequential time order. 
+.. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the events in sequential time order. Once the completion of an event occurs, the simulator will move to the next event (or will exit if there are no
+more events in the event queue). If, for example, an event scheduled for simulation time "100 seconds" is executed, and the next event is not scheduled until "200 seconds", the simulator will immediately jump from 100 seconds to 200 seconds (of simulation time) to execute the next event. This is what is meant by "discrete-event" simulator.
 
-Ο |ns3| έιναι ένα προσομοιωτής δικτύου διακριτών γεγονότων.  Εννοιολογικά, ο προσομοιωτής καταγράφει ένα πλήθος γεγονότων που έχουν προγραμματιστεί για να εκτελέστούν με μία προκαθορισμένη χρονική σειρά. Το αντικείμενο της εργασίας  του προσομοιωτή είναι να εκτελέσει τα γεγονότα, διαδοχικά (με διαδοχική χρονική σειρά).
+Ο |ns3| έιναι ένα προσομοιωτής δικτύου διακριτών γεγονότων.  Εννοιολογικά, ο προσομοιωτής καταγράφει ένα πλήθος γεγονότων που έχουν προγραμματιστεί για να εκτελέστούν με μία προκαθορισμένη χρονική σειρά. Το αντικείμενο της εργασίας  του προσομοιωτή είναι να εκτελέσει τα γεγονότα, διαδοχικά (με διαδοχική χρονική σειρά). Με την ολοκλήρωση ενός γεγονότος, ο προσομοιωτής προχωρά στο επόμενο γεγονός (ή θα τερματίσει σε περίπτωση που δεν ευπάρχουν περισσότερα γεγονότα στην ουρά γεγονότων).Εάν, για παράδειγμα ένας γεγονός δρομολογείται να εκτελεστεί για την χρονική στιγμή προσομοίωσης "100 δευτερόλεπτα", και το επόμενο δεν έχει δρομολογηθεί πριν την χρονική στιγμή προσομοίωσης "200 δευτερόλεπτα", ο προσομοιωτής θα μεταπηδήσει ακαριαία από τα 100 δευτερόλεπτα στα 200 (του χρόνου προσομοιωσης) ώστε να εκτελέσει το επόμενο γεγονός. Αυτο εννοούμε με τον όρο προσωμοιωτής "διακριτών γεγονότων". 
 
-.. Once the completion of an event occurs, the simulator will move to the next event (or will exit if there are no
-more events in the event queue).  
+.. To make this all happen, the simulator needs a few things:
+Προκειμένου να πραγματοποιηθούν τα παραπάνω ο προσωμοιωτής χρειάζεται μερικά πράγματα:
 
-Μόλις εμφανιστεί η ολοκλήρωση της εκδήλωσης, ο προσομοιωτής θα προχωρήσουμε στην επόμενη εκδήλωση (ή θα τερματίσει όταν δεν υπάρχουν Περισσότερες εκδηλώσεις στην ουρά εκδήλωση).
-
-
-If, for example, an event scheduled for simulation time "100 seconds" is executed, and the next event is not scheduled until "200 seconds", the simulator will immediately jump from 100 seconds to 200 seconds (of simulation time) to execute the next event.
-
-.. This is what is meant by "discrete-event" simulator.
-
-Αυτο εννοούμε ότι σημαίνει προσωμοιωτής "διακριτών γεγονότων". 
-
-
-
-To make this all happen, the simulator needs a few things:
-
-1) a simulator object that can access an event queue where events are 
+.. 1) a simulator object that can access an event queue where events are 
    stored and that can manage the execution of events
-2) a scheduler responsible for inserting and removing events from the queue
-3) a way to represent simulation time
-4) the events themselves
+.. 2) a scheduler responsible for inserting and removing events from the queue
+.. 3) a way to represent simulation time
+.. 4) the events themselves
 
-This chapter of the manual describes these fundamental objects 
-(simulator, scheduler, time, event) and how they are used.
+1) ένα αντικείμενο προσωμοίωσης με προσβαση στην ουρά γεγονοτων, όπου βρίσκονται τα γεγονότα και το οποίο μπορεί να διαχειριστεί την εκτέλεση τους
+2) έναν δρομολογητή υπεύθυνο  για την εκτέλεση των γεγονότων
+3) έναν τρόπο να αναπαραστήσει τον χρόνο προσομοίωσης
+4) τα ίδια τα γεγονότα
 
-Event
+.. This chapter of the manual describes these fundamental objects (simulator, scheduler, time, event) and how they are used.
+
+Η συγκεκριμένη ενότητα του εγχειριδίου χρήσης περιγράφει τα θεμελιώδη αντικείμενα (προσομοιωτής, δρομολογήτης, χρόνος, γεγονός) και πως χρησιμοποιούνται
+
+.. Event
 *****
 
-*To be completed*
+Γεγονός
+*******
+.. *To be completed*
 
-Simulator
+*Μη ολοκληρωμένο*
+
+.. Simulator
 *********
 
-The Simulator class is the public entry point to access event scheduling
-facilities. Once a couple of events have been scheduled to start the
-simulation, the user can start to execute them by entering the simulator
-main loop (call ``Simulator::Run``). Once the main loop starts running, it
-will sequentially execute all scheduled events in order from oldest to
-most recent until there are either no more events left in the event
-queue or Simulator::Stop has been called.
+Προσομοιωτής
+************
 
-To schedule events for execution by the simulator main loop, the
-Simulator class provides the Simulator::Schedule* family of functions.
+The Simulator class is the public entry point to access event scheduling facilities. Once a couple of events have been scheduled to start the simulation, the user can start to execute them by entering the simulator main loop (call ``Simulator::Run``). Once the main loop starts running, it will sequentially execute all scheduled events in order from oldest to most recent until there are either no more events left in the event queue or Simulator::Stop has been called.
+
+Η κλάση Simulator (που αναπαριστά τον προσομοιωτή) αποτελεί ένα δημόσιο σημείο πρόσβασης με 
+
+To schedule events for execution by the simulator main loop, the Simulator class provides the Simulator::Schedule* family of functions.
+
+
 
 1) Handling event handlers with different signatures
 
@@ -198,15 +196,22 @@ because we are generating an event from node i to node j and we want
 to make sure that the event which will run on node j has the right
 context.
 
-Time
+.. Time
 ****
 
-*To be completed*
+Χρόνος
+******
 
+.. *To be completed*
 
-Scheduler
+*Μη ολοκληρωμένο*
+
+.. Scheduler
 *********
 
-*To be completed*
+Δρομολογητής
+************
 
+..*To be completed*
 
+*Μη ολοκληρωμένο*

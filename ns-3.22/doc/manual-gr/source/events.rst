@@ -83,48 +83,57 @@
 
 .. sourcecode:: text
 
-..   handler called with argument arg0=10 and arg1=5
+  handler called with argument arg0=10 and arg1=5
 
-ο διαχειριστής κλήθηκε με ορίσματα arg0=10 και arg1=5
 
 .. Of course, these C++ templates can also handle transparently member methods on C++ objects:
 
-λογικά, τα συγκεκριμένα πρότυπα C++ θα μπορούν να χειριστούν με διαφάνεια μεθόδους μέλη σε αντικείμενα C++:
+προφανώς, τα συγκεκριμένα πρότυπα C++ θα μπορούν να χειριστούν με διαφάνεια, μεθόδους μέλη σε αντικείμενα C++:
 
-*To be completed:  member method example*
+.. *To be completed:  member method example*
+
+*Μη ολοκληρωμένο: παράδειγμα μεθόδου μελους*
+
+.. Notes:
+
+Σημειώσεις:
+
+.. * the ns-3 Schedule methods recognize automatically functions and methods only if they take less than 5 arguments. If you need them to support more arguments, please, file a bug report.
+
+* Οι μέθοδοι χρονοδρομολόγησης του ns-3  αναγνωρίζουν αυτόματα συναρτήσεις και μεθόδους μόνο εάν χρησιμοποιούν λιγότερα από 5 ορίσματα. Εάν χρειάζεστε υποστήριξη για παραπάνω από 5 ορίσματα, παρακαλούμε να υποβάλετε αντίστοιχη αναφορά σφαλμάτων (bug report)
+
+.. * Readers familiar with the term 'fully-bound functors' will recognize the Simulator::Schedule methods as a way to automatically construct such objects. 
+
+* Αναγνώστες που γνωρίζουν τον όρο 'fully-bound functors' θα αναγνωρίσουν τις μεθόδους Simulator::Schedule ως ένα τρόπο για την αυτόματη κατασκευή τέτοιου είδους αντικειμένων. 
+
+.. 2) Common scheduling operations
+
+2) Απλές λειτουργίες χρονοπρογραμματισμού 
+
+.. The Simulator API was designed to make it really simple to schedule most events. It provides three variants to do so (ordered from most commonly used to least commonly used):
+
+Η διεπαφή επικοινωνίας του Προσομοιωτή (Simulator API) έχει σχεδιαστεί ώστε να είναι πολύ εύκολη διαδικασία η χρονοδρομολόγηση των περίσσότερων γεγονότων. Παρέχει τρεις εναλλακτικές λύσεις για να επιτευχθεί το ζητούμενο οι οποίες (ταξινομημένες από την πιο συχνά χρησιμοποιούμενη έως την λιγότερο συχνά χρησιμοποιούμενη) είναι:
+
+.. * Schedule methods which allow you to schedule an event in the future by providing the delay between the current simulation time and the expiration date of the target event.
+* Οι μέθοδοι χρονοδρομολόγησης που επιτρέπουν την χρονοδομολόγηση ενός γεγονότος στο μέλλον,  παρέχοντας την καθυστέρηση μεταξύ του τρέχοντος χρόνου προσομοίωσης και της ημερομήνίς λήξης του γεγονότος στόχου. 
+  
+.. * ScheduleNow methods which allow you to schedule an event for the current simulation time: they will execute _after_ the current event is finished executing but _before_ the simulation time is changed for the next event.
+* Οι μέθοδοι ScheduleNow που επιτρέπουν την χρονοδορμολόγηση ενός γεγονότος για τον τρέχοντα χρόνο προσομοίωσης: θα εκτελέσουν _μετά_ την ολοκλήρωση του γεγονότος που εκτελείται αύτη την στιγμή αλλά _πριν_ ο χρόνος προσομοίωσης αλλάξει για το επόμενο γεγονός.
+
+.. * ScheduleDestroy methods which allow you to hook in the shutdown process of the Simulator to cleanup simulation resources: every
+  'destroy' event is executed when the user calls the Simulator::Destroy method.
+* Οι μέθοδοι ScheduleDestroy που επιτρέπουν την προσδεση (hook) στην διαδικαία τερματισμού του Προσομοιωτή (shutdown process) για τον καθαρισμό των πόρων της προσομοίωσης: κάθε γεγονός 'destroy' εκτελειται όταν ο χρήστης καλέσει την μέθοδο Simulator::Destroy
 
 
-Notes:
+.. 3) Maintaining the simulation context
 
-* the ns-3 Schedule methods recognize automatically functions and
-  methods only if they take less than 5 arguments. If you need them to
-  support more arguments, please, file a bug report.
-* Readers familiar with the term 'fully-bound functors' will recognize
-  the Simulator::Schedule methods as a way to automatically construct such
-  objects. 
+3) Διαχείρηση του περιβάλλοντος (συμφραζομένων) προσομοίωσης
 
-2) Common scheduling operations
 
-The Simulator API was designed to make it really simple to schedule most
-events. It provides three variants to do so (ordered from most commonly
-used to least commonly used):
-
-* Schedule methods which allow you to schedule an event in the future
-  by providing the delay between the current simulation time and the
-  expiration date of the target event.
-* ScheduleNow methods which allow you to schedule an event for the
-  current simulation time: they will execute _after_ the current event is
-  finished executing but _before_ the simulation time is changed for the
-  next event.
-* ScheduleDestroy methods which allow you to hook in the shutdown
-  process of the Simulator to cleanup simulation resources: every
-  'destroy' event is executed when the user calls the Simulator::Destroy
-  method.
-
-3) Maintaining the simulation context
-
-There are two basic ways to schedule events, with and without *context*.
-What does this mean?
+.. There are two basic ways to schedule events, with and without *context*.
+Υπάρχουν δύο κυρίως τρόποι για την χρονοδρομολόγηση γεγονότων, με ή χωρίς συμφραζόμενα.
+.. What does this mean?
+Τι σημαίνει αυτό;
 
 ::
 
@@ -136,12 +145,9 @@ vs.
 
   Simulator::ScheduleWithContext (uint32_t context, Time const &time, MEM mem_ptr, OBJ obj);
 
-Readers who invest time and effort in developing or using a non-trivial
-simulation model will know the value of the ns-3 logging framework to
-debug simple and complex simulations alike. One of the important
-features that is provided by this logging framework is the automatic
-display of the network node id associated with the 'currently' running
-event.
+.. Readers who invest time and effort in developing or using a non-trivial simulation model will know the value of the ns-3 logging framework to debug simple and complex simulations alike. One of the important features that is provided by this logging framework is the automatic display of the network node id associated with the 'currently' running event. 
+
+
 
 The node id of the currently executing network node is in fact tracked
 by the Simulator class. It can be accessed with the

@@ -15,8 +15,7 @@
 -------------------------
 
 
-.. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the events in sequential time order. Once the completion of an event occurs, the simulator will move to the next event (or will exit if there are no
-more events in the event queue). If, for example, an event scheduled for simulation time "100 seconds" is executed, and the next event is not scheduled until "200 seconds", the simulator will immediately jump from 100 seconds to 200 seconds (of simulation time) to execute the next event. This is what is meant by "discrete-event" simulator.
+.. |ns3| is a discrete-event network simulator.  Conceptually, the simulator keeps track of a number of events that are scheduled to execute at a specified simulation time.  The job of the simulator is to execute the events in sequential time order. Once the completion of an event occurs, the simulator will move to the next event (or will exit if there are no more events in the event queue). If, for example, an event scheduled for simulation time "100 seconds" is executed, and the next event is not scheduled until "200 seconds", the simulator will immediately jump from 100 seconds to 200 seconds (of simulation time) to execute the next event. This is what is meant by "discrete-event" simulator.
 
 Ο |ns3| έιναι ένα προσομοιωτής δικτύου διακριτών γεγονότων.  Εννοιολογικά, ο προσομοιωτής καταγράφει ένα πλήθος γεγονότων που έχουν προγραμματιστεί για να εκτελέστούν με μία προκαθορισμένη χρονική σειρά. Το αντικείμενο της εργασίας  του προσομοιωτή είναι να εκτελέσει τα γεγονότα, διαδοχικά (με διαδοχική χρονική σειρά). Με την ολοκλήρωση ενός γεγονότος, ο προσομοιωτής προχωρά στο επόμενο γεγονός (ή θα τερματίσει σε περίπτωση που δεν ευπάρχουν περισσότερα γεγονότα στην ουρά γεγονότων).Εάν, για παράδειγμα ένας γεγονός δρομολογείται να εκτελεστεί για την χρονική στιγμή προσομοίωσης "100 δευτερόλεπτα", και το επόμενο δεν έχει δρομολογηθεί πριν την χρονική στιγμή προσομοίωσης "200 δευτερόλεπτα", ο προσομοιωτής θα μεταπηδήσει ακαριαία από τα 100 δευτερόλεπτα στα 200 (του χρόνου προσομοιωσης) ώστε να εκτελέσει το επόμενο γεγονός. Αυτο εννοούμε με τον όρο προσωμοιωτής "διακριτών γεγονότων". 
 
@@ -53,21 +52,21 @@ more events in the event queue). If, for example, an event scheduled for simulat
 Προσομοιωτής
 ************
 
-The Simulator class is the public entry point to access event scheduling facilities. Once a couple of events have been scheduled to start the simulation, the user can start to execute them by entering the simulator main loop (call ``Simulator::Run``). Once the main loop starts running, it will sequentially execute all scheduled events in order from oldest to most recent until there are either no more events left in the event queue or Simulator::Stop has been called.
+.. The Simulator class is the public entry point to access event scheduling facilities. Once a couple of events have been scheduled to start the simulation, the user can start to execute them by entering the simulator main loop (call ``Simulator::Run``). Once the main loop starts running, it will sequentially execute all scheduled events in order from oldest to most recent until there are either no more events left in the event queue or Simulator::Stop has been called.
 
-Η κλάση Simulator (που αναπαριστά τον προσομοιωτή) αποτελεί ένα δημόσιο σημείο πρόσβασης με 
+Η κλάση Simulator (που αναπαριστά τον προσομοιωτή) αποτελεί ένα δημόσιο σημείο πρόσβασης προς δομές χρονοδομολόγησης γεγονότων. Μόλις χρονοδρομολογηθούν τα μερικά γεγονότα για την έναρξη της προσομοίωσης, ο χρήστης μπορεί να αρχίσει την προσομοίωση με την είσοδο στον κύριο βρόγχο επανάληψης (που ονομάζεται ``Simulator::Run``). Μόλις αρχίσει η εκτέλεση του κυρίως βρόγχου, θα εκτελεστούν σειριακά άλλα τα προγραμματισμένα γεγονότα, από την παλαιότερο προς το πιο προσφατο μέχρις ότου, είτε δεν υπάρχουν επιπλέον γεγονότα στην ουρά γεγονότων,  είτε έχει πραγματοποιηθεί κλήση της μεθόδου Simulator::Stop.   
 
-To schedule events for execution by the simulator main loop, the Simulator class provides the Simulator::Schedule* family of functions.
+.. To schedule events for execution by the simulator main loop, the Simulator class provides the Simulator::Schedule* family of functions.
 
+Για τον χρονοπρογραμματισμό των γεγονότων προς εκτέλεση από τον κύριο βρόγχο, η κλάση Simulator παρέχει την οικογένεια μεθόδων Simulator::Schedule*
 
+.. 1) Handling event handlers with different signatures
 
-1) Handling event handlers with different signatures
+1) Χειρισμός διαχειριστών γεγονότων με διαφορετικές υπογραφές
 
-These functions are declared and implemented as C++ templates to handle
-automatically the wide variety of C++ event handler signatures used in
-the wild. For example, to schedule an event to execute 10 seconds in the
-future, and invoke a C++ method or function with specific arguments, you
-might write this:
+.. These functions are declared and implemented as C++ templates to handle automatically the wide variety of C++ event handler signatures used in the wild. For example, to schedule an event to execute 10 seconds in the future, and invoke a C++ method or function with specific arguments, you might write this:
+
+Οι συγκεκριμένες συναρτήσεις δηλώνονται και υλοποιούνται σαν C++ πρότυπα (C++ templates) για τoν αυτόματo χείρισμο μία ποικιλίας C++ διαχειριστών γεγονότων που χρησιμοποιούνται χωρίς έλεγχο. Για παράδειγμα, για τον χρονοπρογραμματισμό για την εκτλέση 10 δευτερολέπτων στο μέλλον, και την κλήση μία C++ μεθόδου ή συνάρτησης με συγκεκριμένα ορίσματα, μπορείτε να χρησιμοποιήσετε τον παρακάτω κώδικα: 
 
 ::
 

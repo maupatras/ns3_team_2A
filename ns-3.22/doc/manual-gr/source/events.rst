@@ -78,16 +78,21 @@
 
    Simulator::Schedule(Seconds(10), &handler, 10, 5);
 
-Which will output:
+.. Which will output:
+Το οποίο θα έχει ως αποτέλεσμα:
 
 .. sourcecode:: text
 
-   handler called with argument arg0=10 and arg1=5
+..   handler called with argument arg0=10 and arg1=5
 
-Of course, these C++ templates can also handle transparently member
-methods on C++ objects:
+ο διαχειριστής κλήθηκε με ορίσματα arg0=10 και arg1=5
+
+.. Of course, these C++ templates can also handle transparently member methods on C++ objects:
+
+λογικά, τα συγκεκριμένα πρότυπα C++ θα μπορούν να χειριστούν με διαφάνεια μεθόδους μέλη σε αντικείμενα C++:
 
 *To be completed:  member method example*
+
 
 Notes:
 

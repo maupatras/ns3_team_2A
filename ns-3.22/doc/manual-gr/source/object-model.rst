@@ -3,14 +3,14 @@
 
 .. _Object-model:
 
-Object model
-------------
+.. Object model
 
-|ns3| is fundamentally a C++ object system. Objects can be declared and
-instantiated as usual, per C++ rules. |ns3| also adds some features to
-traditional C++ objects, as described below, to provide greater functionality
-and features. This manual chapter is intended to introduce the reader to the
-|ns3| object model.
+Το μοντέλο αντικειμένων
+-----------------------
+
+.. |ns3| is fundamentally a C++ object system. Objects can be declared and instantiated as usual, per C++ rules. |ns3| also adds some features to traditional C++ objects, as described below, to provide greater functionality and features. This manual chapter is intended to introduce the reader to the |ns3| object model.
+
+Ο |ns-3| είναι ουσιαστικά ένα σύστημα αντικειμένων C++. Τα αντικείμενα μπορολυν να δηλωθούν και να αρχικοποιηθούν ως συνήθως, σύμφωνα με τους κανόνες της C++. O |ns-3| προσθέτει μετικά επιπλέον χαρακτηριστικά στα παραδοσιακά C++ αντικείμενα, όπως θα περιγράψουμε στην συνέχεια, ώστε να παρέχει μεγαλυτερη λειτουργικότητα και χαρακτηριστικά. Η συγκεκριμένη ενότητα του εγχειριδίου έχει ως σκοπό να ειδάγει τον αναγώστη στο μοντέλο αντικειμένων του |ns-3|.
 
 This section describes the C++ class design for |ns3| objects. In brief,
 several design patterns in use include classic object-oriented design

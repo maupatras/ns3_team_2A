@@ -98,85 +98,66 @@
 
 Το βάρος της κλήσης :cpp:func:`Unref()` ελαφρύνεται κάπως με την χρήση  της καταμέτρησης αναφορών της κλάσης έξυπνων δεικτών που περιγράφεται στην συνέχεια.
 
-Users using a low-level API who wish to explicitly allocate
-non-reference-counted objects on the heap, using operator new, are responsible
-for deleting such objects.
+.. Users using a low-level API who wish to explicitly allocate non-reference-counted objects on the heap, using operator new, are responsible for deleting such objects.
 
-Reference counting smart pointer (Ptr)
+Οι χρήστες που χρησιμοποιούν μία διεπαφή επικοινωνίας χαμηλού επιπέδου (low-level API) μπορούν να δεσμεύσουν ρητά αντικείμενα των οποίων οι αναφορές δεν καταμετρώνται και που βρίσκονται στον σωρό, χρησιμοποιώντας τον τελεστή new, είναι υπεύθυνοι για την διαγραφή αυτών των αντικειμένων. 
+
+.. Reference counting smart pointer (Ptr)
+
+Μετρώντας αναφορές έξυπνων δεικτών (Ptr)
 ++++++++++++++++++++++++++++++++++++++
 
-Calling ``Ref()`` and ``Unref()`` all the time would be cumbersome, so |ns3|
-provides a smart pointer class :cpp:class:`Ptr` similar to
-:cpp:class:`Boost::intrusive_ptr`. This smart-pointer class assumes that the
-underlying type provides a pair of ``Ref`` and ``Unref`` methods that are
-expected to increment and decrement the internal refcount of the object
-instance.  
+.. Calling ``Ref()`` and ``Unref()`` all the time would be cumbersome, so |ns3| provides a smart pointer class :cpp:class:`Ptr` similar to :cpp:class:`Boost::intrusive_ptr`. This smart-pointer class assumes that the underlying type provides a pair of ``Ref`` and ``Unref`` methods that are expected to increment and decrement the internal refcount of the object instance.  
+Η κλήση των ``Ref()`` και ``Unref()`` διαρκώς θα μπορούσε να είναι κουραστική, γι' αυτό ο |ns3| παρέχει μία κλάση έξυπνων δεικτών :cpp:class:`Ptr`, παρόμοια με την :cpp:class:`Boost::intrusive_ptr`. Αυτή η κλάση έξυπνων δεικτών υποθέτει ότι ο υποκείμενος τύπος παρέχει ένα ζεύγος μεθόδων ``Ref`` and ``Unref`` που αναμενεται να αυξάνουν και να μειώνουν τον εσωτερικό μετρητή αναφορών του στιγμιότυπο του αντικειμένου.
 
-This implementation allows you to manipulate the smart pointer as if it was a
-normal pointer: you can compare it with zero, compare it against other pointers,
-assign zero to it, etc.
+.. This implementation allows you to manipulate the smart pointer as if it was a normal pointer: you can compare it with zero, compare it against other pointers, assign zero to it, etc.
+Η συγκεκριμένη υλοποίηση επιτρέπει την διαχείριση των έξυπνων δεικτών σαν κανονικούς δείκτες: είναι δυνατή η σύγκριση με το μηδέν, η σύγκριση με άλλους δείκτες, ανάθεση του μηδέν σε αυτούς, κτλ.
 
-It is possible to extract the raw pointer from this smart pointer with the
-:cpp:func:`GetPointer` and :cpp:func:`PeekPointer` methods.
+.. It is possible to extract the raw pointer from this smart pointer with the :cpp:func:`GetPointer` and :cpp:func:`PeekPointer` methods.
+Είναι δυνατό να εξαχθεί ο κανονικός δείκτης από τον έξυπνο με την χρήση των μεθόδων :cpp:func:`GetPointer` και :cpp:func:`PeekPointer`.
 
-If you want to store a newed object into a smart pointer, we recommend you to
-use the CreateObject template functions to create the object and store it in a
-smart pointer to avoid memory leaks. These functions are really small
-convenience functions and their goal is just to save you a small bit of typing.
+.. If you want to store a newed object into a smart pointer, we recommend you to use the CreateObject template functions to create the object and store it in a smart pointer to avoid memory leaks. These functions are really small convenience functions and their goal is just to save you a small bit of typing.
+Εάν επιθυμείτε να αποθηκεύσετε ένα νέο αντικείμενο σε έναν έξυπνο δείκτη, προτείνεται να χρησιμοποιήσετε το πρότυπο συναρτήσεων CreateObject για την δημιουργία του αντικειμένου και την αποθήκευσή του σε έναν έξυπνο δείκτη για την αποφυγή διαρροές μνήμης. Οι συγκεκριμένες συναρτήσεις είναι πολύ βολικές καθώς ο σκοπός τους είναι να μειώσουν τον χρόνο πληκτρολόγησης.  
 
-CreateObject and Create
+
+.. CreateObject and Create
+CreateObject και Create
 ***********************
 
-Objects in C++ may be statically, dynamically, or automatically created.  This
-holds true for |ns3| also, but some objects in the system have some additional
-frameworks available. Specifically, reference counted objects are usually
-allocated using a templated Create or CreateObject method, as follows.
+.. Objects in C++ may be statically, dynamically, or automatically created.  This holds true for |ns3| also, but some objects in the system have some additional frameworks available. Specifically, reference counted objects are usually allocated using a templated Create or CreateObject method, as follows.
+Τα αντικείμενα σε C++, μπορελι να δημιουργούνται στατικά, δυναμικά ή αυτόματα. Το γεγονός αυτό συνεχίζει να ισχύει και στην περίπτωση του |ns3|, με την διαφορά ότι κάποια αντικείμενα στο σύστημα διαθέτουν κάποια επιπλέον πλαίσια (frameworks). Συγκεκριμένα, τα αντικείμενα με μετρητή αναφορών δεσμεύονται συνήθως χρησιμοποιώντας μεθόδους πρότυπα όπως οι Create και CreateObject, όπως φαίνεται παρακάτω. 
 
-For objects deriving from class :cpp:class:`Object`::
+
+.. For objects deriving from class :cpp:class:`Object`::
+Για αντικείμενα που προέρχονται από την κλάση :cpp:class:`Object`::
 
     Ptr<WifiNetDevice> device = CreateObject<WifiNetDevice> ();
 
-Please do not create such objects using ``operator new``; create them using
-:cpp:func:`CreateObject()` instead.
+.. Please do not create such objects using ``operator new``; create them using :cpp:func:`CreateObject()` instead.
+Παρακαλούμε μην δημιουργείται τέτοια αντικείμενα χρησιμοποιώντας τον τελεστή ``operator new``; Αντίθετα, δημιουργήστε τα χρησιμοποιώντας την συνάρτήση :cpp:func:`CreateObject()`.
 
-For objects deriving from class :cpp:class:`SimpleRefCount`, or other objects
-that support usage of the smart pointer class, a templated helper function is
-available and recommended to be used::
+.. For objects deriving from class :cpp:class:`SimpleRefCount`, or other objects that support usage of the smart pointer class, a templated helper function is available and recommended to be used::
+Για αντικείμενα που προέρχονται από την κλάση  :cpp:class:`SimpleRefCount`, ή άλλα αντικείμενα που υποστηρίζουν την χρήση της κλάσης έξυπνων δεικτών, είναι διαθέσιμη μία βοηθητική κλάση πρότυπο και η οποία προτείνεται να χρησιμοποιείται::
 
     Ptr<B> b = Create<B> ();
 
-This is simply a wrapper around operator new that correctly handles the
-reference counting system.
+.. This is simply a wrapper around operator new that correctly handles the reference counting system.
+Αυτό είναι απλά ένα περιτύλιγμα (wrapper) γύρω από τον τελεστή new που χειρίζεται σωστά το σύστημα καταμέτρησης αναφορών.
 
-In summary, use ``Create<B>`` if B is not an object but just uses reference
-counting (e.g. :cpp:class:`Packet`), and use ``CreateObject<B>`` if B derives
-from :cpp:class:`ns3::Object`.
+.. In summary, use ``Create<B>`` if B is not an object but just uses reference counting (e.g. :cpp:class:`Packet`), and use ``CreateObject<B>`` if B derives from :cpp:class:`ns3::Object`.
+Συμπερασματικά, χρησιμοποιείστε ``Create<B>`` εάν το B δεν είναι αντικείμενο, αλλά απλά χρησιμοποιεί καταμέτρηση αναφορών (π.χ :cpp:class:`Packet`), και χρησιμοποιείστε ``CreateObject<B>`` εάν το B προέρχεται από την κλάση :cpp:class:`ns3::Object`.
 
-Aggregation
+.. Aggregation
+Συνάθροιση
 ***********
 
-The |ns3| object aggregation system is motivated in strong part by a recognition
-that a common use case for |ns2| has been the use of inheritance and
-polymorphism to extend protocol models. For instance, specialized versions of
-TCP such as RenoTcpAgent derive from (and override functions from) class
-TcpAgent.  
+The |ns3| object aggregation system is motivated in strong part by a recognition that a common use case for |ns2| has been the use of inheritance and polymorphism to extend protocol models. For instance, specialized versions of TCP such as RenoTcpAgent derive from (and override functions from) class TcpAgent.  
+Το σύστημα συνάθροισης αντικειμένν του |ns3| υποκινείται σε μεγάλο βαθμό από την παρατήρηση ότι μία συχνή περίπτωση χρήσης του |ns2| υπήρξε η χρήση της κληρονομηκότητας και του πολυμορφισμού για την επέκταση τον μοντέλων πρωτοκόλλων. Για παράδειγμα, ειδικές εκδόσεις του TCP όπως RenoTcpAgent προέρχονται από (και επανακαθορίζουν συναρτήσεις από) την κλάση TcpAgent.
 
-However, two problems that have arisen in the |ns2| model are downcasts and
-"weak base class." Downcasting refers to the procedure of using a base class
-pointer to an object and querying it at run time to find out type information,
-used to explicitly cast the pointer to a subclass pointer so that the subclass
-API can be used. Weak base class refers to the problems that arise when a class
-cannot be effectively reused (derived from) because it lacks necessary
-functionality, leading the developer to have to modify the base class and
-causing proliferation of base class API calls, some of which may not be
-semantically correct for all subclasses.
+.. However, two problems that have arisen in the |ns2| model are downcasts and "weak base class." Downcasting refers to the procedure of using a base class pointer to an object and querying it at run time to find out type information, used to explicitly cast the pointer to a subclass pointer so that the subclass API can be used. Weak base class refers to the problems that arise when a class cannot be effectively reused (derived from) because it lacks necessary functionality, leading the developer to have to modify the base class and causing proliferation of base class API calls, some of which may not be semantically correct for all subclasses.
+Παρόλα αυτά, δύο προβλήματα έχουν προκύψει στο μοντέλο του |ns2| είναι τα downcasts και οι  "weak" βασικές κλάσεις.  Ο όρος Downcasting αναφέρεται στην διαδικασία της χρήσης ενός δείκτη βασικής κλάσης σε ένα αντικείμενο και το να το ελέγχει κάποιο κατά τον χρόνο εκτέλεσης προκειμένου να βρεί πληροφορίες σχετικά με τον τύπο, και χρησιμοποιείται για την ρητή μετατροπή (cast) του δείκτη σε δείκτη υποκλάσης ώστε να χρησιμοποιηθεί η διεπαφή επικοινωνίας(API) της υποκλάσης. Ο όρος weak βασική κλάση αναφέρεται στο πρόβλημα που προκύπτει 
 
-|ns3| is using a version of the query interface design pattern to avoid these
-problems. This design is based on elements of the `Component Object Model
-<http://en.wikipedia.org/wiki/Component_Object_Model>`_ and `GNOME Bonobo
-<http://en.wikipedia.org/wiki/Bonobo_(component_model)>`_ although full
-binary-level compatibility of replaceable components is not supported and we
-have tried to simplify the syntax and impact on model developers.  
+|ns3| is using a version of the query interface design pattern to avoid these problems. This design is based on elements of the `Component Object Model <http://en.wikipedia.org/wiki/Component_Object_Model>`_ and `GNOME Bonobo <http://en.wikipedia.org/wiki/Bonobo_(component_model)>`_ although full binary-level compatibility of replaceable components is not supported and we have tried to simplify the syntax and impact on model developers.  
 
 Examples
 ********

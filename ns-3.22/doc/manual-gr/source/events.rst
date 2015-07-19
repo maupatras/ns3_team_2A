@@ -127,11 +127,12 @@
 
 .. 3) Maintaining the simulation context
 
-3) Διαχείρηση του περιβάλλοντος (συμφραζομένων) προσομοίωσης
+3) Διαχείρηση του περιβάλλοντος (context) προσομοίωσης
 
 
 .. There are two basic ways to schedule events, with and without *context*.
-Υπάρχουν δύο κυρίως τρόποι για την χρονοδρομολόγηση γεγονότων, με ή χωρίς συμφραζόμενα.
+Υπάρχουν δύο κυρίως τρόποι για την χρονοδρομολόγηση γεγονότων, με ή χωρίς *συμφραζόμενα* (context).
+
 .. What does this mean?
 Τι σημαίνει αυτό;
 
@@ -151,24 +152,38 @@ vs.
 
 .. The node id of the currently executing network node is in fact tracked by the Simulator class. It can be accessed with the Simulator::GetContext method which returns the 'context' (a 32-bit integer) associated and stored in the currently-executing event. In some rare cases, when an event is not associated with a specific network node, its 'context' is set to 0xffffffff.
 
-Του αναγνωριστικό του κόμβου του γε
+Του αναγνωριστικό του κόμβου που εκτελείται αυτή την στιγμή στην παρακολουθείται από την κλάση Simulator. Ενώ πρόσβαση σε αυτόν παρέχεται μέσω της μεθόδου Simulator::GetContext η οποία επιστρέφει το 'context' (έναν 32-bit ακέραιο) που συσχετίζεται και αποθηκεύεται στο γεγονός που εκτελείται αυτή την στιγμή.
 
-To associate a context to each event, the Schedule, and ScheduleNow methods automatically reuse the context of the currently-executing event as the context of the event scheduled for execution later. 
+.. To associate a context to each event, the Schedule, and ScheduleNow methods automatically reuse the context of the currently-executing event as the context of the event scheduled for execution later. 
 
-In some cases, most notably when simulating the transmission of a packet from a node to another, this behavior is undesirable since the expected context of the reception event is that of the receiving node, not the sending node. To avoid this problem, the Simulator class provides a specific schedule method: ScheduleWithContext which allows one to provide explicitly the node id of the receiving node associated with the receive event.
+Για τον συσχετισμό ενός context σε ένα γεγονός, οι μέθοδοι Schedule και ScheduleNow αυτόματα επαναχρησιμοποιούν το context του γεγονότος που εκτελείται εκείνη την στιγμή ως το context του γεγονότος του οποίου η εκτέλεση έχει δρομολογηθεί για αργότερα.    
+
+.. In some cases, most notably when simulating the transmission of a packet from a node to another, this behavior is undesirable since the expected context of the reception event is that of the receiving node, not the sending node. To avoid this problem, the Simulator class provides a specific schedule method: ScheduleWithContext which allows one to provide explicitly the node id of the receiving node associated with the receive event.
+
+Σε ορισμένες περιπτώσεις, κυρίως όταν πραγματοποιείται η προσομοίωση της μετάδοσης ενός πακέτου από ένα κόμβο σε ένα άλλο, αυτή η συμπεριφορά δεν είναι επιθυμητή επειδή το αναμενόμενο context του λαμβανόμενου γεγονότος είναι εκείνο του κόμβου λήψης, και όχι του κόμβου αποστολής. Για να αποφευχθεί αυτό το πρόβλημα, η κλάση Simulator παρέχει μια συγκεκριμένη μέθοδο χρονοδρομολόγησης: ScheduleWithContext που επιτρέπει σε την ρητή δήλωση του αναγνωριστικού κόμβου του κόμβου λήψης που σχετίζεται με το γεγονός λήψης.
 
 *XXX: code example*
 
-In some very rare cases, developers might need to modify or understand how the context (node id) of the first event is set to that of its associated node. This is accomplished by the NodeList class: whenever a new node is created, the NodeList class uses ScheduleWithContext to schedule a 'initialize' event for this node. The 'initialize' event thus executes with a context set to that of the node id and can use the normal variety of Schedule methods. It invokes the Node::Initialize method which propagates the 'initialize' event by calling the DoInitialize method for each object associated with the node. The DoInitialize method overridden in some of these objects (most notably in the Application base class) will schedule some events (most notably Application::StartApplication) which will in turn scheduling traffic generation events which will in turn schedule network-level events.
+.. In some very rare cases, developers might need to modify or understand how the context (node id) of the first event is set to that of its associated node. This is accomplished by the NodeList class: whenever a new node is created, the NodeList class uses ScheduleWithContext to schedule a 'initialize' event for this node. The 'initialize' event thus executes with a context set to that of the node id and can use the normal variety of Schedule methods. It invokes the Node::Initialize method which propagates the 'initialize' event by calling the DoInitialize method for each object associated with the node. The DoInitialize method overridden in some of these objects (most notably in the Application base class) will schedule some events (most notably Application::StartApplication) which will in turn scheduling traffic generation events which will in turn schedule network-level events.
 
-Notes:
+Σε μερικές πολύ σπάνιες περιπτώσεις, οι προγραμματιστές ίσως χρειαστεί να τροποποιήσουν ή να κατανοήσουν πώς το context (id του κόμβου) του πρώτου γεγονότος οριζεται στο id του κόμβου με το οποίο συσχετίζεται. Αυτό επιτυγχάνεται με την κλάση NodeList: κάθε φορά που δημιουργείται ένας νέος κόμβος, η τάξη NodeList χρησιμοποιεί το ScheduleWithContext προκειμένου να δρομολογήσει την 'αρχικοποίηση' ενός γεγονότος για αυτό τον κόμβο. Το 'αρχικοποίημένο' γεγονός με αυτό τον τρόπο, εκτελείται με ένα context ίδιο με το αναγνωριστικό του κόμβου και μπορεί να χρησιμοποιήσει μία κανονική ποικιλία μεθόδων χρονοδρομολόγησης. Αυτό κάλεί την μέθοδο Node::Initialize η οποία μεταδίδει την αρχικοποίηση του γεγονότος με την κλήση της μεθόδου DoInitialize για κάθε αντικείμενο που συσχετίζεται με τον κόμβο. Η μέθοδος DoInitialize έχει τροποποιηθεί σε κάποια αντικείμενα (κυρίως στην βασική κλαση Application) θα δρομολογήσει κάποια γεγονότα (πιο σημαντικό εκ των οποίων Application::StartApplication) που με την σειρά τους θα δρομολογήσουν καποια γεγονοτα δημιουργίας κυκλοφορίας, που με την σειρά τους θα δρομολογήσουν καποια γεγονότα επιπέδου δικτύου.
 
-* Users need to be careful to propagate DoInitialize methods across objects by calling Initialize explicitely on their member objects
-* The context id associated with each ScheduleWithContext method has other uses beyond logging: it is used by an experimental branch of ns-3  to perform parallel simulation on multicore systems using multithreading.
+.. Notes:
 
-The Simulator::* functions do not know what the context is: they merely make sure that whatever context you specify with ScheduleWithContext is available when the corresponding event executes with ::GetContext.
+Σημειώσεις:
 
-It is up to the models implemented on top of Simulator::* to interpret the context value. In ns-3, the network models interpret the context as the node id of the node which generated an event. This is why it is important to call ScheduleWithContext in ns3::Channel subclasses because we are generating an event from node i to node j and we want to make sure that the event which will run on node j has the right context.
+.. * Users need to be careful to propagate DoInitialize methods across objects by calling Initialize explicitely on their member objects
+* Οι χρήστες χρειάζονται να είναι προσεκτικοί με την μετάδοση των μεθόδων DoInitialize μεταξύ αντικειμένων με την κληση της αρχικοποίησης να γίνεται ρητά στα αντικείμενα που αποτελούν μέλη τους. 
+.. * The context id associated with each ScheduleWithContext method has other uses beyond logging: it is used by an experimental branch of ns-3  to perform parallel simulation on multicore systems using multithreading.
+Το αναγνωριστικό του context (context id) που συσχετίζεται με κάθε μέθοδο ScheduleWithContext διαθέτει επιπλέον χρήσεις πέρα από την καταγραφή γεγονότων: χρησιμοποιείται από έναν ερευμητικό κλάδο του ns-3 ώστε να πραγματοποιήσει παράλληλες προσομοιώσεις σε πολυπύρηνα συστήματα χρησιμοποιώντας πολυνηματισμό.
+
+* The Simulator::* functions do not know what the context is: they merely make sure that whatever context you specify with ScheduleWithContext is available when the corresponding event executes with ::GetContext.
+
+Οι συνατήσεις The Simulator::* δεν γνωρίζουν ποιο είναι το context: απλώς βεβαιώνουν ότι όποιο context και αν ορίστεί με ScheduleWithContext είναι διαθέσιμο όταν το αντίστοιχο γεγονός εκτελεστεί με  ::GetContext.
+
+.. It is up to the models implemented on top of Simulator::* to interpret the context value. In ns-3, the network models interpret the context as the node id of the node which generated an event. This is why it is important to call ScheduleWithContext in ns3::Channel subclasses because we are generating an event from node i to node j and we want to make sure that the event which will run on node j has the right context.
+
+Έχει οριστεί σε μοντέλα που έχουν υλοποιηθεί με βάση τον Simulator::* ώστε να διερμηνεύουν την τιμή του context. Στα μοντέλα δικτύου του ns-3 διευρμηνεύουν το context σαν το αναγνωριστικό του κόμβου Που δημιούργησε το γεγονός. Αυτό συμβαίνει γιατί είναι σημαντικό να καλείται η ScheduleWithContext στις υποκλάσεις  ns3::Channel γιατί δημιουργούμε ένα γεγονός από τον κόμβο i στον κόμβο j και επιθυμούμε να είμαστε βέβαιοι ότι το γεγονός που θα εκτελεστεί στον κόβμο j έχει το σωστό context. 
 
 .. Time
 ****

@@ -12,22 +12,18 @@
 
 Ο |ns-3| είναι ουσιαστικά ένα σύστημα αντικειμένων C++. Τα αντικείμενα μπορολυν να δηλωθούν και να αρχικοποιηθούν ως συνήθως, σύμφωνα με τους κανόνες της C++. O |ns-3| προσθέτει μετικά επιπλέον χαρακτηριστικά στα παραδοσιακά C++ αντικείμενα, όπως θα περιγράψουμε στην συνέχεια, ώστε να παρέχει μεγαλυτερη λειτουργικότητα και χαρακτηριστικά. Η συγκεκριμένη ενότητα του εγχειριδίου έχει ως σκοπό να ειδάγει τον αναγώστη στο μοντέλο αντικειμένων του |ns-3|.
 
-This section describes the C++ class design for |ns3| objects. In brief,
-several design patterns in use include classic object-oriented design
-(polymorphic interfaces and implementations), separation of interface and
-implementation, the non-virtual public interface design pattern, an object
-aggregation facility, and reference counting for memory management. Those
-familiar with component models such as COM or Bonobo will recognize elements of
-the design in the |ns3| object aggregation model, although the |ns3| design is
-not strictly in accordance with either.
+.. This section describes the C++ class design for |ns3| objects. In brief, several design patterns in use include classic object-oriented design (polymorphic interfaces and implementations), separation of interface and implementation, the non-virtual public interface design pattern, an object aggregation facility, and reference counting for memory management. Those familiar with component models such as COM or Bonobo will recognize elements of the design in the |ns3| object aggregation model, although the |ns3| design is not strictly in accordance with either.
 
-Object-oriented behavior
-************************
+Η συγκεκριμένη ενότητα περιγράφει τον σχεδιασμό κλάσεων C++ για τα αντικείμενα του |ns3|. Εν συντομία, διάφορα σχεδιαστικά πρότυπα που χρησιμοποιούνται περιλαμβάνουν κλασσικά αντικειμοστραφή σχέδια (πολυμορφικές διεπαφές και υλοποιήσεις), διαχωρισμό της διεπαφής επικοινωνίας και της υλοποίησης, σχεδιαστικά πρότυπα για μη-εικονικές δημόσιες διεπαφές, μία εγκατάσταση συνάθροισης αντικειμένων (object aggregation facility), και καταμέτρηση αναφορών για την διαχείριση μνήμης. Όσοι είναι εξοικειωμένοι με μοντέλα συστατικών (component) όπως το COM ή το Bonobo θα αναγνωρίσουν στοιχεία από τον σχεδιασμό τους στο συναθροιστικό μοντέλο του |ns3|, παρόλο που ο σχεδιασμός του |ns3| δεν συμφωνεί αυστηρά με κανένα από τα δύο μοντέλα.  
 
-C++ objects, in general, provide common object-oriented capabilities 
-(abstraction, encapsulation, inheritance, and polymorphism) that are part 
-of classic object-oriented design. |ns3| objects make use of these 
-properties; for instance::
+.. Object-oriented behavior
+
+Αντικειμενοστραφής συμπεριφορά
+******************************
+
+.. C++ objects, in general, provide common object-oriented capabilities (abstraction, encapsulation, inheritance, and polymorphism) that are part of classic object-oriented design. |ns3| objects make use of these properties; for instance::
+
+Τα C++ αντικείμενα, γενικά, περιέχουν κοινές αντικειμενοστραφείς ικανότητες (αφαίρεση, ενθυλάκωση, κληρονομηκότητα και πολυμορφισμό) που αποτελούν μέρος του κλασσικού αντικειμεστραφούς μοντέλου. Τα αντικείμενα |ns3| κάνουν χρήση των συγκεκριμένων ιδιοτήτων. Για παράδειγμα::
 
     class Address
     {

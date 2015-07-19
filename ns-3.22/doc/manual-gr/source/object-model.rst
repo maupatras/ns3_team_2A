@@ -39,58 +39,64 @@
       ...
     };
 
-Object base classes
-*******************
+.. Object base classes
 
-There are three special base classes used in |ns3|. Classes that inherit
-from these base classes can instantiate objects with special properties.
-These base classes are:
+.. Οι βασικές κλάσεις Object
+****************************
+
+.. There are three special base classes used in |ns3|. Classes that inherit from these base classes can instantiate objects with special properties. These base classes are:
+ 
+υπάρχουν τρία είδη ειδικών βασικών κλάσεων που χρησιμοποιούνται στον |ns3|. Οι κλάσεις που κληρονομούν από αυτές τις βασικές κλάσεις μπορούν να αρχικοποιήσουν αντικείμενα με ειδικές ιδιοότητες. Αυτές οι ειδικές κλάσεις είναι:
+
 
 * class :cpp:class:`Object`
 * class :cpp:class:`ObjectBase`
 * class :cpp:class:`SimpleRefCount`
 
-It is not required that |ns3| objects inherit from these class, but 
-those that do get special properties. Classes deriving from 
-class :cpp:class:`Object` get the following properties.
+.. It is not required that |ns3| objects inherit from these class, but those that do get special properties. Classes deriving from class :cpp:class:`Object` get the following properties.
 
-* the |ns3| type and attribute system (see :ref:`Attributes`)
-* an object aggregation system
-* a smart-pointer reference counting system (class Ptr)
+Δεν απαιτείται ότι τα |ns3| αντικείμενα να κληρονομούν από αυτές τις κλάσεις, αλλά εκείνες που κληρονομούν έχουν ειδικές ιδιότητες. Οι κλάσεις που προέρχονται από την κλάση class :cpp:class:`Object` αποκτούν τις παρακάτω ιδιότητες.
 
-Classes that derive from class :cpp:class:`ObjectBase` get the first two
-properties above, but do not get smart pointers. Classes that derive from class
-:cpp:class:`SimpleRefCount`: get only the smart-pointer reference counting
-system.
+.. * the |ns3| type and attribute system (see :ref:`Attributes`)
+* τα συστήματα είδος (type) και ιδιοτήτων (attribute) του |ns3|( βλέπε :ref:`Attributes`)
+.. * an object aggregation system
+* ένα σύστημα συνάθροισης αντικειμένων  
+.. * a smart-pointer reference counting system (class Ptr)
+* ένα σύστημα καταμέτρησης αναφοράς έξυπνων δεικτών (class Ptr) 
 
-In practice, class :cpp:class:`Object` is the variant of the three above that
-the |ns3| developer will most commonly encounter.
+.. Classes that derive from class :cpp:class:`ObjectBase` get the first two properties above, but do not get smart pointers. Classes that derive from class :cpp:class:`SimpleRefCount`: get only the smart-pointer reference counting system.
+
+Οι κλάσεις που προέρχονται από την κλάση :cpp:class:`ObjectBase` αποκτούν τις δύο πρώτες από τις παραπάνω ιδιότητες, αλλά δεν αποκτούν έξυπνους δείκτες. κλάσεις που προέρχονται από την κλαση :cpp:class:`SimpleRefCount`: αποκτούν μόνο το σύστημα καταμέτρησης αναφορών έξυπνων δεικτών.
+ 
+.. In practice, class :cpp:class:`Object` is the variant of the three above that the |ns3| developer will most commonly encounter.
+
+Στην πράξημ η κλάση :cpp:class:`Object` είναι η παραλλαγή των τριών παραπάνω που ένας προγραμματιστής του |ns3| θα συναντήσει συχνότερα.
 
 .. _Memory-management-and-class-Ptr:
 
-Memory management and class Ptr
-*******************************
+.. Memory management and class Ptr
 
-Memory management in a C++ program is a complex process, and is often done
-incorrectly or inconsistently. We have settled on a reference counting design
-described as follows.
+Διαχείριση μνήμης και η κλάση Ptr
+*********************************
 
-All objects using reference counting maintain an internal reference count to
-determine when an object can safely delete itself. Each time that a pointer is
-obtained to an interface, the object's reference count is incremented by calling
-``Ref()``. It is the obligation of the user of the pointer to explicitly
-``Unref()`` the pointer when done. When the reference count falls to zero, the
-object is deleted.
+.. Memory management in a C++ program is a complex process, and is often done incorrectly or inconsistently. We have settled on a reference counting design described as follows.
 
-* When the client code obtains a pointer from the object itself through object
-  creation, or via GetObject, it does not have to increment the reference count.   
-* When client code obtains a pointer from another source (e.g., copying a
-  pointer) it must call ``Ref()`` to increment the reference count.
-* All users of the object pointer must call ``Unref()`` to release the
-  reference.
+Η διαχείριση μνήμης σε ένα πρόγραμμα C++ είναι μία πολύπλοκη διαδικασία, και συχνά γίνεται με λάθος ή ασυνεπή τρόπο. Έχουμε καταλήξει σε ένα σχεδιασμό καταμέτρησης αναφορών όπως περιγράφεται παρακάτω.
 
-The burden for calling :cpp:func:`Unref()` is somewhat relieved by the use of
-the reference counting smart pointer class described below. 
+.. All objects using reference counting maintain an internal reference count to determine when an object can safely delete itself. Each time that a pointer is obtained to an interface, the object's reference count is incremented by calling ``Ref()``. It is the obligation of the user of the pointer to explicitly ``Unref()`` the pointer when done. When the reference count falls to zero, the object is deleted.
+
+Όλα τα αντικείμενα που χρησιμοποιούν καταμέτρηση αναφορών διατηρούν έναν εσωτερικό μετρητή αναφορών ώστε να καθορίζουν πότε το αντικείμενο μπορεί με ασφάλεια να διαγράψει τον εαυτό του. Κάθε φορά που ο δείκτης αποδίδεται σε μία διεπαφή, ο μετρητής αναφορών του αντικειμένου αυξάνεται με την κλήση της ``Ref()``. Αποτελεί υποχρέωση του χρήστη του δείκτης να τερματίσει ρητά την αναφορά του δείκτη με την κλήση της ``Unref()`` όταν έχει ολοκληρώσει την εργασία του. Όταν ο μετρητής πέσει στο μηδέν, το αντικείμενο διαγράφεται.
+
+.. * When the client code obtains a pointer from the object itself through object   creation, or via GetObject, it does not have to increment the reference count.   
+* Όταν ο κώδικας πελάτη αποκτά έναν δείκτη από το ίδιο το αντικεόμενο μέσω της δημιουργίας του αντικειμένου, ή μέσω της GetObject. δεν χρειάζεται να αυξήσει το μετρητή αναφορών.
+.. * When client code obtains a pointer from another source (e.g., copying a   pointer) it must call ``Ref()`` to increment the reference count.
+* Όταν ο κώδικας πελάτη, απόκτήσει ένα δείκτη από μία άλλη πηγή (π.χ. αντιγραφή ενός δείκτη) τότε πρέπει να καλέσει την ``Ref()`` ώστε να αυξήσει τον μετρητή αναφορών.
+.. * All users of the object pointer must call ``Unref()`` to release the   reference.
+* όλοι οι χρήστες του δείκτη του αντικειμένου πρέπει να καλέσουν την ``Unref()`` ώστε να απελευθερώσουν την αντίστοιχη αναφορά.
+
+.. The burden for calling :cpp:func:`Unref()` is somewhat relieved by the use of the reference counting smart pointer class described below.
+
+Το βάρος της κλήσης :cpp:func:`Unref()` ελαφρύνεται κάπως με την χρήση  της καταμέτρησης αναφορών της κλάσης έξυπνων δεικτών που περιγράφεται στην συνέχεια.
 
 Users using a low-level API who wish to explicitly allocate
 non-reference-counted objects on the heap, using operator new, are responsible

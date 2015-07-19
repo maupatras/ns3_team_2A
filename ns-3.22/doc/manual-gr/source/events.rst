@@ -117,7 +117,7 @@
 .. * Schedule methods which allow you to schedule an event in the future by providing the delay between the current simulation time and the expiration date of the target event.
 * Οι μέθοδοι χρονοδρομολόγησης που επιτρέπουν την χρονοδομολόγηση ενός γεγονότος στο μέλλον,  παρέχοντας την καθυστέρηση μεταξύ του τρέχοντος χρόνου προσομοίωσης και της ημερομήνίς λήξης του γεγονότος στόχου. 
   
-.. * ScheduleNow methods which allow you to schedule an event for the current simulation time: they will execute _after_ the current event is finished executing but _before_ the simulation time is changed for the next event.
+.. * ScheduleNow methods which allow you to schedule an event for the current simulation time: they will execute _after_ the current event is finished executing but _before_ the simulation time is changed for the next event. 
 * Οι μέθοδοι ScheduleNow που επιτρέπουν την χρονοδορμολόγηση ενός γεγονότος για τον τρέχοντα χρόνο προσομοίωσης: θα εκτελέσουν _μετά_ την ολοκλήρωση του γεγονότος που εκτελείται αύτη την στιγμή αλλά _πριν_ ο χρόνος προσομοίωσης αλλάξει για το επόμενο γεγονός.
 
 .. * ScheduleDestroy methods which allow you to hook in the shutdown process of the Simulator to cleanup simulation resources: every
@@ -173,12 +173,13 @@ vs.
 Σημειώσεις:
 
 .. * Users need to be careful to propagate DoInitialize methods across objects by calling Initialize explicitely on their member objects
+
 * Οι χρήστες χρειάζονται να είναι προσεκτικοί με την μετάδοση των μεθόδων DoInitialize μεταξύ αντικειμένων με την κληση της αρχικοποίησης να γίνεται ρητά στα αντικείμενα που αποτελούν μέλη τους. 
+
 .. * The context id associated with each ScheduleWithContext method has other uses beyond logging: it is used by an experimental branch of ns-3  to perform parallel simulation on multicore systems using multithreading.
-Το αναγνωριστικό του context (context id) που συσχετίζεται με κάθε μέθοδο ScheduleWithContext διαθέτει επιπλέον χρήσεις πέρα από την καταγραφή γεγονότων: χρησιμοποιείται από έναν ερευμητικό κλάδο του ns-3 ώστε να πραγματοποιήσει παράλληλες προσομοιώσεις σε πολυπύρηνα συστήματα χρησιμοποιώντας πολυνηματισμό.
+* Το αναγνωριστικό του context (context id) που συσχετίζεται με κάθε μέθοδο ScheduleWithContext διαθέτει επιπλέον χρήσεις πέρα από την καταγραφή γεγονότων: χρησιμοποιείται από έναν ερευμητικό κλάδο του ns-3 ώστε να πραγματοποιήσει παράλληλες προσομοιώσεις σε πολυπύρηνα συστήματα χρησιμοποιώντας πολυνηματισμό.
 
-* The Simulator::* functions do not know what the context is: they merely make sure that whatever context you specify with ScheduleWithContext is available when the corresponding event executes with ::GetContext.
-
+.. * The Simulator::* functions do not know what the context is: they merely make sure that whatever context you specify with ScheduleWithContext is available when the corresponding event executes with ::GetContext.
 Οι συνατήσεις The Simulator::* δεν γνωρίζουν ποιο είναι το context: απλώς βεβαιώνουν ότι όποιο context και αν ορίστεί με ScheduleWithContext είναι διαθέσιμο όταν το αντίστοιχο γεγονός εκτελεστεί με  ::GetContext.
 
 .. It is up to the models implemented on top of Simulator::* to interpret the context value. In ns-3, the network models interpret the context as the node id of the node which generated an event. This is why it is important to call ScheduleWithContext in ns3::Channel subclasses because we are generating an event from node i to node j and we want to make sure that the event which will run on node j has the right context.

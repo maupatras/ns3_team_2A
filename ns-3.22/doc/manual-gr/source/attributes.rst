@@ -158,17 +158,20 @@ https://github.com/maupatras/ns3_team_2A/blob/developer/ns-3.22/doc/manual-gr/so
 TypeId
 ++++++
 
-|ns3| classes that derive from class :cpp:class:`Object` can include
-a metadata class called :cpp:class:`TypeId` that records meta-information
-about the class, for use in the object aggregation and component manager
-systems:
+.. |ns3| classes that derive from class :cpp:class:`Object` can include a metadata class called :cpp:class:`TypeId` that records meta-information about the class, for use in the object aggregation and component manager systems:
+Οι |ns3| κλάσεις που προέρχονται από την κλάση :cpp:class:`Object` μπορεί να περιλαμβάνουν μια metadata κλάση που ονομάζεται :cpp:class:`TypeId` η οποία καταγράφει meta - πληροφορία για την κλάση η οποία χρησιμοποιείται για τα συστήματα διαχείρισης συγκέντρωσης/συνάθροισης πληροφορίας και εξαρτημάτων του αντικειμένου (object aggregation and component manager systems):
 
-* A unique string identifying the class.
-* The base class of the subclass, within the metadata system.
-* The set of accessible constructors in the subclass.
-* A list of publicly accessible properties ("attributes") of the class.
+.. * A unique string identifying the class.
+* Ένα μοναδικό string που χαρακτηρίζει την κλάση.
+.. * The base class of the subclass, within the metadata system.
+* Την βασική κλάση της υποκλάσης μέσα στο metadata σύστημα.
+.. * The set of accessible constructors in the subclass.
+* Το set των προσβάσιμων δημιουργών (constructors) στην υποκλάση.
+.. * A list of publicly accessible properties ("attributes") of the class.
+* Μια λίστα από δημόσια προσβάσιμες ιδιότητες (χαρακτηριστικά) της κλάσης.
 
-Object Summary
+.. Object Summary
+Περίληψη Αντικειμένου - Object Summary
 ++++++++++++++
 
 Putting all of these concepts together, let's look at a specific

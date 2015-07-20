@@ -151,7 +151,7 @@ CreateObject και Create
 Συνάθροιση
 ***********
 
-The |ns3| object aggregation system is motivated in strong part by a recognition that a common use case for |ns2| has been the use of inheritance and polymorphism to extend protocol models. For instance, specialized versions of TCP such as RenoTcpAgent derive from (and override functions from) class TcpAgent.  
+.. The |ns3| object aggregation system is motivated in strong part by a recognition that a common use case for |ns2| has been the use of inheritance and polymorphism to extend protocol models. For instance, specialized versions of TCP such as RenoTcpAgent derive from (and override functions from) class TcpAgent.  
 Το σύστημα συνάθροισης αντικειμένν του |ns3| υποκινείται σε μεγάλο βαθμό από την παρατήρηση ότι μία συχνή περίπτωση χρήσης του |ns2| υπήρξε η χρήση της κληρονομηκότητας και του πολυμορφισμού για την επέκταση τον μοντέλων πρωτοκόλλων. Για παράδειγμα, ειδικές εκδόσεις του TCP όπως RenoTcpAgent προέρχονται από (και επανακαθορίζουν συναρτήσεις από) την κλάση TcpAgent.
 
 .. However, two problems that have arisen in the |ns2| model are downcasts and "weak base class." Downcasting refers to the procedure of using a base class pointer to an object and querying it at run time to find out type information, used to explicitly cast the pointer to a subclass pointer so that the subclass API can be used. Weak base class refers to the problems that arise when a class cannot be effectively reused (derived from) because it lacks necessary functionality, leading the developer to have to modify the base class and causing proliferation of base class API calls, some of which may not be semantically correct for all subclasses.
@@ -194,52 +194,43 @@ The |ns3| object aggregation system is motivated in strong part by a recognition
 Το παράγειγμα GetObject
 +++++++++++++++++++++++
 
-GetObject is a type-safe way to achieve a safe downcasting and to allow
-interfaces to be found on an object.  
+.. GetObject is a type-safe way to achieve a safe downcasting and to allow interfaces to be found on an object.  
+Η μέθοδος GetObject αποτελεί μία ασφαλή μέθοδο όσο αφορά την μετατροπή τύπων δεδομένων (type-safe) ώστε να επιτευχθεί με ασφαλή τρόπο downcasting και να επιτραπεί σε διεπαφές να είναι ορατές σε ένα αντικείμενο.
 
-Consider a node pointer ``m_node`` that points to a Node object that has an
-implementation of IPv4 previously aggregated to it. The client code wishes to
-configure a default route. To do so, it must access an object within the node
-that has an interface to the IP forwarding configuration. It performs the
-following::
+.. Consider a node pointer ``m_node`` that points to a Node object that has an implementation of IPv4 previously aggregated to it. The client code wishes to configure a default route. To do so, it must access an object within the node that has an interface to the IP forwarding configuration. It performs the following::
+Θεωρείστε ένα δείκτη σε κόμβο, έστω ``m_node``, που δείχνει σε ένα αντικείμενο Node στο οποίο προηγουμένως έχει συναθροιστεί μία υλοποίηση IPv4. Ο κώδικας πελάτη επιθυμεί να τροποποιήσει την προκαθορισμένη διαδρομή. Για να το επιτύχει, θα πρέπει να έχει πρόσβαση σε ένα αντικείμενο στο εσωτερικό του κόμβου το οποίο διαθέτει μία διεπαφή προς το ρύθμιση προώθησης IP. θα εκτελέσει τα ακόλουθα::
+
 
     Ptr<Ipv4> ipv4 = m_node->GetObject<Ipv4> ();
 
-If the node in fact does not have an Ipv4 object aggregated to it, then the
-method will return null. Therefore, it is good practice to check the return
-value from such a function call. If successful, the user can now use the Ptr to
-the Ipv4 object that was previously aggregated to the node.
+.. If the node in fact does not have an Ipv4 object aggregated to it, then the method will return null. Therefore, it is good practice to check the return value from such a function call. If successful, the user can now use the Ptr to the Ipv4 object that was previously aggregated to the node.
+Εάν ο κόμβος στην ουσία δεν έχει ένα Ipv4 αντικέιμενο συναθροισμένο σε αυτόν, τότε η μέθοδος θα επιστρεψει null. Συνεπώς, αποτελεί καλή πρακτική, να γίνεται έλεγχος της επιστρεφόμενης τιμής της κλήσης μία συνάρτησης σαν και αυτή. Εάν είναι επιτυχής, ο χρήστης μπορεί να χρησιμοποιήσει τον δείκτη Ptr προς το αντικείμενο Ipv4, το οποίο έχει συναθροιστεί προηγουμένως με το κόμβο.
 
-Another example of how one might use aggregation is to add optional models to
-objects. For instance, an existing Node object may have an "Energy Model" object
-aggregated to it at run time (without modifying and recompiling the node class).
-An existing model (such as a wireless net device) can then later "GetObject" for
-the energy model and act appropriately if the interface has been either built in
-to the underlying Node object or aggregated to it at run time.  However, other
-nodes need not know anything about energy models.
+.. Another example of how one might use aggregation is to add optional models to objects. For instance, an existing Node object may have an "Energy Model" object aggregated to it at run time (without modifying and recompiling the node class). An existing model (such as a wireless net device) can then later "GetObject" for the energy model and act appropriately if the interface has been either built in to the underlying Node object or aggregated to it at run time.  However, other nodes need not know anything about energy models.
+Ένα άλλο παράδειγμα για το πώς κάποιος μπορεί να χρησιμοποιήσει την συνάθροιση είναι την προσθήκη προαιρετικών μοντέλων σε αντικείμενα. Για παράδειγμα, ένα αντικείμενο Node μπορεί να έχει ένα αντικείμενο "Energy Model" συναθροισμένο σε αυτό κατά τον χρόνο εκτέλεσης (χωρίς να τροποποιηθεί ή να μεταγλωττιστεί εξαρχής η κλάση κόμβος). Ένα ήδη υπάρχον μοντέλο (όπως μία ασύρματη συσκευή δικτύου) μπορεί αργότερα να καλέσει την "GetObject" του μοντέλου ενέργειας (energy model) και να δράσει κατάλληλα εάν η διεπαφή είτε είναι δημιουργηθεί στο υποκείμενο αντικείμενο Node ή είχε συναθροιστεί σε αυτό κατά τον χρόνο εκτέλεσης. Παρόλα αυτά, άλλοι κόμβοι δεν χρειάζεται να γνωρίζουν οτιδήποτε σχετικά με τα μοντέλα ενέργειας.
 
-We hope that this mode of programming will require much less need for developers
-to modify the base classes.
+.. We hope that this mode of programming will require much less need for developers to modify the base classes.
+Ελπίζουμε ότι ο συγκεκριμένος τρόπος προγραμματισμού θα μειώσει τις απαιτήσεις των προγραμματιστών για τροποποιήσεις στις βασικές κλάσεις.
 
-Object factories
-****************
+.. Object factories
+Εργοστάσια αντικειμένων
+***********************
 
-A common use case is to create lots of similarly configured objects. One can
-repeatedly call :cpp:func:`CreateObject` but there is also a factory design
-pattern in use in the |ns3| system. It is heavily used in the "helper" API. 
+.. A common use case is to create lots of similarly configured objects. One can repeatedly call :cpp:func:`CreateObject` but there is also a factory design pattern in use in the |ns3| system. It is heavily used in the "helper" API. 
+Μια συνηθισμένη περίπτωση χρήσης είναι η δημιουργία αντικειμένων που έχουν ρυθμιστεί με παρόμοιο τρόπο. Κάποιος μπορεί να καλεσει κατ' επανάληψη την :cpp:func:`CreateObject` αλλά υπάρχει επίσης ένα εργοστασιακό σχεδιαστικό πρότυπο σε χρήση στο σύστημα του |ns3|. Χρησιμοποιείται ευρέως στην διεπαφή επικοινωνίας "helper".
 
-Class :cpp:class:`ObjectFactory` can be used to instantiate objects and to
-configure the attributes on those objects::
+.. Class :cpp:class:`ObjectFactory` can be used to instantiate objects and to configure the attributes on those objects::
+Η κλάση :cpp:class:`ObjectFactory` μπορεί να χρησιμοποιηθεί για την αρχικοποίηση αντικειμένων και να ρυθμισει τις ιδιότητες σε εκείνα τα αντικείμενα::
 
     void SetTypeId (TypeId tid);
     void Set (std::string name, const AttributeValue &value);
     Ptr<T> Create (void) const;
 
-The first method allows one to use the |ns3| TypeId system to specify the type
-of objects created. The second allows one to set attributes on the objects to be
-created, and the third allows one to create the objects themselves. 
+.. The first method allows one to use the |ns3| TypeId system to specify the type of objects created. The second allows one to set attributes on the objects to be created, and the third allows one to create the objects themselves. 
+Η πρώτη μέθοδος επιτρέπει την χρήση του συστήματος TypeId του |ns3| για τον καθορισμό του είδους (type) των αντικειμένων που δημιουργούνται. Η δεύτερη επιτρέπει τον ορισμό των ιδιοτήτων των αντικειμένων που πρόκειται να δημιουργηθούν,  και η που τρίτη επιτρέπει την δημιουργία των ίδιων των αντικειμένων.
 
-For example: ::
+.. For example: ::
+Για παράδειγμα: ::
 
     ObjectFactory factory;
     // Make this factory create objects of type FriisPropagationLossModel
@@ -256,15 +247,11 @@ For example: ::
 Downcasting
 ***********
 
-A question that has arisen several times is, "If I have a base class pointer
-(Ptr) to an object and I want the derived class pointer, should I downcast (via
-C++ dynamic cast) to get the derived pointer, or should I use the object
-aggregation system to :cpp:func:`GetObject\<> ()` to find a Ptr to the interface
-to the subclass API?"
+.. A question that has arisen several times is, "If I have a base class pointer (Ptr) to an object and I want the derived class pointer, should I downcast (via C++ dynamic cast) to get the derived pointer, or should I use the object aggregation system to :cpp:func:`GetObject\<> ()` to find a Ptr to the interface to the subclass API?"
+Μία ερώτηση που προκύπτει αρκετές φορές είναι, "εάν έχω έναν δείκτη(Ptr) της βασικής κλάσης προς ένα αντικείμενο και θέλω έναν δείκτη προς την παραγόμενη κλάση, είναι προτιμότερο να εφαρμόσω downcast (μέσω C++ δυναμικής μετατροπής) ώστε να λάβω τον δείκτη της παραγόμενης κλάσης ή θα ήταν καλύτερα να χρησιμοποιήσω το σύστημα συνάθροισης αντικειμένων :cpp:func:`GetObject\<> ()` ώστε να βρω έναν Ptr προς την διεπαφή του API της υποκλάσης;"
 
-The answer to this is that in many situations, both techniques will work.
-|ns3| provides a templated function for making the syntax of Object
-dynamic casting much more user friendly::
+.. The answer to this is that in many situations, both techniques will work. |ns3| provides a templated function for making the syntax of Object dynamic casting much more user friendly::
+Η απάντηση σε αυτό είναι ότι σε πολλές περιπτώσεις, και οι δύο τεχνικές θα λειτουργήσουν. Ο |ns3| παρέχει ένα πρότυπο συναρτήσεων ώστε να κάνει πολύ πιο φιλική προς τον χρήστη την συνταξη μετατροπή αντικειμενων (Object dynamic casting)::
 
     template <typename T1, typename T2>
     Ptr<T1>
@@ -273,9 +260,7 @@ dynamic casting much more user friendly::
       return Ptr<T1> (dynamic_cast<T1 *> (PeekPointer (p)));
     }
 
-DynamicCast works when the programmer has a base type pointer and is testing
-against a subclass pointer. GetObject works when looking for different objects
-aggregated, but also works with subclasses, in the same way as DynamicCast. If
-unsure, the programmer should use GetObject, as it works in all cases. If the
-programmer knows the class hierarchy of the object under consideration, it is
-more direct to just use DynamicCast.
+.. DynamicCast works when the programmer has a base type pointer and is testing against a subclass pointer. GetObject works when looking for different objects aggregated, but also works with subclasses, in the same way as DynamicCast. If unsure, the programmer should use GetObject, as it works in all cases. If the programmer knows the class hierarchy of the object under consideration, it is more direct to just use DynamicCast.
+Η δυαμική μετατροπή(DynamicCast) λειτουργεί όταν ο προγραμματιστής έχει έναν δείκτη βασικής κλάσης και δοκιμάζει ενάντια σε έναν δείκτη υποκλάσης. Η GetObject λειτουργεί όταν ενδιαφερόμαστε για διαφορετικά αντικείμενα που έχουν συναθροιστεί, αλλά λειτουργεί επίσης με υποκλάσεις, με τον ίδιο τρόπο σαν DynamicCast. Εάν ο προγραμματιστής δεν είναι σίγουρος μπορεί να χρησιμοποιήσει την GetObject καθώς λειτουργεί σε όλες τις περιπτώσεις. Εάν ο προγραμματιστής γνωρίζει την ιεραρχία κλάσεων του αντικειμένου ενδιαφέροντος, είναι πιο άμεσο να χρησιμοποιήσει απλά DynamicCast. 
+ 
+

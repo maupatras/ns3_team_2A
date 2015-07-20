@@ -155,20 +155,23 @@ The |ns3| object aggregation system is motivated in strong part by a recognition
 Το σύστημα συνάθροισης αντικειμένν του |ns3| υποκινείται σε μεγάλο βαθμό από την παρατήρηση ότι μία συχνή περίπτωση χρήσης του |ns2| υπήρξε η χρήση της κληρονομηκότητας και του πολυμορφισμού για την επέκταση τον μοντέλων πρωτοκόλλων. Για παράδειγμα, ειδικές εκδόσεις του TCP όπως RenoTcpAgent προέρχονται από (και επανακαθορίζουν συναρτήσεις από) την κλάση TcpAgent.
 
 .. However, two problems that have arisen in the |ns2| model are downcasts and "weak base class." Downcasting refers to the procedure of using a base class pointer to an object and querying it at run time to find out type information, used to explicitly cast the pointer to a subclass pointer so that the subclass API can be used. Weak base class refers to the problems that arise when a class cannot be effectively reused (derived from) because it lacks necessary functionality, leading the developer to have to modify the base class and causing proliferation of base class API calls, some of which may not be semantically correct for all subclasses.
-Παρόλα αυτά, δύο προβλήματα έχουν προκύψει στο μοντέλο του |ns2| είναι τα downcasts και οι  "weak" βασικές κλάσεις.  Ο όρος Downcasting αναφέρεται στην διαδικασία της χρήσης ενός δείκτη βασικής κλάσης σε ένα αντικείμενο και το να το ελέγχει κάποιο κατά τον χρόνο εκτέλεσης προκειμένου να βρεί πληροφορίες σχετικά με τον τύπο, και χρησιμοποιείται για την ρητή μετατροπή (cast) του δείκτη σε δείκτη υποκλάσης ώστε να χρησιμοποιηθεί η διεπαφή επικοινωνίας(API) της υποκλάσης. Ο όρος weak βασική κλάση αναφέρεται στο πρόβλημα που προκύπτει 
+Παρόλα αυτά, δύο προβλήματα έχουν προκύψει στο μοντέλο του |ns2| είναι τα downcasts και οι  "weak" βασικές κλάσεις. Ο όρος Downcasting αναφέρεται στην διαδικασία της χρήσης ενός δείκτη βασικής κλάσης σε ένα αντικείμενο και υπάρχει ερώτηση προς αυτό κατά τον χρόνο εκτέλεσης προκειμένου να βρεθούν πληροφορίες σχετικά με τον τύπο του, και χρησιμοποιείται για την ρητή μετατροπή (cast) του δείκτη σε δείκτη υποκλάσης ώστε να μπορεί να χρησιμοποιηθεί η διεπαφή επικοινωνίας(API) της υποκλάσης. Ο όρος weak βασική κλάση αναφέρεται στα προβλήματα που προκύπτουν όταν μία κλάση δεν μπορεί να απαναχρησιμοποιηθεί αποδοτικά (derived from) διότι δεν διαθέτει την απαραίτητη λειτουργικότητα, αναγκάζοντας τον χρήστη να τροποποιήσει την βασική κλάση και να πολλαπλασιάσει τις κλήσεις της διεπαφής επικοινωνίας (API) της βασικής κλάσης, μερικές από τις οποίες μπορεί να μην είναι σημασιολογικά σωστές για όλες τις υποκλάσεις. 
 
-|ns3| is using a version of the query interface design pattern to avoid these problems. This design is based on elements of the `Component Object Model <http://en.wikipedia.org/wiki/Component_Object_Model>`_ and `GNOME Bonobo <http://en.wikipedia.org/wiki/Bonobo_(component_model)>`_ although full binary-level compatibility of replaceable components is not supported and we have tried to simplify the syntax and impact on model developers.  
+.. |ns3| is using a version of the query interface design pattern to avoid these problems. This design is based on elements of the `Component Object Model <http://en.wikipedia.org/wiki/Component_Object_Model>`_ and `GNOME Bonobo <http://en.wikipedia.org/wiki/Bonobo_(component_model)>`_ although full binary-level compatibility of replaceable components is not supported and we have tried to simplify the syntax and impact on model developers.  
 
-Examples
-********
+Ο |ns3| χρησιμοποιεί μία εκδοση του σχεδιαστικού πρότυπου διεπαφής ερωτημάτων ώστε να αποφύγει τέτοιου είδους προβλήματα. Ο σχεδιασμός αυτός βασίζεται σε στοιχεία του `Component Object Model <http://en.wikipedia.org/wiki/Component_Object_Model>`_ και `GNOME Bonobo <http://en.wikipedia.org/wiki/Bonobo_(component_model)>`_  παρόλο που πλήρης συμβατότητα των επιμέρους τμημαάτων σε δυαδικό επίπεδο δεν υποστηρίζεται και έχει γίνει προσπάθεια να απλοποιηθει το συνακτικό και το αντίκτυπο στους προγραμματιστές του μοντέλου.   
 
-Aggregation example
-+++++++++++++++++++
+.. Examples
+Παραδείγματα
+************
 
-:cpp:class:`Node` is a good example of the use of aggregation in |ns3|.  Note
-that there are not derived classes of Nodes in |ns3| such as class
-:cpp:class:`InternetNode`.  Instead, components (protocols) are aggregated to a
-node. Let's look at how some Ipv4 protocols are added to a node.::
+.. Aggregation example
+Παράδειγμα συνάθροισης
+++++++++++++++++++++++
+
+.. :cpp:class:`Node` is a good example of the use of aggregation in |ns3|.  Note that there are not derived classes of Nodes in |ns3| such as class :cpp:class:`InternetNode`.  Instead, components (protocols) are aggregated to a node. Let's look at how some Ipv4 protocols are added to a node.::
+
+Η κλάση :cpp:class:`Node` είναι ένα καλό παράδειγμα χρήσης της συνάθροισης στον |ns3|. Να σημειωθεί ότι δεν υπάρχουν κλάσεις που προέρχονται από Nodes στον |ns3| όπως η κλάση :cpp:class:`InternetNode`. Αντί για αυτό,  συστατικα -components (πρωτόκολα) σύναθροίζοντται σε ένα κόμβο. Στην συνέχεια εξετάζουμε πως μερικά πρωτόκολλα Ipv4 προστίθενται ώστε να σχηματίσουν ένα κόμβο.::
 
     static void
     AddIpv4Stack(Ptr<Node> node)
@@ -181,18 +184,15 @@ node. Let's look at how some Ipv4 protocols are added to a node.::
       node->AggregateObject (ipv4Impl);
     }
 
-Note that the Ipv4 protocols are created using :cpp:func:`CreateObject()`.
-Then, they are aggregated to the node. In this manner, the Node base class does
-not need to be edited to allow users with a base class Node pointer to access
-the Ipv4 interface; users may ask the node for a pointer to its Ipv4 interface
-at runtime. How the user asks the node is described in the next subsection.
+.. Note that the Ipv4 protocols are created using :cpp:func:`CreateObject()`. Then, they are aggregated to the node. In this manner, the Node base class does not need to be edited to allow users with a base class Node pointer to access the Ipv4 interface; users may ask the node for a pointer to its Ipv4 interface at runtime. How the user asks the node is described in the next subsection.
+Να σημειωθεί ότι τα πρωτόκολλα δημιουργούνται χρησιμοποιώντας :cpp:func:`CreateObject()`. Τότε, συναθροίζονται σε ένα κόμβο. Με αυτό τον τρόπο η βασική κλάση Node δεν χρειάζεται να τροποποιηθεί ώστε να επιτρέψει σε χρήστες μέ έναν δείκτη της βασικής κλάσης Node να έχουν πρόσβαση στην διεπαφή Ipv4. Οι χρήστες να ρωτήσουν τον κόμβο για έναν δείκτη προς την διεπαφή Ipv4 κατά τον χρόνο εκτέλεσης. Ο τρόπος που ο χρήστης πραγματοποιεί αυτή την ερώτηση περιγράφεται στην επόμενη υποενότητα.
 
-Note that it is a programming error to aggregate more than one object of the
-same type to an :cpp:class:`ns3::Object`. So, for instance, aggregation is not
-an option for storing all of the active sockets of a node.
+.. Note that it is a programming error to aggregate more than one object of the same type to an :cpp:class:`ns3::Object`. So, for instance, aggregation is not an option for storing all of the active sockets of a node.
+Να σημειωθεί ότι είναι προγραμματιστικό λάθος να συναθροίζονται περισσότερα από ενα αντικείμενο του ίδιου τύπου σε ένα αντικείμενο :cpp:class:`ns3::Object`. Έτσι για παράδειγμα, η συνάθροιση δεν αποτελεί επιλογή για την αποθήκευση όλων των ενεργών socket ενός κόμβου. 
 
-GetObject example
-+++++++++++++++++
+.. GetObject example
+Το παράγειγμα GetObject
++++++++++++++++++++++++
 
 GetObject is a type-safe way to achieve a safe downcasting and to allow
 interfaces to be found on an object.  

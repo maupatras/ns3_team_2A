@@ -115,23 +115,23 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 .. Let's review a couple of properties of these objects.
 Ας αναφέρουμε κάποιες ιδιότητες των αντικείμενων.
 
-Smart Pointers
+.. Smart Pointers
+Έξυπνοι Δείκτες Smart Pointers
 ++++++++++++++
 
-As introduced in the |ns3| tutorial, |ns3| objects are memory managed by a
-`reference counting smart pointer implementation
-<http://en.wikipedia.org/wiki/Smart_pointer>`_, class :cpp:class:`Ptr`. 
+.. As introduced in the |ns3| tutorial, |ns3| objects are memory managed by a `reference counting smart pointer implementation <http://en.wikipedia.org/wiki/Smart_pointer>`_, class :cpp:class:`Ptr`. 
 
-Smart pointers are used extensively in the |ns3| APIs, to avoid passing
-references to heap-allocated objects that may cause memory leaks.  
-For most basic usage (syntax), treat a smart pointer like a regular pointer::
+Όπως συστήθηκε στο εγχειρίδιο του |ns3|, τα |ns3| αντικείμενα διαχειρίζονται σε θέματα μνήμης από τον υλοποιημένο έξυπνο δείκτη που μετρά αναφορές <http://en.wikipedia.org/wiki/Smart_pointer>, την κλάση :cpp:class: `Ptr`.
+
+.. Smart pointers are used extensively in the |ns3| APIs, to avoid passing references to heap-allocated objects that may cause memory leaks. For most basic usage (syntax), treat a smart pointer like a regular pointer::
+Οι έξυπνοι δείκτες χρησιμοποιούνται εκτεταμένα στα ns-3 APIs, ώστε να αποφεύγονται διερχόμενες αναφορές (passing references) σε κατανεμημένα σε στοίβες (heap-allocated) αντικείμενα που μπορούν να προκαλέσουν διαρροές μνήμης (memory leaks). Για την πιο βασική χρήση (συντακτική), μπορούμε να χειριστούμε τους έξυπνους δείκτες σαν κανονικούς δείκτες:
 
   Ptr<WifiNetDevice> nd = ...;
   nd->CallSomeFunction ();
   // etc.
 
-So how do you get a smart pointer to an object, as in the first line
-of this example?
+.. So how do you get a smart pointer to an object, as in the first line of this example?
+Οπότε πως μπορούμε να χρησιμοποιήσουμε έναν έξυπνο δείκτη σε ένα αντικείμενο, όπως στην πρώτη γραμμή αυτού του παραδείγματος?
   
 CreateObject
 ============

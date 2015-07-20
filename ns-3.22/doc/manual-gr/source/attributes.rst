@@ -10,7 +10,8 @@
 
 .. _Attributes:
 
-Configuration and Attributes
+.. Configuration and Attributes
+Ρυθμίσεις και Χαρακτηριστικά
 ----------------------------
 
 In |ns3| simulations, there are two main aspects to configuration:

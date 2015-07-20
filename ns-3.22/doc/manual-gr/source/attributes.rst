@@ -136,10 +136,8 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 CreateObject
 ============
 
-As we discussed above in :ref:`Memory-management-and-class-Ptr`, at the
-lowest-level API, objects of type :cpp:class:`Object` are not instantiated
-using ``operator new`` as usual but instead by a templated function called
-:cpp:func:`CreateObject ()`.
+.. As we discussed above in :ref:`Memory-management-and-class-Ptr`, at the lowest-level API, objects of type :cpp:class:`Object` are not instantiated using ``operator new`` as usual but instead by a templated function called
+Όπως έχει ήδη συζητηθεί παραπάνω στην ενότητα 'Διαχείρισης Μνήμης και κλάση Ptr', στο API με το χαμηλότερο επίπεδο, τα αντικείμενα του τύπου :cpp:class:`Object` δεν δημιουργούνται χρησιμοποιώντας τον τελεστή (operator) new  ``operator new`` όπως συνήθως, αλλά αντί για τον new operator χρησιμοποιείται η συνάρτηση:cpp:func:`CreateObject ()`.
 
 A typical way to create such an object is as follows::
 

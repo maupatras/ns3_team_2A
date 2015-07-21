@@ -121,7 +121,7 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 
 .. As introduced in the |ns3| tutorial, |ns3| objects are memory managed by a `reference counting smart pointer implementation <http://en.wikipedia.org/wiki/Smart_pointer>`_, class :cpp:class:`Ptr`. 
 
-Όπως συστήθηκε στο εγχειρίδιο του |ns3|, τα |ns3| αντικείμενα διαχειρίζονται σε θέματα μνήμης από τον υλοποιημένο έξυπνο δείκτη που μετρά αναφορές <http://en.wikipedia.org/wiki/Smart_pointer>, την κλάση :cpp:class: `Ptr`.
+Όπως συστήθηκε στο εγχειρίδιο του |ns3|, τα |ns3| αντικείμενα διαχειρίζονται σε θέματα μνήμης από τον υλοποιημένο έξυπνο δείκτη που μετρά αναφορές <http://en.wikipedia.org/wiki/Smart_pointer>_, την κλάση :cpp:class:`Ptr`.
 
 .. Smart pointers are used extensively in the |ns3| APIs, to avoid passing references to heap-allocated objects that may cause memory leaks. For most basic usage (syntax), treat a smart pointer like a regular pointer::
 Οι έξυπνοι δείκτες χρησιμοποιούνται εκτεταμένα στα ns-3 APIs, ώστε να αποφεύγονται διερχόμενες αναφορές (passing references) σε κατανεμημένα σε στοίβες (heap-allocated) αντικείμενα που μπορούν να προκαλέσουν διαρροές μνήμης (memory leaks). Για την πιο βασική χρήση (συντακτική), μπορούμε να χειριστούμε τους έξυπνους δείκτες σαν κανονικούς δείκτες:
@@ -535,7 +535,7 @@ SmartPointer
 Για λεπτομερέστερη ανάλυση σχετικά με τη ρύθμιση του |ns3| namespace μπορείτε να βρείτε στην ενότητα :ref:`Object-names` .
 
 .. Implementation Details
-Λεπτομέρειες Υλοποίησης (Implementation Details)
+Λεπτομέρειες Υλοποίησης - Implementation Details
 **********************
 
 .. Value Classes
@@ -549,7 +549,7 @@ SmartPointer
     p->Set ("cwnd", IntegerValue (100)); // integer-based setter
 
 .. The system provides some macros that help users declare and define new AttributeValue subclasses for new types that they want to introduce into the attribute system: 
-Το σύστημα παρέχει κάποιες μακροεντολές (macros) που βοηθούν τους χρήστες να δηλώσουν και να ορίσουν νέες υποκλάσεις τύπου AttributeValue για νέους τύπους που θέλουν να εισάγουν στο σύστημα χαρακτηριστικών (attribute system)
+Το σύστημα παρέχει κάποιες μακροεντολές (macros) που βοηθούν τους χρήστες να δηλώσουν και να ορίσουν νέες υποκλάσεις τύπου AttributeValue για νέους τύπους που θέλουν να εισάγουν στο σύστημα χαρακτηριστικών (attribute system):
 
 * ``ATTRIBUTE_HELPER_HEADER``
 * ``ATTRIBUTE_HELPER_CPP``
@@ -562,7 +562,7 @@ SmartPointer
 ++++++++++++++++++++
 
 .. Attributes in the system must not depend on the state of any other Attribute in this system. This is because an ordering of Attribute initialization is not specified, nor enforced, by the system. A specific example of this can be seen in automated configuration programs such as :cpp:class:`ConfigStore`. Although a given model may arrange it so that Attributes are initialized in a particular order, another automatic configurator may decide independently to change Attributes in, for example, alphabetic order.  
-Χαρακτηριστικά στο σύστημα πρέπει να μην εξαρτώνται από την κατάσταση από κανένα άλλο Attribute στο σύστημα. Αυτό γίνεται γιατί η σειρά αρχικοποίησης του Atttibute ούτε έχει καθοριστεί, ούτε έχει επιβληθεί από το σύστημα. Ένα συγκεκριμένο παράδειγμα αυτού αποτελεί η αυτοματοποιημένη ρύθμιση προγραμμάτων όπως το ConfigStore. Αν και το δοσμένο μοντέλο μπορεί να προγραμματιστεί έτσι ώστε τα Attributes να αρχικοποιούνται με μια συγκεκριμένη σειρά, άλλος αυτόματος ρυθμιστής πρέπει να αποφασίσει ανεξάρτητα να αλλάξει τα Attributes για παράδειγμα με αλφαβητική σειρά.
+Χαρακτηριστικά στο σύστημα πρέπει να μην εξαρτώνται από την κατάσταση από κανένα άλλο Attribute στο σύστημα. Αυτό γίνεται γιατί η σειρά αρχικοποίησης του Atttibute ούτε έχει καθοριστεί, ούτε έχει επιβληθεί από το σύστημα. Ένα συγκεκριμένο παράδειγμα αυτού αποτελεί η αυτοματοποιημένη ρύθμιση προγραμμάτων όπως η κλάσης :cpp:class:`ConfigStore`. Αν και το δοσμένο μοντέλο μπορεί να προγραμματιστεί έτσι ώστε τα Attributes να αρχικοποιούνται με μια συγκεκριμένη σειρά, άλλος αυτόματος ρυθμιστής πρέπει να αποφασίσει ανεξάρτητα να αλλάξει τα Attributes για παράδειγμα με αλφαβητική σειρά.
 
 .. Because of this non-specific ordering, no Attribute in the system may have any dependence on any other Attribute. As a corollary, Attribute setters must never fail due to the state of another Attribute. No Attribute setter may change (set) any other Attribute value as a result of changing its value.
 Εξαιτίας της μη καθορισμένης σειράς, κανένα Attribute στο σύστημα δεν θα έχει εξάρτηση από κάποιο άλλο Attribute. Σε αντίθεση, αυτοί που δίνουν τιμές σε Attributes (Attribute setters) δεν μπορούν ποτέ να αποτύγχουν εξαιτίας της κατάστασης κάποιου άλλου Attribute. Κανένας Attribute setter δεν μπορεί να αλλάξει κάποια άλλη τιμή Attribute ως αποτέλεσμα της αλλαγής της τιμής του.
@@ -582,33 +582,34 @@ SmartPointer
 .. Beware that the object and all its derived classes must also implement a :cpp:func:`GetInstanceTypeId ()` method. Otherwise the :cpp:func:`ObjectBase::ConstructSelf ()` will not be able to read the attributes.
 Πρέπει να προσέξετε ότι το αντικείμενο και όλες οι επαγώμενες κλάσεις πρέπει να υλοποιήσουν επίσης μια μέθοδο :cpp:func:`GetInstanceTypeId ()`. Διαφορετικά η μέθοδος :cpp:func:`ObjectBase::ConstructSelf ()` δεν θα είναι ικανή να διαβάσει τα χαρακτηριστικά.
 
-Adding Attributes
+.. Adding Attributes
+Προσθέτοντας Χαρακτηριστικά - Adding Attributes
 +++++++++++++++++
 
-The |ns3| system will place a number of internal values under the attribute
-system, but undoubtedly users will want to extend this to pick up ones we have
-missed, or to add their own classes to the system.
+.. The |ns3| system will place a number of internal values under the attribute system, but undoubtedly users will want to extend this to pick up ones we have missed, or to add their own classes to the system.
+To |ns3| σύστημα θα τοποθετήσει έναν αριθμό από εσωτερικές τιμές κάτω από το attribute system, αλλά αναμφίβολα οι χρήστες θα θέλουν να το επεκτείνουν αυτό δίνοντας τιμές σε όσες δεν έχουν πάρει ή προσθέτοντας τις κλάσεις τους στο σύστημα.
 
-There are three typical use cases:
+.. There are three typical use cases:
+Υπάρχουν τυπικά 3 σενάρια χρήσης (use cases):
 
-* Making an existing class data member accessible as an Attribute,
-  when it isn't already.
-* Making a new class able to expose some data members as Attributes
-  by giving it a TypeId.
-* Creating an :cpp:class:`AttributeValue` subclass for a new class
-  so that it can be accessed as an Attribute.
+.. * Making an existing class data member accessible as an Attribute, when it isn't already.
+* Κάνοντας ένα υπάρχων μέλος κλάσης προσβάσιμο ως Attribute ενώ δεν ήταν ήδη.
+.. * Making a new class able to expose some data members as Attributes by giving it a TypeId.
+* Κάνοντας μια νέα κλάση ικανή να προωθήσει κάποια μέλη ως Attributes δίνοντας τους ένα TypeId.
+.. * Creating an :cpp:class:`AttributeValue` subclass for a new class so that it can be accessed as an Attribute.
+* Δημιουργώντας μια τύπου :cpp:class:`AttributeValue` υποκλάση για μια νέα κλάση έτσι ώστε αυτή να είναι προσβάσιμη ως ένα Attribute.
 
-Existing Member Variable
+.. Existing Member Variable
+Υπάρχουσα Μέλη Μεταβλητών - Existing Member Variable 
 ========================
 
-Consider this variable in :cpp:class:`TcpSocket`::
+.. Consider this variable in :cpp:class:`TcpSocket`::
+Θεωρήστε αυτή τη μεταβλητή στην κλάση :cpp:class:`TcpSocket`::
 
     uint32_t m_cWnd;   // Congestion window
 
-Suppose that someone working with TCP wanted to get or set the value of that
-variable using the metadata system. If it were not already provided by |ns3|,
-the user could declare the following addition in the runtime metadata system (to
-the :cpp:func:`GetTypeId` definition for :cpp:class:`TcpSocket`)::
+Suppose that someone working with TCP wanted to get or set the value of that variable using the metadata system. If it were not already provided by |ns3|, the user could declare the following addition in the runtime metadata system (to the :cpp:func:`GetTypeId` definition for :cpp:class:`TcpSocket`)::
+Υποθέστε ότι κάποιος που δουλεύει με TCP θα ήθελε να πάρει ή να θέσει τιμή σε μια μεταβλητή που χρησιμοποιεί το metadata σύστημα. Αν αυτό δεν παρεχόταν ήδη από τον |ns3|, ο χρηστης θα μπορούσε να ορίσει την ακόλουθη προσθήκη στο metadata σύστημα που τρέχει (runtime metadata system) (στη μέθοδο :cpp:func:`GetTypeId` ορισμό για την κλάση :cpp:class:`TcpSocket`):
 
     .AddAttribute ("Congestion window", 
                    "Tcp congestion window (bytes)",
@@ -616,31 +617,26 @@ the :cpp:func:`GetTypeId` definition for :cpp:class:`TcpSocket`)::
                    MakeUintegerAccessor (&TcpSocket::m_cWnd),
                    MakeUintegerChecker<uint16_t> ())
 
-Now, the user with a pointer to a :cpp:class:`TcpSocket` instance
-can perform operations such as
-setting and getting the value, without having to add these functions explicitly.
-Furthermore, access controls can be applied, such as allowing the parameter to
-be read and not written, or bounds checking on the permissible values can be
-applied.
+Now, the user with a pointer to a :cpp:class:`TcpSocket` instance can perform operations such as setting and getting the value, without having to add these functions explicitly. Furthermore, access controls can be applied, such as allowing the parameter to be read and not written, or bounds checking on the permissible values can be applied.
+Τώρα, ο χρήστης με έναν δείκτη στο στιγμιότυπο της κλάσης :cpp:class:`TcpSocket` μπορεί να εκτελέσει λειτουργίες όπως να θέτει και να παίρνει τιμές χωρίς να χρειάζεται να προσθέτει αυτές τις λειτουργίες. Επιπροσθέτως, έλεγχοι πρόσβασης μπορούν να εφαρμοστούν όπως να επιτρέπεται μια παράμετρος να μπορεί να διαβαστεί και όχι να γραφτεί, ή όρια για τον έλεγχο των επιτρεπόμενων τιμών να μπορούν να εφαρμοστούν.
 
-New Class TypeId
+.. New Class TypeId
+Νέα Κλάση TypeId - New Class TypeId
 ================
 
-Here, we discuss the impact on a user who wants to add a new class to |ns3|.
-What additional things must be done to enable it to hold attributes?
+.. Here, we discuss the impact on a user who wants to add a new class to |ns3|. What additional things must be done to enable it to hold attributes?
+Εδώ συζητάμε την επίδραση ενός χρήστη που θέλει να προσθέσει μια καινούρια κλάση στον |ns3|. Τι επιπρόσθετα πράγματα πρέπει να γίνουν έτσι ώστε να ενεργοποιηθούν ή να κρατηθούν χαρακτηριστικά?
 
-Let's assume our new class, called :cpp:class:`ns3::MyMobility`,
-is a type of mobility model.  First, the class should inherit from
-it's parent class, :cpp:class:`ns3::MobilityModel`.
-In the ``my-mobility.h`` header file::
+.. Let's assume our new class, called :cpp:class:`ns3::MyMobility`, is a type of mobility model.  First, the class should inherit from it's parent class, :cpp:class:`ns3::MobilityModel`. In the ``my-mobility.h`` header file::
+Ας υποθέσουμε ότι η καινούρια κλάση η οποία ονομάζεται :cpp:class:`ns3::MyMobility`, είναι τύπου κινούμενου μοντέλου (mobility model). Καταρχήν, η κλάση θα μπορούσε να κληρονομήσει από την κλάση γονέα, :cpp:class:`ns3::MobilityModel. Στο αρχείο κεφαλίδας (header file) ``my-mobility.h`` υπάρχουν:
 
     namespace ns3 {
     
     class MyClass : public MobilityModel
     {
 
-This requires we declare the :cpp:func:`GetTypeId ()` function. 
-This is a one-line public function declaration::
+.. This requires we declare the :cpp:func:`GetTypeId ()` function. This is a one-line public function declaration::
+Αυτό απαιτεί τον ορισμό της :cpp:func:`GetTypeId ()` συνάρτησης. Παρακάτω φαίνεται ο ορισμός της δημόσιας συνάρτησης:
 
     public:
       /**
@@ -649,8 +645,8 @@ This is a one-line public function declaration::
        */
       static TypeId GetTypeId (void);
 
-We've already introduced what a :cpp:class:`TypeId` definition will look like
-in the ``my-mobility.cc`` implementation file::
+We've already introduced what a :cpp:class:`TypeId` definition will look like in the ``my-mobility.cc`` implementation file::
+Έχουμε ήδη εισαγάγει τι είναι ένας TypeId ορισμός που θα μοιάζει όπως το ``my-mobility.cc``  αρχείο υλοποίησης:
 
     NS_OBJECT_ENSURE_REGISTERED (MyMobility);
 
@@ -676,36 +672,35 @@ in the ``my-mobility.cc`` implementation file::
       return tid;
     }
 
-If we don't want to subclass from an existing class, in the header file
-we just inherit from :cpp:class:`ns3::Object`, and in the object file
-we set the parent class to :cpp:class:`ns3::Object` with
-``.SetParent<Object> ()``.
+.. If we don't want to subclass from an existing class, in the header file we just inherit from :cpp:class:`ns3::Object`, and in the object file we set the parent class to :cpp:class:`ns3::Object` with ``.SetParent<Object> ()``.
+Εαν δεν θέλουμε να κάνουμε υποκλάση από μια υπάρχουσα κλάση, στο αρχείο κεφαλίδας κληρονομούμε από  το :cpp:class:`ns3::Object`, και στο αρχείο αντικειμένου (object file) θέτουμε στην κλάση γονέα στην :cpp:class:`ns3::Object`  με ``.SetParent<Object> ()``. 
     
-Typical mistakes here involve:
+.. Typical mistakes here involve:
+Τυπικά λάθη εδώ περιλαμβάνουν:
 
-* Not calling ``NS_OBJECT_ENSURE_REGISTERED ()``
-* Not calling the :cpp:func:`SetParent ()` method,
-  or calling it with the wrong type.
-* Not calling the :cpp:func:`AddConstructor ()` method,
-  or calling it with the wrong type.
-* Introducing a typographical error in the name of the :cpp:class:`TypeId`
-  in its constructor.
-* Not using the fully-qualified C++ typename of the enclosing C++ class as the
-  name of the :cpp:class:`TypeId`.  Note that ``"ns3::"`` is required.
+.. * Not calling ``NS_OBJECT_ENSURE_REGISTERED ()``
+* Δεν καλούνται ``NS_OBJECT_ENSURE_REGISTERED ()``
+.. * Not calling the :cpp:func:`SetParent ()` method, or calling it with the wrong type.
+* Δεν καλείται η :cpp:func:`SetParent ()` μέθοδος, ή καλείται με λάθος τύπο
+.. * Not calling the :cpp:func:`AddConstructor ()` method, or calling it with the wrong type.
+* Δεν καλείται η :cpp:func:`AddConstructor ()` :cpp:func:`AddConstructor ()`
+.. * Introducing a typographical error in the name of the :cpp:class:`TypeId` in its constructor.
+* Εισάγοντας ένα τυπογραφικό λάθος στο όνομα της κλάσης :cpp:class:`TypeId`  στον δημιουργό της.
+.. * Not using the fully-qualified C++ typename of the enclosing C++ class as the name of the :cpp:class:`TypeId`.  Note that ``"ns3::"`` is required.
+* Δεν χρησιμοποιείται το πλήρως qualified C++ typename της περιβαλλόμενης C++ κλάσης όπως το όνομα της :cpp:class:`TypeId`. Σημειώστε ότι το ``"ns3::"`` απαιτείται.
 
-None of these mistakes can be detected by the |ns3| codebase, so users
-are advised to check carefully multiple times that they got these right.
+.. None of these mistakes can be detected by the |ns3| codebase, so users are advised to check carefully multiple times that they got these right.
+Κανένα από αυτά τα λάθη δεν μπορεί να ανιχνευτεί από τον κώδικα βάση (codebase) του |ns3|, οπότε οι χρήστες συμβουλεύονται να ελέγξουν προσεκτικά πολλές φορές ότι έχουν κάνει τις κατάλληλες ρυθμίσεις.
 
-New AttributeValue Type
+.. New AttributeValue Type
+Νέος Τύπος AttributeValue - New AttributeValue Type
 =======================
 
-From the perspective of the user who writes a new class in the system and wants
-it to be accessible as an attribute, there is mainly the matter of writing the
-conversions to/from strings and attribute values.  Most of this can be
-copy/pasted with macro-ized code.  For instance, consider a class declaration
-for :cpp:class:`Rectangle` in the ``src/mobility/model`` directory:
+.. From the perspective of the user who writes a new class in the system and wants it to be accessible as an attribute, there is mainly the matter of writing the conversions to/from strings and attribute values.  Most of this can be copy/pasted with macro-ized code.  For instance, consider a class declaration for :cpp:class:`Rectangle` in the ``src/mobility/model`` directory:
+Από τη σκοπιά του χρήστη που δημιουργεί μια καινούρια κλάση στο σύστημα και θέλει αυτή να είναι προσβάσιμη σε ένα χαρακτηριστικό, εκεί υπάρχει κυρίως το ζήτημα της εγγραφής των συζητήσεων σε/από αλφαριθμητικά και τις τιμές χαρακτηριστικών. Τα περισσότερα από αυτά μπορούν να αντιγραφούν/επικολληθούν με macro κώδικα. Για παράδειγμα, θεωρήστε τη δήλωση κλάσης της :cpp:class:`Rectangle`  στον ``src/mobility/model`` κατάλογο (directory).
 
-Header File
+.. Header File
+Αρχείο Κεφαλίδας - Header File
 ~~~~~~~~~~~
 
 ::
@@ -723,18 +718,20 @@ Header File
       double yMax;
     };
  
-One macro call and two operators, must be added below the class declaration in
-order to turn a Rectangle into a value usable by the ``Attribute`` system::
+.. One macro call and two operators, must be added below the class declaration in order to turn a Rectangle into a value usable by the ``Attribute`` system::
+Μια macro κλήση και 2 τελεστές, μπορούν να προστεθούν κάτω από τη δήλωση της κλάσης ώστε να μετατρέψουμε ένα Rectangle σε μια τιμή που μπορεί να χρησιμοποιηθεί από το ``Attribute`` σύστημα.
 
     std::ostream &operator << (std::ostream &os, const Rectangle &rectangle);
     std::istream &operator >> (std::istream &is, Rectangle &rectangle);
 
     ATTRIBUTE_HELPER_HEADER (Rectangle);
 
-Implementation File
+.. Implementation File
+Αρχείο Υλοποίησης - Implementation File
 ~~~~~~~~~~~~~~~~~~~
 
-In the class definition (``.cc`` file), the code looks like this::
+.. In the class definition (``.cc`` file), the code looks like this::
+Στον ορισμό της κλάσης (``.cc`` αρχείο), ο κώδικας μοιάζει όπως παρακάτω:
 
     ATTRIBUTE_HELPER_CPP (Rectangle);
 
@@ -760,32 +757,28 @@ In the class definition (``.cc`` file), the code looks like this::
       return is;
     }
 
-These stream operators simply convert from a string representation of the
-Rectangle (``"xMin|xMax|yMin|yMax"``) to the underlying Rectangle.  The modeler
-must specify these operators and the string syntactical representation of an
-instance of the new class.
+.. These stream operators simply convert from a string representation of the Rectangle (``"xMin|xMax|yMin|yMax"``) to the underlying Rectangle.  The modeler must specify these operators and the string syntactical representation of an instance of the new class.
+Αυτοί οι χειριστές ρεύματος (stream operators) απλώς μετατρέπουν από μια αλφαριθμητική αναπαράσταση του Rectangle (``"xMin|xMax|yMin|yMax"``) στο υποκείμενο Rectangle. Ο δημιουργός του μοντέλου (modeler) πρέπει να καθόρισει αυτούς τους χειριστές και την αλφαριθμητική συντακτική αναπαράσταση ενός στιγμιοτύπου από μια καινούρια κλάση.
 
 ConfigStore
 ***********
 
-Values for |ns3| attributes can be stored in an ASCII or XML text file
-and loaded into a future simulation run.  This feature is known as the
-|ns3| ConfigStore.  The :cpp:class:`ConfigStore` is a specialized database for attribute values and default values.
+.. Values for |ns3| attributes can be stored in an ASCII or XML text file and loaded into a future simulation run.  This feature is known as the |ns3| ConfigStore.  The :cpp:class:`ConfigStore` is a specialized database for attribute values and default values.
+Τιμές για |ns3| μπορούν να αποθηκεύονται είτε σε ASCII είτε σε XML αρχείο κειμένου και να φορτωθεί σε μελλοντική εκτέλεση προσομοίωσης (simulation run). Αυτό το χαρακτηριστικό είναι γνωστό ως το |ns3| ConfigStore. Η κλάση :cpp:class:`ConfigStore` είναι μια εξειδικευμένη βάση δεδομένων για τιμές χαρακτηριστικών και καθορισμένες τιμές.
 
-Although it is a separately maintained module in the
-``src/config-store/`` directory, we document it here because of its 
-sole dependency on |ns3| core module and attributes.
+.. Although it is a separately maintained module in the ``src/config-store/`` directory, we document it here because of its  sole dependency on |ns3| core module and attributes.
+Αν και είναι μια διακριτή μονάδα (maintained module) στον ``src/config-store/`` κατάλογο (directory), το αναφέρουμε εδώ εξαιτίας της εξάρτησης του με τον πυρήνα του |ns3| (ns-3 core module) και τα χαρακτηριστικά.
 
-We can explore this system by using an example from
-``src/config-store/examples/config-store-save.cc``.
+.. We can explore this system by using an example from ``src/config-store/examples/config-store-save.cc``.
+Μπορούμε να ερευνήσουμε αυτό το σύστημα χρησιμοποιώντας ένα παράδειγμα από το ``src/config-store/examples/config-store-save.cc``.
 
-First, all users of the :cpp:class:`ConfigStore` must include
-the following statement::
+.. First, all users of the :cpp:class:`ConfigStore` must include the following statement::
+Καταρχήν, όλοι οι χρήστες της κλάσης :cpp:class:`ConfigStore` πρέπει να περιλαμβάνουν την ακόλουθη δήλωση:
 
     #include "ns3/config-store-module.h"
 
-Next, this program adds a sample object :cpp:class:`ConfigExample`
-to show how the system is extended::
+.. Next, this program adds a sample object :cpp:class:`ConfigExample` to show how the system is extended::
+Στη συνέχεια το πρόγραμμα προσθέτει ένα δείγμα κλάσης αντικειμένου τύπου :cpp:class:`ConfigExample` να δείξει το πως το σύστημα επεκτείνεται::
 
     class ConfigExample : public Object
     {
@@ -805,8 +798,8 @@ to show how the system is extended::
     
     NS_OBJECT_ENSURE_REGISTERED (ConfigExample);
 
-Next, we use the Config subsystem to override the defaults in a couple of
-ways::
+.. Next, we use the Config subsystem to override the defaults in a couple of ways::
+Στη συνέχεια, χρησιμοποιούμε το Config υπόσυστημα ώστε να παρακάμψουμε τα προκαθορισμένα με διάφορους τρόπους:
      
       Config::SetDefault ("ns3::ConfigExample::TestInt16", IntegerValue (-5));
     
@@ -821,32 +814,23 @@ ways::
       NS_ABORT_MSG_UNLESS (iv.Get () == -3,
                            "Cannot set ConfigExample's integer attribute via SetAttribute");
     
-The next statement is necessary to make sure that (one of) the objects
-created is rooted in the configuration namespace as an object instance.
-This normally happens when you aggregate objects to a :cpp:class:`ns3::Node`
-or :cpp:class:`ns3::Channel` instance,
-but here, since we are working at the core level, we need to create a
-new root namespace object::
+.. The next statement is necessary to make sure that (one of) the objects created is rooted in the configuration namespace as an object instance. This normally happens when you aggregate objects to a :cpp:class:`ns3::Node` or :cpp:class:`ns3::Channel` instance, but here, since we are working at the core level, we need to create a new root namespace object::
+Η επόμενη δήλωση είναι απαραίτητη για να επιβεβαιωθεί ότι (ένα από) τα αντικείμενα που δημιουργήθηκε δρομολογείται στη ρύθμιση του χώρου ονόματος (configuration namespace) ώς ένα αντικειμένο στιγμιοτύπου (object instance). Αυτό φυσιολογικά συμβαίνει όταν συναθροίζονται (aggregate) αντικείμενα σε μια κλάση τύπου :cpp:class:`ns3::Node` ή σε :cpp:class:`ns3::Channel` στιγμιότυπο κλάσης, αλλά εδώ, καθώς δουλεύουμε σε επίπεδο πυρήνα, χρειαζόμαστε να δημιουργήσουμε ένα καινούριο δρομολογημένο αντικείμενο namespace::
 
       Config::RegisterRootNamespaceObject (a2_obj);
 
-Writing
+.. Writing
+Γράψιμο – Writing
 +++++++
       
-Next, we want to output the configuration store.  The examples show how
-to do it in two formats, XML and raw text.  In practice, one should perform
-this step just before calling :cpp:func:`Simulator::Run ()` to save the
-final configuration just before running the simulation.
+.. Next, we want to output the configuration store.  The examples show how to do it in two formats, XML and raw text.  In practice, one should perform this step just before calling :cpp:func:`Simulator::Run ()` to save the final configuration just before running the simulation.
+Στη συνέχεια θέλουμε να κρατήσουμε ως έξοδο (output) τις αποθηκευμένες ρυθμίσεις. Τα παραδείγματα δείχνουν πως μπορούμε να το κάνουμε με 2 τρόπους, με XML και ακατέργαστο κείμενο (raw text). Στην πράξη, κάποιος μπορεί να εκτελέσει αυτό το βήμα αμέσως πριν καλέσει την μέθοδο :cpp:func:`Simulator::Run ()` για να αποθηκεύσει τις τελικές ρυθμίσεις λίγο πριν εκτελεστεί η προσομοίωση.
 
-There are three Attributes that govern the behavior of the ConfigStore:
-``"Mode"``, ``"Filename"``, and ``"FileFormat"``.  The Mode (default ``"None"``)
-configures whether |ns3| should load configuration from a previously saved file
-(specify ``"Mode=Load"``) or save it to a file (specify ``"Mode=Save"``).
-The Filename (default ``""``) is where the ConfigStore should read or write
-its data.  The FileFormat (default ``"RawText"``) governs whether
-the ConfigStore format is plain text or Xml (``"FileFormat=Xml"``)
+.. There are three Attributes that govern the behavior of the ConfigStore: ``"Mode"``, ``"Filename"``, and ``"FileFormat"``.  The Mode (default ``"None"``) configures whether |ns3| should load configuration from a previously saved file (specify ``"Mode=Load"``) or save it to a file (specify ``"Mode=Save"``). The Filename (default ``""``) is where the ConfigStore should read or write its data.  The FileFormat (default ``"RawText"``) governs whether the ConfigStore format is plain text or Xml (``"FileFormat=Xml"``)
+Υπάρχουν τρία Attributes που καθορίζουν τη συμπεριφορά του ConfigStore: ``"Mode"``, ``"Filename"``, και ``"FileFormat"`. Το Mode (καθορισμένη τιμή ``"None"``) καθορίζει αν το |ns3| μπορεί να φορτώσει (load) ρυθίσεις από προηγούμενα αποθηκευμένο αρχείο (καθορισμένη τιμή ``"Mode=Load"``) ή αποθηκεύοντας το σε ένα αρχείο (καθορισμένη τιμή ``"Mode=Save"``). Το Filename (καθορισμένη τιμή ``""``) είναι όπου το ConfigStore μπορεί να διαβάσει ή να γράψει τα δεδομένα. Το FileFormat (καθορισμένη τιμή ``"RawText"``) ελέγχει αν η μορφή (format) είναι σκέτο κείμενο (plain text) ή Xml (``"FileFormat=Xml"``)
 
-The example shows::
+.. The example shows::
+Το παράδειγμα δείχνει:
 
       Config::SetDefault ("ns3::ConfigStore::Filename", StringValue ("output-attributes.xml"));
       Config::SetDefault ("ns3::ConfigStore::FileFormat", StringValue ("Xml"));
@@ -867,12 +851,11 @@ The example shows::
     
       Simulator::Destroy ();
     
-Note the placement of these statements just prior to the 
-:cpp:func:`Simulator::Run ()` statement.  This output logs all of the
-values in place just prior to starting the simulation (*i.e*. after
-all of the configuration has taken place).
+.. Note the placement of these statements just prior to the  :cpp:func:`Simulator::Run ()` statement.  This output logs all of the values in place just prior to starting the simulation (*i.e*. after all of the configuration has taken place).
+Σημειώστε ότι η τοποθέτηση αυτών των δηλώσεων απλώς προηγούνται της δήλωσης της μεθόδου :cpp:func:`Simulator::Run ()`. Αυτό ως έξοδο καταγράφει (output logs) όλες τις τιμές σε σειρά λίγο πριν ξεκινήσει η προσομοίωση (π.χ. αφού έχουν γίνει όλες οι ρυθμίσεις).
 
-After running, you can open the ``output-attributes.txt`` file and see:
+.. After running, you can open the ``output-attributes.txt`` file and see:
+Μετά την εκτέλεση, μπορείτε να ανοίξετε το αρχείο κειμένου ``output-attributes.txt`` και να δείτε:
 
 .. sourcecode:: text
 
@@ -900,13 +883,12 @@ After running, you can open the ``output-attributes.txt`` file and see:
     global ChecksumEnabled "false"
     value /$ns3::ConfigExample/TestInt16 "-3"
 
-In the above, all of the default values for attributes for the core 
-module are shown.  Then, all the values for the |ns3| global values
-are recorded.  Finally, the value of the instance of :cpp:class:`ConfigExample`
-that was rooted in the configuration namespace is shown.  In a real
-|ns3| program, many more models, attributes, and defaults would be shown.
+.. In the above, all of the default values for attributes for the core  module are shown.  Then, all the values for the |ns3| global values are recorded.  Finally, the value of the instance of :cpp:class:`ConfigExample` that was rooted in the configuration namespace is shown.  In a real |ns3| program, many more models, attributes, and defaults would be shown.
+Στα παραπάνω, όλες οι προκαθορισμές τιμές χαρακτηριστικών για την μονάδα πυρήνα απεικονίζονται. Τότε, όλες οι τιμές για τις γενικές (global) τιμές του |ns3| καταγράφονται. Τέλος, οι τιμές του στιγμιοτύπου ττης κλασης :cpp:class:`ConfigExample` που έχει δρομολογηθεί στο namespace ρύθμισης (configuration namespace) απεικονίζεται. Σε ένα πραγματικό|ns3| πρόγραμμα, πολύ περισσότερα μοντέλα, χαρακτηριστικά και προκαθορισμένες τιμές θα απεικονιζόταν. 
 
-An XML version also exists in ``output-attributes.xml``:
+
+.. An XML version also exists in ``output-attributes.xml``:
+Μια XML εκδοχή επίσης υπάρχει στο αρχείο ``output-attributes.xml``:
 
 .. sourcecode:: xml
 
@@ -937,17 +919,15 @@ An XML version also exists in ``output-attributes.xml``:
      <value path="/$ns3::ConfigExample/TestInt16" value="-3"/>
     </ns3>
     
-This file can be archived with your simulation script and output data.
+.. This file can be archived with your simulation script and output data.
+Το συγκεκριμένο αρχείο μπορεί να αρχειοθετηθεί με το script προσομοίωσης και τα δεδομένα εισόδου.
 
-Reading
+.. Reading
+Ανάγνωση – Reading 
 +++++++
 
-Next, we discuss configuring simulations *via* a stored input
-configuration file.  There are a couple of key differences
-compared to writing the final simulation configuration.  First, we
-need to place statements such as these at the beginning of the program,
-before simulation configuration statements are written (so the values
-are registered before being used in object construction).
+.. Next, we discuss configuring simulations *via* a stored input configuration file.  There are a couple of key differences compared to writing the final simulation configuration.  First, we need to place statements such as these at the beginning of the program, before simulation configuration statements are written (so the values are registered before being used in object construction).
+Στη συνέχεια συζητάμε πως μπορούμε να ρυθμίσουμε προσομοιώσεις χρησιμοποιώντας αποθηκευμένο αρχείο παραμετροποίησης εισόδου (input configuration file). Υπάρχουν κάποιες σημαντικές διαφοροποιήσεις συγκρίνοντας αυτή τη διαδικασία με τη τη διαδικασία της τελικής παραμετροποίησης της προσομοίωσης (final simulation configuration). Καταρχήν, χρειαζόμαστε να βάλουμε ορίσματα όπως αυτά στην αρχή του προγράμματος,  πριν γραφτούν τα ορίσματα της παραμετροποίησης της προσομοίωσης (έτσι ώστε οι τιμές να εγγράφονται (registered) πρίν χρησιμοποιηθούν για τη δημιουργία του αντικειμένου.
 
 ::
 
@@ -957,32 +937,21 @@ are registered before being used in object construction).
       ConfigStore inputConfig;
       inputConfig.ConfigureDefaults ();
 
-Next, note that loading of input configuration data is limited to Attribute
-default (*i.e*. not instance) values, and global values.  Attribute instance
-values are not supported because at this stage of the simulation, before
-any objects are constructed, there are no such object instances around.
-(Note, future enhancements to the config store may change this behavior).
+.. Next, note that loading of input configuration data is limited to Attribute default (*i.e*. not instance) values, and global values.  Attribute instance values are not supported because at this stage of the simulation, before any objects are constructed, there are no such object instances around. (Note, future enhancements to the config store may change this behavior).
+Στη συνέχεια σημειώστε ότι η φόρτωση των δεδομένων παραμετροποίησης εισόδου έχει περιοριστεί σε καθορισμές (π.χ. όχι στιγμιότυπο) τιμές Attribute, και καθολικές (global) τιμές. Οι τιμές των Attribute στιγμιοτύπων δεν υποστηρίζονται επειδή σε αυτό το στάδιο της προσομοίωσης, πριν δημιουργηθούν αντικείμενα, δεν υπάρχουν αντικείμενα στιγμιοτύπων. (Σημειώστε, ότι μελλοντικές βελτιώσεις στο αποθηκευμένο αρχείο παραμετροποίησης (config store) μπορεί να αλλάξουν αυτή τη συμπεριφορά).
 
-Second, while the output of :cpp:class:`ConfigStore` state
-will list everything in the database, the input file need only contain
-the specific values to be overridden.  So, one way to use this class
-for input file configuration is to generate an initial configuration
-using the output (``"Save"``) ``"Mode"`` described above, extract from
-that configuration file only the elements one wishes to change,
-and move these minimal elements to a new configuration file
-which can then safely be edited and loaded in a subsequent simulation run. 
+.. Second, while the output of :cpp:class:`ConfigStore` state will list everything in the database, the input file need only contain the specific values to be overridden.  So, one way to use this class for input file configuration is to generate an initial configuration using the output (``"Save"``) ``"Mode"`` described above, extract from that configuration file only the elements one wishes to change, and move these minimal elements to a new configuration file which can then safely be edited and loaded in a subsequent simulation run. 
+Δεύτερον, ενώ η έξοδος της κατάστασης της κλάσης :cpp:class:`ConfigStore` θα ταξινομήσει (list) τα πάντα στη βάση δεδομένων, το αρχείο εισόδου χρειάζεται μόνο να περιέχει συγκεκριμένες τιμές που θα τροποποιηθούν (overridden). Έτσι, ένας τρόπος για να χρησιμοποιηθεί αυτή η κλάση ως αρχείο παραμετροποίησης εισόδου είναι να δημιουργήσουμε μια αρχική παραμετροποίηση χρησιμοποιώντας την έξοδο (``"Save"``) ``"Mode"`` που έχει περιγραφεί πιο πάνω, να εξάγουμε από το συγκεκριμένο αρχείο παραμετροποίησης μόνο τα στοιχεία που κάποιος θέλει να αλλάξει, και να μετακινούνται αυτά τα ελάχιστα στοιχεία σε ένα καινούριο αρχείο παραμετροποίησης που μπορεί με ασφάλεια να εγγραφεί και να φορτωθεί σε επακόλουθη εκτέλεση προσομοίωσης (subsequent simulation run).
 
-When the :cpp:class:`ConfigStore` object is instantiated, its attributes
-``"Filename"``, ``"Mode"``, and ``"FileFormat"`` must be set,
-either *via* command-line or *via* program statements.  
+.. When the :cpp:class:`ConfigStore` object is instantiated, its attributes ``"Filename"``, ``"Mode"``, and ``"FileFormat"`` must be set, either *via* command-line or *via* program statements.  
+Όταν η κλάση :cpp:class:`ConfigStore` του αντικείμενο αρχικοποιείται (instantiated), τα χαρακτηριστικά ``"Filename"``, ``"Mode"``, και ``"FileFormat"`` πρέπει να καθοριστούν είτε μέσω της γραμμές εντολών (command line) είτε μέσω των ορισμάτων του προγράμματος.
 
-Reading/Writing Example
+.. Reading/Writing Example
+Παράδειγμα Ανάγνωσης/Εγγραφής - Reading/Writing Example
 +++++++++++++++++++++++
 
-As a more complicated example, let's assume that we want to read in a
-configuration of defaults from an input file named ``input-defaults.xml``, and
-write out the resulting attributes to a separate file called
-``output-attributes.xml``.::
+.. As a more complicated example, let's assume that we want to read in a configuration of defaults from an input file named ``input-defaults.xml``, and write out the resulting attributes to a separate file called ``output-attributes.xml``.::
+Ως ένα περισσότερο πολύπλοκο παράδειγμα, ας υποθέσουμε ότι θέλουμε να διαβάσουμε παραμετροποίηση προκαθορισμένων τιμών από ένα αρχείο εισόδου που ονομάζεται ``input-defaults.xml``, και να γράψουμε τα χαρακτηριστικά που θα προκύψουν σε ένα διαφορετικό αρχείο με όνομα ``output-attributes.xml``.::
 
     #include "ns3/config-store-module.h"
     ...
@@ -1016,19 +985,18 @@ write out the resulting attributes to a separate file called
 ConfigStore GUI
 +++++++++++++++
 
-There is a GTK-based front end for the ConfigStore.  This allows users to use a
-GUI to access and change variables.  Screenshots of this feature are available
-in the `|ns3| Overview <http://www.nsnam.org/docs/ns-3-overview.pdf>`_
-presentation.
+.. There is a GTK-based front end for the ConfigStore.  This allows users to use a GUI to access and change variables.  Screenshots of this feature are available in the `|ns3| Overview <http://www.nsnam.org/docs/ns-3-overview.pdf>`_ presentation.
+Υπάρχει ένα βασισμένο στο GTK (GTK-based) front end για το ConfigStore. Αυτό επιτρέπει στους χρήστες να χρησιμοποιήσουν GUI για να αποκτήσουν πρόσβαση και να αλλάξουν μεταβλητές. Εικόνες από την οθόνη (screenshots) που απεικονίζουν αυτό το χαρακτηριστικό είναι διαθέσιμα στην παρουσίαση `|ns3| Overview <http://www.nsnam.org/docs/ns-3-overview.pdf>`.
 
-To use this feature, one must install ``libgtk`` and ``libgtk-dev``; an example
-Ubuntu installation command is:
+.. To use this feature, one must install ``libgtk`` and ``libgtk-dev``; an example Ubuntu installation command is:
+Για να χρησιμοποιήσουμε αυτό το χαρακτηριστικό κάποιος πρέπει να εγκαταστήσει τις βιβλιοθήκες ``libgtk`` και ``libgtk-dev``; ένα παράδειγμα εντολής εγκατάστασης Ubuntu είναι:
 
 .. sourcecode:: bash
 
   $ sudo apt-get install libgtk2.0-0 libgtk2.0-dev
 
-To check whether it is configured or not, check the output of the step:
+.. To check whether it is configured or not, check the output of the step:
+Για να ελέγξεις αν παραμετροποιείται ή όχι ελέγξτε την έξοδο του βήματος:
 
 .. sourcecode:: bash
 
@@ -1040,32 +1008,37 @@ To check whether it is configured or not, check the output of the step:
   NS-3 Click Integration        : enabled
   GtkConfigStore                : not enabled (library 'gtk+-2.0 >= 2.12' not found)
 
-In the above example, it was not enabled, so it cannot be used until a suitable
-version is installed and:
+.. In the above example, it was not enabled, so it cannot be used until a suitable version is installed and:
+Στο παραπάνω παράδειγμα, δεν είχε ενεργοποιηθεί, οπότε δεν μπορεί να χρησιμοποιηθεί μέχρι μια κατάλληλη εκδοχή να έχει εγκατασταθεί και:
 
 .. sourcecode:: bash
 
   $ ./waf configure --enable-examples --enable-tests
   $ ./waf
 
-is rerun.
+.. is rerun.
+είναι επανεκτέλεση.
 
-Usage is almost the same as the non-GTK-based version, but there
-are no :cpp:class:`ConfigStore` attributes involved::
+.. Usage is almost the same as the non-GTK-based version, but there are no :cpp:class:`ConfigStore` attributes involved::
+Η χρήση είναι σχεδόν ίδια όπως η όχι σε GTK (non-GTK) βασισμένη εκδοχή, αλλά δεν περιλαμβάνονται χαρακτηριστικά της κλάσης :cpp:class:`ConfigStore`.
 
   // Invoke just before entering Simulator::Run ()
   GtkConfigStore config;
   config.ConfigureDefaults ();
   config.ConfigureAttributes ();
 
-Now, when you run the script, a GUI should pop up, allowing you to open menus of
-attributes on different nodes/objects, and then launch the simulation execution
-when you are done.  
+.. Now, when you run the script, a GUI should pop up, allowing you to open menus of attributes on different nodes/objects, and then launch the simulation execution when you are done.  
+Τώρα, όταν εκτελείται ένα script, το GUI  πρέπει να αναδυθεί, επιτρέποντας να έχει κάποιος τη δυνατότητα να να ανοίγει καταλόγους (menus) χαρακτηριστικών σε διαφορετικούς κόμβους/αντικείμενα και στη συνέχεια να ξεκινήσει (launch) η εκτέλεση της προσομοίωσης.
 
-Future work
+.. Future work
+Μελλοντική δουλειά - Future Work
 +++++++++++
-There are a couple of possible improvements:
+.. There are a couple of possible improvements:
+Μπορούν να γίνουν διάφορες πιθανές βελτιώσεις:
 
 * Save a unique version number with date and time at start of file.
+* Να αποθηκεύεται ο αριθμός της εκδοχής με ημερομηνία και χρόνο στην αρχή του αρχείου.
 * Save rng initial seed somewhere.
+* Να αποθηκεύεται ο rng αρχικός σπόρος (initial seed) κάπου.
 * Make each RandomVariable serialize its own initial seed and re-read it later.
+* Να κάνουμε κάθε RandomVariable έτσι ώστε να προβάλει (serialize) το δικό της αρχικό σπόρο (initial seed) και να το ξαναδιαβάζει αργότερα.

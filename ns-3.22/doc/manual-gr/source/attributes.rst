@@ -11,7 +11,7 @@
 .. _Attributes:
 
 .. Configuration and Attributes
-Ρυθμίσεις και Χαρακτηριστικά
+Ρυθμίσεις και Χαρακτηριστικά - Configuration and Attributes
 ----------------------------
 
 .. In |ns3| simulations, there are two main aspects to configuration:
@@ -83,7 +83,7 @@
 Πριν αναφερθούμε με λεπτομέρειες στο σύστημα που θέτει τιμές σε μεταβλητές (attribute value system), θα βοηθούσε να κάνουμε ανασκόπηση σε βασικές ιδιότητες της κλάσης Object.
 
 .. Object Overview
-Ανασκόπηση αντικειμένου
+Ανασκόπηση αντικειμένου - Object Overview
 ***************
 
 .. |ns3| is fundamentally a C++ object-based system. By this we mean that new C++ classes (types) can be declared, defined, and subclassed as usual.
@@ -116,7 +116,7 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 Ας αναφέρουμε κάποιες ιδιότητες των αντικείμενων.
 
 .. Smart Pointers
-Έξυπνοι Δείκτες Smart Pointers
+Έξυπνοι Δείκτες - Smart Pointers
 ++++++++++++++
 
 .. As introduced in the |ns3| tutorial, |ns3| objects are memory managed by a `reference counting smart pointer implementation <http://en.wikipedia.org/wiki/Smart_pointer>`_, class :cpp:class:`Ptr`. 
@@ -265,7 +265,7 @@ We next discuss how attributes (values associated with member variables or funct
 Ομοίως, οι χρήστες μπορεί να θέλουν να αποκτήσουν εκλεπτυσμένη (fine grained) πρόσβαση σε εσωτερικές μεταβλητές στις προσομοιώσεις, ή μπορεί να θέλουν να αλλάξουν ευρέως την αρχική τιμή που χρησιμοποιήθηκε σε μια συγκεκριμένη παράμετρο σε όλα τα επαγόμενα δημιουργηθέντα αντικείμενα. Τελικά, οι χρήστες μπορεί να επιθυμούσαν να γνωρίσουν ότι οι μεταβλητές μπορούν να καθοριστούν και να ανακτηθούν κατά τη διάρκεια της παραμετροποίησης μιας προσομοίωσης (simulation configuration). Αυτό δεν ισχύει μόνο για την απευθείας αλληλεπίδραση προσομοίωσης στη γραμμή εντολών; θεωρήστε επίσης ένα (μελλοντικό) γραφικό περιβάλλον διεπαφής χρήστη (graphical user interface) που θα ήθελε να είναι ικανό να παρέχει ένα χαρακτηριστικό σύμφωνα με το οποίο ένας χρήστης μπορεί κάνοντας δεξί κλικ σε έναν κόμβο στο περιβάλλον διεπαφής (canvas) να δει μια ιεραρχικά οργανωμένη λίστα παραμέτρων που μπορούν να ρυθμιστούν στον κόμβο και τα αντίστοιχα μέλη αντικειμένων, και να βοηθήσει σε καθορισμό τιμών κειμένου και προκαθορισμένες για κάθε παράμετρο.
 
 .. Defining Attributes
-Ορίζοντας Χαρακτηριστικά Defining Attributes
+Ορίζοντας Χαρακτηριστικά - Defining Attributes
 +++++++++++++++++++
 
 .. We provide a way for users to access values deep in the system, without having to plumb accessors (pointers) through the system and walk pointer chains to get to them. Consider a class :cpp:class:`DropTailQueue` that has a member variable that is an unsigned integer :cpp:member:`m_maxPackets`; this member variable controls the depth of the queue.
@@ -341,7 +341,7 @@ We next discuss how attributes (values associated with member variables or funct
 Λεπτομερής καταγραφή των πραγματικών χαρακτηριστικών που ορίζονται σε έναν τύπο και μια καθολική λίστα με όλα τα ορισμένα χαρακτηριστικά είναι διαθέσιμα στο API εγχειρίδιο. Στο υπόλοιπο αυτού του εγχειριδίου θα δείξουμε τους διάφορους τρόπους που υπάρχουν για να παίρνετε και να θέτετε τιμές σε χαρακτηριστικά.
 
 .. Setting Default Values
-Ορίζοντας Προκαθορισμένες Τιμές
+Ορίζοντας Προκαθορισμένες Τιμές - Setting Default Values
 ++++++++++++++++++++++
 
 .. Config::SetDefault and CommandLine
@@ -398,7 +398,7 @@ Config::SetDefault και CommandLine
 Σε αυτό το σημείο δημιουργήσαμε έναν μοναδικό κόμβο :cpp:class:`Node` (``n0``) και μια μοναδική κλάση P:cpp:class:`PointToPointNetDevice` (``net0``), και προσθέσαμε μια :cpp:class:`DropTailQueue` (``q``)στο ``net0``.
 
 .. Constructors, Helpers and ObjectFactory
-Δημιουργοί, Βοηθοί και ObjectFactory (Constructors, Helpers and ObjectFactory)
+Δημιουργοί, Βοηθοί και ObjectFactory - Constructors, Helpers and ObjectFactory
 =======================================
 
 .. Arbitrary combinations of attributes can be set and fetched from the helper and low-level APIs; either from the constructors themselves::
@@ -442,7 +442,7 @@ Config::SetDefault και CommandLine
 
 
 .. Changing Values
-Αλλάζοντας Τιμές (Changing Values)
+Αλλάζοντας Τιμές - Changing Values
 +++++++++++++++
 
 SmartPointer
@@ -489,7 +489,7 @@ SmartPointer
 
 
 .. Config Namespace Path
-Μονοπάτι μέσω καθορισμού namespace (Config Namespace Path)
+Μονοπάτι μέσω καθορισμού namespace - Config Namespace Path
 =====================
 
 .. An alternative way to get at the attribute is to use the configuration namespace.  Here, this attribute resides on a known path in this namespace; this approach is useful if one doesn't have access to the underlying pointers and would like to configure a specific attribute with a single statement.::
@@ -514,7 +514,7 @@ SmartPointer
                  << limit.Get () << " packets");
 
 .. Object Name Service
-Υπηρεσία Ονόματος Αντικειμένου (Object Name Service)
+Υπηρεσία Ονόματος Αντικειμένου - Object Name Service
 ===================
 
 .. Another way to get at the attribute is to use the object name service facility. The object name service allows us to add items to the configuration namespace under the ``"/Names/"`` path with a user-defined name string. This approach is useful if one doesn't have access to the underlying pointers and it is difficult to determine the required concrete configuration namespace path.
@@ -539,7 +539,7 @@ SmartPointer
 **********************
 
 .. Value Classes
-Τιμές Κλάσεων (Value Classes)
+Τιμές Κλάσεων - Value Classes
 +++++++++++++
 
 .. Readers will note the ``TypeValue`` classes which are subclasses of the :cpp:class:`AttributeValue` base class. These can be thought of as intermediate classes which are used to convert from raw types to the :cpp:class:`AttributeValue`\s that are used by the attribute system. Recall that this database is holding objects of many types serialized to strings. Conversions to this type can either be done using an intermediate class (such as :cpp:class:`IntegerValue`, or :cpp:class:`DoubleValue` for floating point numbers) or *via* strings. Direct implicit conversion of types to :cpp:class:`AttributeValue` is not really practical. So in the above, users have a choice of using strings or values::
@@ -558,7 +558,7 @@ SmartPointer
 Μπορείτε να δείτε τα εγχειρίδια του API (API documentation) για να αποκτήσετε περισσότερες πληροφορίες για αυτές τις δημιουργίες.
 
 .. Initialization Order
-Σειρά Αρχικοποίησης (Initialization Order)
+Σειρά Αρχικοποίησης - Initialization Order
 ++++++++++++++++++++
 
 .. Attributes in the system must not depend on the state of any other Attribute in this system. This is because an ordering of Attribute initialization is not specified, nor enforced, by the system. A specific example of this can be seen in automated configuration programs such as :cpp:class:`ConfigStore`. Although a given model may arrange it so that Attributes are initialized in a particular order, another automatic configurator may decide independently to change Attributes in, for example, alphabetic order.  

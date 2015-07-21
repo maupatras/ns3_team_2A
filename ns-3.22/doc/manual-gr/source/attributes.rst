@@ -188,7 +188,7 @@ TypeId
       ...
 
 .. This is defined in the ``node.cc`` file as follows::
-Αυτό ορίζεται στο αρχείο ``node.cc` ως εξής::
+Αυτό ορίζεται στο αρχείο ``node.cc`` ως εξής::
 
     TypeId 
     Node::GetTypeId (void)

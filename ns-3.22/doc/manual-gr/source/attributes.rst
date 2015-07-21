@@ -95,7 +95,7 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 .. * "Metadata" system that links the class name to a lot of meta-information about the object, including:
 * "Metadata" σύστημα που ενώνει το όνομα της κλάσης σε αρκετή meta-πληροφορία σχετική με το αντικείμενο στην οποία συμπεριλαμβάνονται:
   
- .. * The base class of the subclass,
+  .. * The base class of the subclass,
  * Η βασική κλάση της υποκλάσης,
  .. * The set of accessible constructors in the subclass,
  * Το σετ των προσπελάσιμων δημιουργών που υπάρχουν στην υποκλάση
@@ -146,7 +146,7 @@ https://github.com/maupatras/ns3_team_2A/blob/developer/ns-3.22/doc/manual-gr/so
   Ptr<WifiNetDevice> nd = CreateObject<WifiNetDevice> ();
 
 .. You can think of this as being functionally equivalent to::
-Μπορούμε να σκεφτούμε ότι αυτό είναι λειτουργικά ισοδύναμο με το:
+Μπορούμε να σκεφτούμε ότι αυτό είναι λειτουργικά ισοδύναμο με το::
 
   WifiNetDevice* nd = new WifiNetDevice ();
 

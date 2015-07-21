@@ -140,6 +140,7 @@ CreateObject
 Όπως έχει ήδη συζητηθεί παραπάνω στην ενότητα 'Διαχείρισης Μνήμης και κλάση Ptr', στο API με το χαμηλότερο επίπεδο, τα αντικείμενα του τύπου :cpp:class:`Object` δεν δημιουργούνται χρησιμοποιώντας τον τελεστή (operator) new  ``operator new`` όπως συνήθως, αλλά αντί για τον new operator χρησιμοποιείται η συνάρτηση:cpp:func:`CreateObject ()`.
 
 .. A typical way to create such an object is as follows::
+Ένας τυπικός τρόπος για τη δημιουργία ενός τέτοιου αντικειμένου φαίνεται παρακάτω::
 https://github.com/maupatras/ns3_team_2A/blob/developer/ns-3.22/doc/manual-gr/source/attributes.rst
 
   Ptr<WifiNetDevice> nd = CreateObject<WifiNetDevice> ();

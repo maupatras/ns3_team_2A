@@ -121,7 +121,7 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 
 .. As introduced in the |ns3| tutorial, |ns3| objects are memory managed by a `reference counting smart pointer implementation <http://en.wikipedia.org/wiki/Smart_pointer>`_, class :cpp:class:`Ptr`. 
 
-Όπως συστήθηκε στο εγχειρίδιο του |ns3|, τα |ns3| αντικείμενα διαχειρίζονται σε θέματα μνήμης από τον υλοποιημένο έξυπνο δείκτη που μετρά αναφορές <http://en.wikipedia.org/wiki/Smart_pointer>`_, την κλάση :cpp:class:`Ptr`.
+Όπως συστήθηκε στο εγχειρίδιο του |ns3|, τα |ns3| αντικείμενα διαχειρίζονται σε θέματα μνήμης από τον `έξυπνο δείκτη  που μετρά αναφορές (reference counting smart pointer) και υλοποιήθηκε στο <http://en.wikipedia.org/wiki/Smart_pointer>`_, την κλάση :cpp:class:`Ptr`.
 
 .. Smart pointers are used extensively in the |ns3| APIs, to avoid passing references to heap-allocated objects that may cause memory leaks. For most basic usage (syntax), treat a smart pointer like a regular pointer::
 Οι έξυπνοι δείκτες χρησιμοποιούνται εκτεταμένα στα ns-3 APIs, ώστε να αποφεύγονται διερχόμενες αναφορές (passing references) σε κατανεμημένα σε στοίβες (heap-allocated) αντικείμενα που μπορούν να προκαλέσουν διαρροές μνήμης (memory leaks). Για την πιο βασική χρήση (συντακτική), μπορούμε να χειριστούμε τους έξυπνους δείκτες σαν κανονικούς δείκτες::
@@ -136,8 +136,8 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 CreateObject
 ============
 
-.. As we discussed above in :ref:`Memory-management-and-class-Ptr`, at the lowest-level API, objects of type :cpp:class:`Object` are not instantiated using ``operator new`` as usual but instead by a templated function called
-Όπως έχει ήδη συζητηθεί παραπάνω στην ενότητα 'Διαχείρισης Μνήμης και κλάση Ptr', στο API με το χαμηλότερο επίπεδο, τα αντικείμενα του τύπου :cpp:class:`Object` δεν δημιουργούνται χρησιμοποιώντας τον τελεστή (operator) new  ``operator new`` όπως συνήθως, αλλά αντί για τον new operator χρησιμοποιείται η συνάρτηση:cpp:func:`CreateObject ()`.
+.. As we discussed above in :ref:`Memory-management-and-class-Ptr`, at the lowest-level API, objects of type :cpp:class:`Object` are not instantiated using ``operator new`` as usual but instead by a templated function called :cpp:func:`CreateObject ()`.
+Όπως έχει ήδη συζητηθεί παραπάνω στην ενότητα 'Διαχείρισης Μνήμης και κλάση Ptr', στο API με το χαμηλότερο επίπεδο, τα αντικείμενα του τύπου :cpp:class:`Object` δεν δημιουργούνται χρησιμοποιώντας τον τελεστή (operator) new  ``operator new`` όπως συνήθως, αλλά αντί για τον new operator χρησιμοποιείται η συνάρτηση :cpp:func:`CreateObject ()`.
 
 .. A typical way to create such an object is as follows::
 Ένας τυπικός τρόπος για τη δημιουργία ενός τέτοιου αντικειμένου φαίνεται παρακάτω::
@@ -234,7 +234,7 @@ TypeId
     Ptr<Node> n = CreateObject<Node> ();
 
 .. or more abstractly, using an object factory, you can create a :cpp:class:`Node` object without even knowing the concrete C++ type::
-ή περισσότερο αφαιρετικά χρησιμοποιώντας εάν εργοστασιακό αντικείμενο, μπορείτε να φτιάξετε ένα αντικείμενο της κλάσης :cpp:class:`Node` χωρίς να χρειάζεται να γνωρίζετε τον ακριβές C++ τύπο:
+ή περισσότερο αφαιρετικά χρησιμοποιώντας εάν εργοστασιακό αντικείμενο, μπορείτε να φτιάξετε ένα αντικείμενο της κλάσης :cpp:class:`Node` χωρίς να χρειάζεται να γνωρίζετε τον ακριβές C++ τύπο::
 
     ObjectFactory factory;
     const std::string typeId = "ns3::Node'';
@@ -272,7 +272,7 @@ We next discuss how attributes (values associated with member variables or funct
 Παρέχουμε έναν ώστε οι  χρήστες να αποκτήσουν πρόσβαση σε τιμές ενός συστήματος χωρίς να χρειάζεται να οδηγηθούν σε δείκτες στο σύστημα ή να ακολουθήσουν αλληλουχία δεικτών για να τις αποκτήσουν. Θεωρείστε μια κλάση :cpp:class:`DropTailQueue` η οποία έχει μια μεταβλητή μέλος (member variable) που είναι τύπου μη προσημασμένου ακεραίου (unsigned integer) :cpp:member:`m_maxPackets`; αυτή η μεταβλητή μέλος ελέγχει το βάθος της ουράς.
 
 .. If we look at the declaration of :cpp:class:`DropTailQueue`, we see the following::
-Αν κοιτάξουμε στη δήλωση της :cpp:class:`DropTailQueue`, βλέπουμε τα ακόλουθα:
+Αν κοιτάξουμε στη δήλωση της :cpp:class:`DropTailQueue`, βλέπουμε τα ακόλουθα::
 
     class DropTailQueue : public Queue {
     public:
@@ -296,7 +296,7 @@ We next discuss how attributes (values associated with member variables or funct
 Για τα παραπάνω πράγματα τυπικά απαιτείται να παρέχονται ``Set ()`` και ``Get ()`` συναρτήσεις, και κάποιου είδους καθολικής προκαθορισμένης τιμής.
 
 .. In the |ns3| attribute system, these value definitions and accessor function registrations are moved into the :cpp:class:`TypeId` class; *e.g*.::
-Στο |ns3| σύστημα χαρακτηριστικών, αυτοί οι ορισμοί των μεταβλητών και οι εγγραφές των accessor συναρτήσεων μετατοπίζονται στην κλάση :cpp:class:`TypeId`, π.χ.
+Στο |ns3| σύστημα χαρακτηριστικών, αυτοί οι ορισμοί των μεταβλητών και οι εγγραφές των accessor συναρτήσεων μετατοπίζονται στην κλάση :cpp:class:`TypeId`, π.χ.::
 
     NS_OBJECT_ENSURE_REGISTERED (DropTailQueue);
 
@@ -317,14 +317,14 @@ We next discuss how attributes (values associated with member variables or funct
     }
 
 .. The :cpp:func:`AddAttribute ()` method is performing a number of things for the :cpp:member:`m_maxPackets` value:
-Η μέθοδος :cpp:func:`AddAttribute ()` εκτελεί έναν αριθμό από πράγματα για την τιμή του μέλους :cpp:member:`m_maxPackets`
+Η μέθοδος :cpp:func:`AddAttribute ()` εκτελεί έναν αριθμό από πράγματα για την τιμή του μέλους :cpp:member:`m_maxPackets`:
 
 .. * Binding the (usually private) member variable :cpp:member:`m_maxPackets` to a public string ``"MaxPackets"``.
-* Δεσμεύει την (συνήθως ιδιωτική) μεταβλητή μέλος m_maxPackets σε ένα δημόσιο αλφαριθμητικό "MaxPackets"
+* Δεσμεύει την (συνήθως ιδιωτική) μεταβλητή μέλος m_maxPackets σε ένα δημόσιο αλφαριθμητικό "MaxPackets".
 .. * Providing a default value (100 packets).
-* Παρέχει μια προκαθορισμένη τιμή (100 πακέτα)
+* Παρέχει μια προκαθορισμένη τιμή (100 πακέτα).
 .. * Providing some help text defining the meaning of the value.
-* Παρέχει κάποιο κείμενο βοήθειας (help text) στο οποίο ορίζεται η έννοια της τιμές
+* Παρέχει κάποιο κείμενο βοήθειας (help text) στο οποίο ορίζεται η έννοια της τιμές.
 .. * Providing a "Checker" (not used in this example) that can be used to set bounds on the allowable range of values.
 * Παρέχει έναν ελεγκτή “Checker” (δεν χρησιμοποιείται στο παράδειγμα) που μπορεί να χρησιμοποιηθεί για να θέσει όρια στο επιτρεπόμενο εύρος τιμών.
 
@@ -384,7 +384,7 @@ Config::SetDefault και CommandLine
 Είναι επίσης πιθανό να διαχειριστούμε Attributes χρησιμοποιώντας την CommandLine; είδαμε κάποια παραδείγματα νωρίτερα στο εγχειρίδιο. Συγκεκριμένα, είναι ξεκάθαρο το να προσθέσουμε ένα στενογραφημένο (shorthand argument name) όνομα όπως το ``--maxPackets``, για ένα Attribute που είναι σχετικό με το μοντέλο θα πρέπει σε αυτή την περίπτωση ``"ns3::DropTailQueue::MaxPackets"``. Αυτό έχει το επιπλέον χαρακτηριστικό ότι το βοηθητικό string για το Attribute, θα τυπωθεί ως μέρος του χρησιμοποιημένου μηνύματος για το script. Για περισσότερες πληροφορίες μπορείτε να δείτε το εγχειρίδιο του API σχετικά με την κλάση :cpp:class:`CommandLine`.
 
 .. Now, we will create a few objects using the low-level API.  Our newly created queues will not have :cpp:member:`m_maxPackets` initialized to 100 packets, as defined in the :cpp:func:`DropTailQueue::GetTypeId ()` function, but to 80 packets, because of what we did above with default values.::
-Τώρα θα δημιουργήσουμε λίγα αντικείμενα χρησιμοποιώντας το χαμηλού επιπέδου API. Οι νέες δημιουργούμενες ουρές δεν θα έχουν :cpp:member:`m_maxPackets` αρχικοποιημένα στα 100 πακέτα όπως ορίζεται στην συνάρτηση :cpp:func:`DropTailQueue::GetTypeId ()` αλλά στα 80 πακέτα, εξαιτίας όλων όσων περιγράφηκαν πιο πάνω με τις προκαθορισμένες τιμές. :
+Τώρα θα δημιουργήσουμε λίγα αντικείμενα χρησιμοποιώντας το χαμηλού επιπέδου API. Οι νέες δημιουργούμενες ουρές δεν θα έχουν :cpp:member:`m_maxPackets` αρχικοποιημένα στα 100 πακέτα όπως ορίζεται στην συνάρτηση :cpp:func:`DropTailQueue::GetTypeId ()` αλλά στα 80 πακέτα, εξαιτίας όλων όσων περιγράφηκαν πιο πάνω με τις προκαθορισμένες τιμές.::
 
     Ptr<Node> n0 = CreateObject<Node> ();
 
@@ -462,7 +462,7 @@ SmartPointer
     Ptr<Object> txQueue = tmp.GetObject ();
 
 .. Using the :cpp:func:`GetObject ()` function, we can perform a safe downcast to a :cpp:class:`DropTailQueue`, where ``"MaxPackets"`` is an attribute::
-Χρησιμοποιώντας την συνάρτηση :cpp:func:`GetObject ()` μπορούμε να εκτελέσουμε ένας ασφαλές downcast σε κλάση :cpp:class:`DropTailQueue`, όπου ``"MaxPackets"`` είναι ένα χαρακτηριστικό:
+Χρησιμοποιώντας την συνάρτηση :cpp:func:`GetObject ()` μπορούμε να εκτελέσουμε ένας ασφαλές downcast σε κλάση :cpp:class:`DropTailQueue`, όπου ``"MaxPackets"`` είναι ένα χαρακτηριστικό::
 
     Ptr<DropTailQueue> dtq = txQueue->GetObject <DropTailQueue> ();
     NS_ASSERT (dtq != 0);
@@ -475,13 +475,13 @@ SmartPointer
     NS_LOG_INFO ("1.  dtq limit: " << limit.Get () << " packets");
   
 .. Note that the above downcast is not really needed; we could have gotten the attribute value directly from ``txQueue``, which is an :cpp:class:`Object`::
-Σημειώστε ότι το παραπάνω downcast δεν χρειάζεται πραγματικά, θα μπορούσαμε να αποκτήσουμε την τιμή του χαρακτηριστικού κατευθείαν από το ``txQueue``, το οποίο είναι τύπου :cpp:class:`Object`:::
+Σημειώστε ότι το παραπάνω downcast δεν χρειάζεται πραγματικά, θα μπορούσαμε να αποκτήσουμε την τιμή του χαρακτηριστικού κατευθείαν από το ``txQueue``, το οποίο είναι τύπου :cpp:class:`Object`::
 
     txQueue->GetAttribute ("MaxPackets", limit);
     NS_LOG_INFO ("2.  txQueue limit: " << limit.Get () << " packets");
 
 .. Now, let's set it to another value (60 packets)::
-Τώρα, ας το θέσουμε σε άλλη τιμή (60 πακέτα):
+Τώρα, ας το θέσουμε σε άλλη τιμή (60 πακέτα)::
 
     txQueue->SetAttribute("MaxPackets", UintegerValue (60));
     txQueue->GetAttribute ("MaxPackets", limit);
@@ -518,7 +518,7 @@ SmartPointer
 ===================
 
 .. Another way to get at the attribute is to use the object name service facility. The object name service allows us to add items to the configuration namespace under the ``"/Names/"`` path with a user-defined name string. This approach is useful if one doesn't have access to the underlying pointers and it is difficult to determine the required concrete configuration namespace path.
-Ένας άλλος τρόπος για να πάρουμε το χαρακτηριστικό (attribute) είναι να χρησιμοποιήσουμε τη λειτουργία της υπηρεσίας ονόματος αντικειμένου. Η συγκεκριμένη υπηρεσία μας επιτρέπει να προσθέτουμε αντικείμενα στις ρυθμίσεις του χώρου ονόματος (configuration namespace) κάτω από το μονοπάτι ``"/Names/"`` χρησιμοποιώντας ένα ορισμένο για το χρήστη αλφαριθμητικό. Η προσέγγιση αυτή είναι χρήσιμη όταν κάποιος δεν έχει πρόσβαση στους στους υποκείμενους δείκτες και είναι δύσκολο να προσδιορίσουν το απαιτούμενο μονοπάτι ρύθμισης του namespace
+Ένας άλλος τρόπος για να πάρουμε το χαρακτηριστικό (attribute) είναι να χρησιμοποιήσουμε τη λειτουργία της υπηρεσίας ονόματος αντικειμένου. Η συγκεκριμένη υπηρεσία μας επιτρέπει να προσθέτουμε αντικείμενα στις ρυθμίσεις του χώρου ονόματος (configuration namespace) κάτω από το μονοπάτι ``"/Names/"`` χρησιμοποιώντας ένα ορισμένο για το χρήστη αλφαριθμητικό. Η προσέγγιση αυτή είναι χρήσιμη όταν κάποιος δεν έχει πρόσβαση στους στους υποκείμενους δείκτες και είναι δύσκολο να προσδιορίσουν το απαιτούμενο μονοπάτι ρύθμισης του namespace.
 ::
 
     Names::Add ("server", n0);
@@ -543,7 +543,7 @@ SmartPointer
 +++++++++++++
 
 .. Readers will note the ``TypeValue`` classes which are subclasses of the :cpp:class:`AttributeValue` base class. These can be thought of as intermediate classes which are used to convert from raw types to the :cpp:class:`AttributeValue`\s that are used by the attribute system. Recall that this database is holding objects of many types serialized to strings. Conversions to this type can either be done using an intermediate class (such as :cpp:class:`IntegerValue`, or :cpp:class:`DoubleValue` for floating point numbers) or *via* strings. Direct implicit conversion of types to :cpp:class:`AttributeValue` is not really practical. So in the above, users have a choice of using strings or values::
-Οι αναγνώστες  θα έχουν ήδη σημειώσει ότι οι κλάσεις TypeValue είναι υποκλάσεις της  κλάσης – βάσης :cpp:class:`AttributeValue`. Αυτές μπορούν να θεωρηθούν ως ενδιάμεσες κλάσεις οι οποίες χρησιμοποιούνται για να μετατρέψουν ακετέργαστους τύπος σε :cpp:class:`AttributeValue`\s που χρησιμοποιούνται από σύστημα χαρακτηριστικών (attribute system). Θυμηθείτε ότι αυτή η βάση δεδομένων κρατάει αντικείμενα πολλών τύπων τα οποία τα οποία κρατώνται (serialized) σε αλφαριθμητικά. Μετατροπές σε αυτόν τον τύπο μπορούν είτε να γίνουν χρησιμοποιώντας  μια ενδιάμεση κλάση (όπως h :cpp:class:`IntegerValue`ή η :cpp:class:`DoubleValue` για πραγματικούς αριθμούς) ή μέσω αλφαριθμητικών. Απευθείας μετατροπή των τύπων του :cpp:class:`AttributeValue`δεν είναι πραγματικά πρακτική. Σκεπτόμενοι τα παραπάνω, οι χρήστες έχουν επιλογή για να χρησιμοποιούνται είτε αλφαριθμητικά είτε τιμές:
+Οι αναγνώστες  θα έχουν ήδη σημειώσει ότι οι κλάσεις TypeValue είναι υποκλάσεις της  κλάσης – βάσης :cpp:class:`AttributeValue`. Αυτές μπορούν να θεωρηθούν ως ενδιάμεσες κλάσεις οι οποίες χρησιμοποιούνται για να μετατρέψουν ακετέργαστους τύπος σε :cpp:class:`AttributeValue`\s που χρησιμοποιούνται από σύστημα χαρακτηριστικών (attribute system). Θυμηθείτε ότι αυτή η βάση δεδομένων κρατάει αντικείμενα πολλών τύπων τα οποία τα οποία κρατώνται (serialized) σε αλφαριθμητικά. Μετατροπές σε αυτόν τον τύπο μπορούν είτε να γίνουν χρησιμοποιώντας  μια ενδιάμεση κλάση (όπως h :cpp:class:`IntegerValue`ή η :cpp:class:`DoubleValue` για πραγματικούς αριθμούς) ή μέσω αλφαριθμητικών. Απευθείας μετατροπή των τύπων του :cpp:class:`AttributeValue`δεν είναι πραγματικά πρακτική. Σκεπτόμενοι τα παραπάνω, οι χρήστες έχουν επιλογή για να χρησιμοποιούνται είτε αλφαριθμητικά είτε τιμές::
 
     p->Set ("cwnd", StringValue ("100")); // string-based setter
     p->Set ("cwnd", IntegerValue (100)); // integer-based setter
@@ -571,7 +571,7 @@ SmartPointer
 Υπάρχει ένας πολύ ισχυρός περιορισμός και υπάρχουν περιπτώσεις όπου τιμές στα Attributes πρέπει να ρυθμίζονται συνεχώς για επιτρέπεται σωστή λειτουργία. Με αυτό το σκοπό επιτρέπουμε συνεχή έλεγχο όταν το χαρακτηριστικό χρησιμοποιείται* (*cf*. ``NS_ASSERT_MSG`` or ``NS_ABORT_MSG``).
 
 .. In general, the attribute code to assign values to the underlying class member variables is executed after an object is constructed. But what if you need the values assigned before the constructor body executes, because you need them in the logic of the constructor? There is a way to do this, used for example in the class :cpp:class:`ConfigStore`: call :cpp:func:`ObjectBase::ConstructSelf ()` as follows::
-Γενικά, ο κώδικας για το attribute να θέσει τιμές στις υποκείμενες τιμές των μελών κλάσης εκτελείται όταν το αντικείμενο δημιουργείται. Αλλά τι γίνεται αν κάποιος χρειάζεται να ανατίθονται οι τιμές πριν να εκτελεστεί το σώμα του δημιουργού (constructor body) επειδή τους χρειαζόμαστε στη λογική του constructor? Υπάρχει ένας τρόπος να γίνει αυτό χρησιμοποιώντας για παράδειγμα κλήση της μεθόδου :cpp:func:`ObjectBase::ConstructSelf ()` της κλάσης :cpp:class:`ConfigStore`: που ακολουθεί:
+Γενικά, ο κώδικας για το attribute να θέσει τιμές στις υποκείμενες τιμές των μελών κλάσης εκτελείται όταν το αντικείμενο δημιουργείται. Αλλά τι γίνεται αν κάποιος χρειάζεται να ανατίθονται οι τιμές πριν να εκτελεστεί το σώμα του δημιουργού (constructor body) επειδή τους χρειαζόμαστε στη λογική του constructor? Υπάρχει ένας τρόπος να γίνει αυτό χρησιμοποιώντας για παράδειγμα κλήση της μεθόδου :cpp:func:`ObjectBase::ConstructSelf ()` της κλάσης :cpp:class:`ConfigStore`: που ακολουθεί::
 
     ConfigStore::ConfigStore ()
     {
@@ -609,7 +609,7 @@ To |ns3| σύστημα θα τοποθετήσει έναν αριθμό από
     uint32_t m_cWnd;   // Congestion window
 
 Suppose that someone working with TCP wanted to get or set the value of that variable using the metadata system. If it were not already provided by |ns3|, the user could declare the following addition in the runtime metadata system (to the :cpp:func:`GetTypeId` definition for :cpp:class:`TcpSocket`)::
-Υποθέστε ότι κάποιος που δουλεύει με TCP θα ήθελε να πάρει ή να θέσει τιμή σε μια μεταβλητή που χρησιμοποιεί το metadata σύστημα. Αν αυτό δεν παρεχόταν ήδη από τον |ns3|, ο χρηστης θα μπορούσε να ορίσει την ακόλουθη προσθήκη στο metadata σύστημα που τρέχει (runtime metadata system) (στη μέθοδο :cpp:func:`GetTypeId` ορισμό για την κλάση :cpp:class:`TcpSocket`):
+Υποθέστε ότι κάποιος που δουλεύει με TCP θα ήθελε να πάρει ή να θέσει τιμή σε μια μεταβλητή που χρησιμοποιεί το metadata σύστημα. Αν αυτό δεν παρεχόταν ήδη από τον |ns3|, ο χρηστης θα μπορούσε να ορίσει την ακόλουθη προσθήκη στο metadata σύστημα που τρέχει (runtime metadata system) (στη μέθοδο :cpp:func:`GetTypeId` ορισμό για την κλάση :cpp:class:`TcpSocket`)::
 
     .AddAttribute ("Congestion window", 
                    "Tcp congestion window (bytes)",
@@ -628,7 +628,7 @@ Now, the user with a pointer to a :cpp:class:`TcpSocket` instance can perform op
 Εδώ συζητάμε την επίδραση ενός χρήστη που θέλει να προσθέσει μια καινούρια κλάση στον |ns3|. Τι επιπρόσθετα πράγματα πρέπει να γίνουν έτσι ώστε να ενεργοποιηθούν ή να κρατηθούν χαρακτηριστικά?
 
 .. Let's assume our new class, called :cpp:class:`ns3::MyMobility`, is a type of mobility model.  First, the class should inherit from it's parent class, :cpp:class:`ns3::MobilityModel`. In the ``my-mobility.h`` header file::
-Ας υποθέσουμε ότι η καινούρια κλάση η οποία ονομάζεται :cpp:class:`ns3::MyMobility`, είναι τύπου κινούμενου μοντέλου (mobility model). Καταρχήν, η κλάση θα μπορούσε να κληρονομήσει από την κλάση γονέα, :cpp:class:`ns3::MobilityModel. Στο αρχείο κεφαλίδας (header file) ``my-mobility.h`` υπάρχουν:
+Ας υποθέσουμε ότι η καινούρια κλάση η οποία ονομάζεται :cpp:class:`ns3::MyMobility`, είναι τύπου κινούμενου μοντέλου (mobility model). Καταρχήν, η κλάση θα μπορούσε να κληρονομήσει από την κλάση γονέα, :cpp:class:`ns3::MobilityModel. Στο αρχείο κεφαλίδας (header file) ``my-mobility.h`` υπάρχουν::
 
     namespace ns3 {
     
@@ -646,7 +646,7 @@ Now, the user with a pointer to a :cpp:class:`TcpSocket` instance can perform op
       static TypeId GetTypeId (void);
 
 We've already introduced what a :cpp:class:`TypeId` definition will look like in the ``my-mobility.cc`` implementation file::
-Έχουμε ήδη εισαγάγει τι είναι ένας TypeId ορισμός που θα μοιάζει όπως το ``my-mobility.cc``  αρχείο υλοποίησης:
+Έχουμε ήδη εισαγάγει τι είναι ένας TypeId ορισμός που θα μοιάζει όπως το ``my-mobility.cc``  αρχείο υλοποίησης::
 
     NS_OBJECT_ENSURE_REGISTERED (MyMobility);
 
@@ -681,9 +681,9 @@ We've already introduced what a :cpp:class:`TypeId` definition will look like in
 .. * Not calling ``NS_OBJECT_ENSURE_REGISTERED ()``
 * Δεν καλούνται ``NS_OBJECT_ENSURE_REGISTERED ()``
 .. * Not calling the :cpp:func:`SetParent ()` method, or calling it with the wrong type.
-* Δεν καλείται η :cpp:func:`SetParent ()` μέθοδος, ή καλείται με λάθος τύπο
+* Δεν καλείται η :cpp:func:`SetParent ()` μέθοδος, ή καλείται με λάθος τύπο.
 .. * Not calling the :cpp:func:`AddConstructor ()` method, or calling it with the wrong type.
-* Δεν καλείται η :cpp:func:`AddConstructor ()` :cpp:func:`AddConstructor ()`
+* Δεν καλείται η :cpp:func:`AddConstructor ()` :cpp:func:`AddConstructor ()`.
 .. * Introducing a typographical error in the name of the :cpp:class:`TypeId` in its constructor.
 * Εισάγοντας ένα τυπογραφικό λάθος στο όνομα της κλάσης :cpp:class:`TypeId`  στον δημιουργό της.
 .. * Not using the fully-qualified C++ typename of the enclosing C++ class as the name of the :cpp:class:`TypeId`.  Note that ``"ns3::"`` is required.
@@ -697,7 +697,7 @@ We've already introduced what a :cpp:class:`TypeId` definition will look like in
 =======================
 
 .. From the perspective of the user who writes a new class in the system and wants it to be accessible as an attribute, there is mainly the matter of writing the conversions to/from strings and attribute values.  Most of this can be copy/pasted with macro-ized code.  For instance, consider a class declaration for :cpp:class:`Rectangle` in the ``src/mobility/model`` directory:
-Από τη σκοπιά του χρήστη που δημιουργεί μια καινούρια κλάση στο σύστημα και θέλει αυτή να είναι προσβάσιμη σε ένα χαρακτηριστικό, εκεί υπάρχει κυρίως το ζήτημα της εγγραφής των συζητήσεων σε/από αλφαριθμητικά και τις τιμές χαρακτηριστικών. Τα περισσότερα από αυτά μπορούν να αντιγραφούν/επικολληθούν με macro κώδικα. Για παράδειγμα, θεωρήστε τη δήλωση κλάσης της :cpp:class:`Rectangle`  στον ``src/mobility/model`` κατάλογο (directory).
+Από τη σκοπιά του χρήστη που δημιουργεί μια καινούρια κλάση στο σύστημα και θέλει αυτή να είναι προσβάσιμη σε ένα χαρακτηριστικό, εκεί υπάρχει κυρίως το ζήτημα της εγγραφής των συζητήσεων σε/από αλφαριθμητικά και τις τιμές χαρακτηριστικών. Τα περισσότερα από αυτά μπορούν να αντιγραφούν/επικολληθούν με macro κώδικα. Για παράδειγμα, θεωρήστε τη δήλωση κλάσης της :cpp:class:`Rectangle`  στον ``src/mobility/model`` κατάλογο (directory):
 
 .. Header File
 Αρχείο Κεφαλίδας - Header File
@@ -719,7 +719,7 @@ We've already introduced what a :cpp:class:`TypeId` definition will look like in
     };
  
 .. One macro call and two operators, must be added below the class declaration in order to turn a Rectangle into a value usable by the ``Attribute`` system::
-Μια macro κλήση και 2 τελεστές, μπορούν να προστεθούν κάτω από τη δήλωση της κλάσης ώστε να μετατρέψουμε ένα Rectangle σε μια τιμή που μπορεί να χρησιμοποιηθεί από το ``Attribute`` σύστημα.
+Μια macro κλήση και 2 τελεστές, μπορούν να προστεθούν κάτω από τη δήλωση της κλάσης ώστε να μετατρέψουμε ένα Rectangle σε μια τιμή που μπορεί να χρησιμοποιηθεί από το ``Attribute`` σύστημα::
 
     std::ostream &operator << (std::ostream &os, const Rectangle &rectangle);
     std::istream &operator >> (std::istream &is, Rectangle &rectangle);
@@ -731,7 +731,7 @@ We've already introduced what a :cpp:class:`TypeId` definition will look like in
 ~~~~~~~~~~~~~~~~~~~
 
 .. In the class definition (``.cc`` file), the code looks like this::
-Στον ορισμό της κλάσης (``.cc`` αρχείο), ο κώδικας μοιάζει όπως παρακάτω:
+Στον ορισμό της κλάσης (``.cc`` αρχείο), ο κώδικας μοιάζει όπως παρακάτω::
 
     ATTRIBUTE_HELPER_CPP (Rectangle);
 
@@ -773,7 +773,7 @@ ConfigStore
 Μπορούμε να ερευνήσουμε αυτό το σύστημα χρησιμοποιώντας ένα παράδειγμα από το ``src/config-store/examples/config-store-save.cc``.
 
 .. First, all users of the :cpp:class:`ConfigStore` must include the following statement::
-Καταρχήν, όλοι οι χρήστες της κλάσης :cpp:class:`ConfigStore` πρέπει να περιλαμβάνουν την ακόλουθη δήλωση:
+Καταρχήν, όλοι οι χρήστες της κλάσης :cpp:class:`ConfigStore` πρέπει να περιλαμβάνουν την ακόλουθη δήλωση::
 
     #include "ns3/config-store-module.h"
 
@@ -799,7 +799,7 @@ ConfigStore
     NS_OBJECT_ENSURE_REGISTERED (ConfigExample);
 
 .. Next, we use the Config subsystem to override the defaults in a couple of ways::
-Στη συνέχεια, χρησιμοποιούμε το Config υπόσυστημα ώστε να παρακάμψουμε τα προκαθορισμένα με διάφορους τρόπους:
+Στη συνέχεια, χρησιμοποιούμε το Config υπόσυστημα ώστε να παρακάμψουμε τα προκαθορισμένα με διάφορους τρόπους::
      
       Config::SetDefault ("ns3::ConfigExample::TestInt16", IntegerValue (-5));
     
@@ -1020,7 +1020,7 @@ ConfigStore GUI
 είναι επανεκτέλεση.
 
 .. Usage is almost the same as the non-GTK-based version, but there are no :cpp:class:`ConfigStore` attributes involved::
-Η χρήση είναι σχεδόν ίδια όπως η όχι σε GTK (non-GTK) βασισμένη εκδοχή, αλλά δεν περιλαμβάνονται χαρακτηριστικά της κλάσης :cpp:class:`ConfigStore`.
+Η χρήση είναι σχεδόν ίδια όπως η όχι σε GTK (non-GTK) βασισμένη εκδοχή, αλλά δεν περιλαμβάνονται χαρακτηριστικά της κλάσης :cpp:class:`ConfigStore`::
 
   // Invoke just before entering Simulator::Run ()
   GtkConfigStore config;

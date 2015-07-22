@@ -121,10 +121,10 @@ O |ns3| είναι ουσιαστικά ένα C++ σύστημα βασισμέ
 
 .. As introduced in the |ns3| tutorial, |ns3| objects are memory managed by a `reference counting smart pointer implementation <http://en.wikipedia.org/wiki/Smart_pointer>`_, class :cpp:class:`Ptr`. 
 
-Όπως συστήθηκε στο εγχειρίδιο του |ns3|, τα |ns3| αντικείμενα διαχειρίζονται σε θέματα μνήμης από τον υλοποιημένο έξυπνο δείκτη που μετρά αναφορές <http://en.wikipedia.org/wiki/Smart_pointer>_, την κλάση :cpp:class:`Ptr`.
+Όπως συστήθηκε στο εγχειρίδιο του |ns3|, τα |ns3| αντικείμενα διαχειρίζονται σε θέματα μνήμης από τον υλοποιημένο έξυπνο δείκτη που μετρά αναφορές <http://en.wikipedia.org/wiki/Smart_pointer>`_, την κλάση :cpp:class:`Ptr`.
 
 .. Smart pointers are used extensively in the |ns3| APIs, to avoid passing references to heap-allocated objects that may cause memory leaks. For most basic usage (syntax), treat a smart pointer like a regular pointer::
-Οι έξυπνοι δείκτες χρησιμοποιούνται εκτεταμένα στα ns-3 APIs, ώστε να αποφεύγονται διερχόμενες αναφορές (passing references) σε κατανεμημένα σε στοίβες (heap-allocated) αντικείμενα που μπορούν να προκαλέσουν διαρροές μνήμης (memory leaks). Για την πιο βασική χρήση (συντακτική), μπορούμε να χειριστούμε τους έξυπνους δείκτες σαν κανονικούς δείκτες:
+Οι έξυπνοι δείκτες χρησιμοποιούνται εκτεταμένα στα ns-3 APIs, ώστε να αποφεύγονται διερχόμενες αναφορές (passing references) σε κατανεμημένα σε στοίβες (heap-allocated) αντικείμενα που μπορούν να προκαλέσουν διαρροές μνήμης (memory leaks). Για την πιο βασική χρήση (συντακτική), μπορούμε να χειριστούμε τους έξυπνους δείκτες σαν κανονικούς δείκτες::
 
   Ptr<WifiNetDevice> nd = ...;
   nd->CallSomeFunction ();

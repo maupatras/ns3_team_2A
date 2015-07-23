@@ -12,7 +12,7 @@
 Κίνητρα για επανακλήσεις
 ************************
 
-Consider that you have two simulation models A and B, and you wish to have them pass information between them during the simulation. One way that you can do that is that you can make A and B each explicitly knowledgeable about the other, so that they can invoke methods on each other::
+.. Consider that you have two simulation models A and B, and you wish to have them pass information between them during the simulation. One way that you can do that is that you can make A and B each explicitly knowledgeable about the other, so that they can invoke methods on each other::
 Θεωρήστε ότι έχετε δύο μοντέλα προσομοίωησης A και B και επιθυμείτε να περάσετε πληροφορία μέσω αυτών κατά την διάρκεια μία προσομοίωσης. Ένας τρόπος για να το επιτύχετε είναι κάνετε το Α και Β να αποκτήσουν γνώση το ένα για το άλλο ρητά, ώστε να αποκτήσουν την δυνατότητα καλούν μεθόδους το ένα στο άλλο::   
 
   class A {
@@ -21,7 +21,8 @@ Consider that you have two simulation models A and B, and you wish to have them 
     ...
   }
 
-  (in another source file:)
+  .. (in another source file:)
+  (σε ένα άλλο πηγαίο αρχείο:)
 
   class B {
   public:
@@ -29,31 +30,28 @@ Consider that you have two simulation models A and B, and you wish to have them 
     ...
 
   private:
-    A* a_instance; // pointer to an A
+    .. A* a_instance; // pointer to an A
+    A* a_instance; // Δείκτης σε ένα Α
   }
 
   void
   B::DoSomething()
   {
-    // Tell a_instance that something happened
+    .. // Tell a_instance that something happened
+    //Ενημερώστε a_instance ότι κάτι συνέβη
     a_instance->ReceiveInput ( // parameters);
     ...
   }
 
-.. This certainly works, but it has the drawback that it introduces a dependency on A and B to know about the other at compile time (this makes it harder to have independent compilation units in the simulator) and is not generalized; if in a later usage scenario, B needs to talk to a completely different C object, the source code for B needs to be changed to add a ``c_instance`` and so forth. It
-is easy to see that this is a brute force mechanism of communication that can lead to programming cruft in the models.  
+.. This certainly works, but it has the drawback that it introduces a dependency on A and B to know about the other at compile time (this makes it harder to have independent compilation units in the simulator) and is not generalized; if in a later usage scenario, B needs to talk to a completely different C object, the source code for B needs to be changed to add a ``c_instance`` and so forth. It is easy to see that this is a brute force mechanism of communication that can lead to programming cruft in the models.  
+Αυτό φυσικά λειτουργεί, αλλά έχει το μειονέκτημα ότι εισάγει μία εξάρτηση μεταξύ των Α και Β σχετικά με το ότι θα πρέπει να γνωρίζονται μεταξύ τους κατά τον χρόνο μεταγλώττισης. (αυτό δυσκολεύει την ύπαρξη ανεξάρτητων μονάδων μεταγλώττιση κώδικα στον προσομοιωτή) και δεν γενικεύονται. Εάν σε ένα διαφορετικό σενάριο χρήσης  ο B χρειάζεται να επικοινωνήσει με ένα εντελώς διαφορετικό αντικείμενο C, ο πηγαίος κώδικας του B απαιτείται να αλλάξει ώστε να προστεθεί ένα ``c_instance`` στιγμιότυπο και ούτω καθεξής. Είναι εύκολο να διαπιστώσουμε ότι ο συγκεκριμένος είναι ένας ισχυρός αλλά άκομψος μηχανισμός επικοινωνίας που μπορεί να οδηγήσει σε αχρείαστα πολύπλοκα μοντέλα προγραμματισμού.
 
-Αυτό φυσικά λειτουργεί, αλλά έχει το μειονέκτημα ότι εισάγει μία εξάρτηση μεταξύ των Α και Β σχετικά με το ότι θα πρέπει να γνωρίζονται μεταξύ τους κατά τον χρόνο μεταγλώττισης. (
+.. This is not to say that objects should not know about one another if there is a hard dependency between them, but that often the model can be made more flexible if its interactions are less constrained at compile time.
+Αυτή η παρατήρηση δεν έχει ως σκοπό να υποστηρίξει ότι τα αντικείμενα δεν πρέπει να έχουν γνώση το ένα για την ύπαρξη του άλλου, εάν υπάρχει ισχυρή αλληλεξάρτηση μεταξύ τους, αλλά ότι το μοντέλο μπορεί να γίνει περισσότερο ελαστικό εάν η αλληλεξάρτηση είναι λιγότερο περιοριστική κατά τον χρόνο μεταγλώττισης
 
-This is not to say that objects should not know about one another if there is a
-hard dependency between them, but that often the model can be made more flexible
-if its interactions are less constrained at compile time.
+.. This is not an abstract problem for network simulation research, but rather it has been a source of problems in previous simulators, when researchers want to extend or modify the system to do different things (as they are apt to do in research). Consider, for example, a user who wants to add an IPsec security protocol sublayer between TCP and IP::
+Αυτό δεν είναι ένα αόριστα διατυπωμένο πρόβλημα για την έρευνα σχετικά με την προσομοίωση δικτύων, αλλά μάλλον είναι μία πηγή προβλημάτων σε προηγούμενους προσομοιωτές, όταν ερευνητές επιθυμούν να επεκτείνουν ή να τροποποιήσουν το σύστημα ώστε να εκτελεί και διαφορετικές λειτουργίες.
 
-This is not an abstract problem for network simulation research, but rather it
-has been a source of problems in previous simulators, when researchers want to
-extend or modify the system to do different things (as they are apt to do in
-research). Consider, for example, a user who wants to add an IPsec security
-protocol sublayer between TCP and IP::
 
   ------------                   -----------
   |   TCP    |                   |  TCP    |
@@ -68,10 +66,9 @@ protocol sublayer between TCP and IP::
                                  -----------
 
 
-If the simulator has made assumptions, and hard coded into the code, that IP
-always talks to a transport protocol above, the user may be forced to hack the
-system to get the desired interconnections. This is clearly not an optimal way
-to design a generic simulator.
+.. If the simulator has made assumptions, and hard coded into the code, that IP always talks to a transport protocol above, the user may be forced to hack the system to get the desired interconnections. This is clearly not an optimal way to design a generic simulator.
+Εάν ο προσομοιωτής κάνει θεωρήσεις, και περιέχει κλειστά κομμάτια κώδικα, ότι μία IP επικοινωνεί πάντα μέσω ενός διαφανούς πρωτοκόλλου, ο χρήστης μπορεί να αναγκαστεί να παραβιάζει το σύστημα ώστε να έχει πρόσβαση στις επιθυμητές διασυνδέσεις. Αυτός προφανώς δεν είναι ο βέλτιστος τρόπος σχεδιασμού ενός γενικού προσομοιωτή.
+
 
 Callbacks Background
 ********************

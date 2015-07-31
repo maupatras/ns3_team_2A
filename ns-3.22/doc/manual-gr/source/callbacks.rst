@@ -69,15 +69,15 @@
 Εάν ο προσομοιωτής κάνει θεωρήσεις, και περιέχει κλειστά κομμάτια κώδικα, ότι μία IP επικοινωνεί πάντα μέσω ενός διαφανούς πρωτοκόλλου, ο χρήστης μπορεί να αναγκαστεί να παραβιάζει το σύστημα ώστε να έχει πρόσβαση στις επιθυμητές διασυνδέσεις. Αυτός προφανώς δεν είναι ο βέλτιστος τρόπος σχεδιασμού ενός γενικού προσομοιωτή.
 
 
-Callbacks Background
+.. Callbacks Background
+Παρασκήνιο Επανακλήσεων
 ********************
 
-.. note:: Readers familiar with programming callbacks may skip this tutorial
-    section.
+.. .. note:: Readers familiar with programming callbacks may skip this tutorial section.
+.. note:: Οι Αναγνώστες που έχουν εξοικειωθεί με τις προγραμματιστικές επανακλήσεις μπορούν να προσπεράσουν την συγκεκριμένη ενότητα.
 
-The basic mechanism that allows one to address the problem above is known as a
-*callback*. The ultimate goal is to allow one piece of code to call a function
-(or method in C++) without any specific inter-module dependency.
+.. The basic mechanism that allows one to address the problem above is known as a *callback*. The ultimate goal is to allow one piece of code to call a function (or method in C++) without any specific inter-module dependency.
+Ο βασικός μηχανισμός που επιτρέπει την αντιμετώπιση του προαναφερθέντος προβλήματος είναι γνωστός ως *επανάκληση(callback)*. Ο τελικός στόχος είναι να επιτραπεί ένα κομμάτι κώδικα να καλέσει μία συνάρτηση (ή C++ μέθοδο) χωρίς κάποια εξάρτηση μεταξύ μονάδων.
 
 This ultimately means you need some kind of indirection -- you treat the address
 of the called function as a variable.  This variable is called a

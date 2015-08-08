@@ -80,28 +80,26 @@
 Ο βασικός μηχανισμός που επιτρέπει την αντιμετώπιση του προαναφερθέντος προβλήματος είναι γνωστός ως *επανάκληση(callback)*. Ο τελικός στόχος είναι να επιτραπεί ένα κομμάτι κώδικα να καλέσει μία συνάρτηση (ή C++ μέθοδο) χωρίς κάποια εξάρτηση μεταξύ μονάδων.
 
 .. This ultimately means you need some kind of indirection -- you treat the address of the called function as a variable.  This variable is called a pointer-to-function variable. The relationship between function and pointer-to-function pointer is really no different that that of object and pointer-to-object.
-Αυτό σημαίνει ότι, τελικά, είναι απαραίτητη κάποιας μορφής ανακατεύθυνση(indirection) - που αντιμετωπίζει τη διεύθυνση της κληθείσας συνάρτησης ως μια μεταβλητή. Αυτή η μεταβλητή ονομάζεται μεταβλητή δείκτης-σε-συνάρτηση( pointer-to-function variable). Η σχέση μεταξύ συνάρτησης και του δείκτη (σε-συνάρτηση) είναι ανάλογη με την σχέση αντικείμενο και δεικτη-σε-αντικείμενο.
+Αυτό σημαίνει ότι, τελικά, είναι απαραίτητη κάποιας μορφής ανακατεύθυνση(indirection) - που αντιμετωπίζει τη διεύθυνση της κληθείσας συνάρτησης ως μια μεταβλητή. Αυτή η μεταβλητή ονομάζεται μεταβλητή δείκτης-σε-συνάρτηση( pointer-to-function variable). Η σχέση μεταξύ συνάρτησης και του δείκτη-σε-συνάρτηση είναι ανάλογη με την σχέση αντικείμενο και δεικτη-σε-αντικείμενο.
 
 
-In C the canonical example of a pointer-to-function is a
-pointer-to-function-returning-integer (PFI). For a PFI taking one int parameter,
-this could be declared like,::
+.. In C the canonical example of a pointer-to-function is a pointer-to-function-returning-integer (PFI). For a PFI taking one int parameter, this could be declared like,
+Στην C το κανονικό παράδειγμα ενός δείκτη-σε-συνάρτηση είναι ένας δείκτης-σε-συνάρτηση-που-επιστρέφει-ακεραιο(PFI). Για έναν PFI που δέχεται ένα ακέραιο όρισμα, η αντίστοιχη δήλωση έχει ως εξής::
 
   int (*pfi)(int arg) = 0;
 
-What you get from this is a variable named simply ``pfi`` that is initialized to
-the value 0. If you want to initialize this pointer to something meaningful, you
-have to have a function with a matching signature. In this case::
+.. What you get from this is a variable named simply ``pfi`` that is initialized to the value 0. If you want to initialize this pointer to something meaningful, you have to have a function with a matching signature. In this case::
+Το αποτέλεσμα της παραπάνω δήλωσης είναι μία μεταβλητή που ονομάζεται απλά  ``pfi`` και η οποία αρχικοποιείται με την τιμή 0. Εάν επιθυμείτε να αρχικοποιήσετε τον δείκτη με μία τιμή που να έχει νόημα, πρέπει να είναι διαθέσιμη μία συνάρτηση με υπογραφή (ορίσματα - επιστρεφόμενο τύπο) που να ταιριάζει. Σε αυτή την περίπτωση::
 
   int MyFunction (int arg) {}
 
-If you have this target, you can initialize the variable to point to your
-function like::
+.. If you have this target, you can initialize the variable to point to your function like::
+Εάν επιθυμείτε ο δείκτης να έχει στόχο την παραπάνω συνάρτηση, μπορείτε να αρχικοποιήσετε την μεταβλητή pfi ώστε να δείχνει στην συγκεκριμένη συνάρτηση ως εξής:: 
 
   pfi = MyFunction;
 
-You can then call MyFunction indirectly using the more suggestive form of the
-call::
+.. You can then call MyFunction indirectly using the more suggestive form of the call::
+Στην συνέχεια μπορείτε να καλείτε την συνάρτηση MyFunction έμμεσα χρησιμοποιώντας την δήλωση με την παρακάτω μορφή:: 
 
   int result = (*pfi) (1234);
 

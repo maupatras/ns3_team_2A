@@ -79,11 +79,9 @@
 .. The basic mechanism that allows one to address the problem above is known as a *callback*. The ultimate goal is to allow one piece of code to call a function (or method in C++) without any specific inter-module dependency.
 Ο βασικός μηχανισμός που επιτρέπει την αντιμετώπιση του προαναφερθέντος προβλήματος είναι γνωστός ως *επανάκληση(callback)*. Ο τελικός στόχος είναι να επιτραπεί ένα κομμάτι κώδικα να καλέσει μία συνάρτηση (ή C++ μέθοδο) χωρίς κάποια εξάρτηση μεταξύ μονάδων.
 
-This ultimately means you need some kind of indirection -- you treat the address
-of the called function as a variable.  This variable is called a
-pointer-to-function variable. The relationship between function and
-pointer-to-function pointer is really no different that that of object and
-pointer-to-object.
+.. This ultimately means you need some kind of indirection -- you treat the address of the called function as a variable.  This variable is called a pointer-to-function variable. The relationship between function and pointer-to-function pointer is really no different that that of object and pointer-to-object.
+Αυτό σημαίνει ότι, τελικά, είναι απαραίτητη κάποιας μορφής ανακατεύθυνση(indirection) - που αντιμετωπίζει τη διεύθυνση της κληθείσας συνάρτησης ως μια μεταβλητή. Αυτή η μεταβλητή ονομάζεται μεταβλητή δείκτης-σε-συνάρτηση( pointer-to-function variable). Η σχέση μεταξύ συνάρτησης και του δείκτη (σε-συνάρτηση) είναι ανάλογη με την σχέση αντικείμενο και δεικτη-σε-αντικείμενο.
+
 
 In C the canonical example of a pointer-to-function is a
 pointer-to-function-returning-integer (PFI). For a PFI taking one int parameter,

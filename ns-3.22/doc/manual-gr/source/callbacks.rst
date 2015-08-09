@@ -113,43 +113,42 @@
 
 .. In C++ you have the added complexity of objects. The analogy with the PFI above means you have a pointer to a member function returning an int (PMI) instead of the pointer to function returning an int (PFI).
 
-Στη C++ υπισέρχεται και η επιπρόσθετη πολυπλοκότητα των αντικειμένων. Η αναλογία με την ΠΟΣ παραπάνω σημαίνει ότι έχετε ένα δείκτη σε μια συνάρτηση-μέλος επιστρέφει ένα int (PMI) αντί του δείκτη σε συνάρτηση που επιστρέφει ένα int (ΠΟΣ).
+Στη C++ εμφανίζεται η επιπρόσθετη πολυπλοκότητα των αντικειμένων. Η αναλογία με τους PFI που παρουσιάστηκαν παραπάνω, συνεπάγεται ότι έχετε ένα δείκτη σε μια συνάρτηση-μέλος που επιστρέφει έναν int (PMI) αντί του δείκτη σε συνάρτηση που επιστρέφει έναν int (PFI).
 
-The declaration of the variable providing the indirection looks only slightly
-different::
+.. The declaration of the variable providing the indirection looks only slightly different::
+Η δήλωση της μεταβλητής που παρέχει την ανακατεύθυνση μοιάζει ελαφρώς διαφορετική ::
 
   int (MyClass::*pmi) (int arg) = 0;
 
-This declares a variable named ``pmi`` just as the previous example declared a
-variable named ``pfi``. Since the will be to call a method of an instance of a
-particular class, one must declare that method in a class::
+.. This declares a variable named ``pmi`` just as the previous example declared a variable named ``pfi``. Since the will be to call a method of an instance of a particular class, one must declare that method in a class::
+Η παραπάνω κώδικας δηλώνει μια μεταβλητή με το όνομα ``pmi`` ακριβώς όπως το προηγούμενο παράδειγμα δηλώθηκε μια μεταβλητή με όνομα  ``pfi``. Δεδομένου ότι ο σκοπός είναι να κληθεί μια μέθοδος ενός στιγμιοτύπου μιας συγκεκριμένης κλάσης, πρέπει κανείς να δηλώσει τη μέθοδο αυτή, σε μία κλάση, ως εξής::
 
   class MyClass {
   public:
     int MyMethod (int arg);
   };
 
-Given this class declaration, one would then initialize that variable like
-this::
+.. Given this class declaration, one would then initialize that variable like this::
+Δεδομένης αυτής της δήλωσης για την κλάσης, κάποιος θα μπορούσε να αρχικοποιήσει αυτή τη μεταβλητή, με αυτό τον τρόπο::
 
   pmi = &MyClass::MyMethod;
 
-This assigns the address of the code implementing the method to the variable,
-completing the indirection. In order to call a method, the code needs a ``this``
-pointer. This, in turn, means there must be an object of MyClass to refer to. A
-simplistic example of this is just calling a method indirectly (think virtual
-function)::
+.. This assigns the address of the code implementing the method to the variable, completing the indirection. In order to call a method, the code needs a ``this`` pointer. This, in turn, means there must be an object of MyClass to refer to. A simplistic example of this is just calling a method indirectly (think virtual function)::
+Το παραπάνω παράδειγμα εκχωρεί τη διεύθυνση του κώδικα που υλοποιεί την μέθοδο στη μεταβλητή, ολοκληρώνοντας την ανακατεύθυνση. Για να καλέσετε μια μέθοδο, ο κώδικας χρειάζεται ένα δείκτη ``this`` . Αυτό, με τη σειρά του, σημαίνει ότι πρέπει να υπάρχει ένα αντικείμενο της κλάσης MyClass στο οποίο ο δείκτης this αναφέρεται. Ένα απλοϊκό παράδειγμα είναι απλά, η έμμεση κλήση μιας μεθόδου (σκεφτείτε εικονική συνάρτηση-virtual function) ::
 
-  int (MyClass::*pmi) (int arg) = 0;  // Declare a PMI
-  pmi = &MyClass::MyMethod;           // Point at the implementation code
+.. int (MyClass::*pmi) (int arg) = 0;  // Declare a PMI
+.. pmi = &MyClass::MyMethod;           // Point at the implementation code
+  int (MyClass::*pmi) (int arg) = 0;  // Δήλωση ενός PMI
+  pmi = &MyClass::MyMethod;           // Δείξε προς τον κώδικα υλοποίησης
 
-  MyClass myClass;                    // Need an instance of the class
-  (myClass.*pmi) (1234);              // Call the method with an object ptr
+.. MyClass myClass;                    // Need an instance of the class
+.. (myClass.*pmi) (1234);              // Call the method with an object ptr
+  MyClass myClass;                    // Απαιτείται ένα στιγμιότυπο της κλάσης
+  (myClass.*pmi) (1234);              // κάλεσε την μέθοδο με έναν δείκτη αντικειμένου
+  
 
-Just like in the C example, you can use this in an asynchronous call to another
-module which will *call back* using a method and an object pointer. The
-straightforward extension one might consider is to pass a pointer to the object
-and the PMI variable. The module would just do::
+.. Just like in the C example, you can use this in an asynchronous call to another module which will *call back* using a method and an object pointer. The straightforward extension one might consider is to pass a pointer to the object and the PMI variable. The module would just do::
+Ακριβώς όπως στο παράδειγμα της C, μπορείτε να το χρησιμοποιήσετε σε μια ασύγχρονη κλήση προς μία άλλη μονάδα που θα *επανακαλέσει* χρησιμοποιώντας μια μέθοδο και ένα δείκτη αντικειμένου. Θα μπορούσε κάποιος να σκεφτεί, ότι η απευθείας επέκταση είναι να περάσουμε έναν δείκτη στο αντικείμενο και στην PMI μεταβλητή. Η μονάδα θα κάνει ακριβώς ::
 
   (*objectPtr.*pmi) (1234);
 

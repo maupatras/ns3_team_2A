@@ -80,11 +80,11 @@
 Ο βασικός μηχανισμός που επιτρέπει την αντιμετώπιση του προαναφερθέντος προβλήματος είναι γνωστός ως *επανάκληση(callback)*. Ο τελικός στόχος είναι να επιτραπεί ένα κομμάτι κώδικα να καλέσει μία συνάρτηση (ή C++ μέθοδο) χωρίς κάποια εξάρτηση μεταξύ μονάδων.
 
 .. This ultimately means you need some kind of indirection -- you treat the address of the called function as a variable.  This variable is called a pointer-to-function variable. The relationship between function and pointer-to-function pointer is really no different that that of object and pointer-to-object.
-Αυτό σημαίνει ότι, τελικά, είναι απαραίτητη κάποιας μορφής ανακατεύθυνση(indirection) - που αντιμετωπίζει τη διεύθυνση της κληθείσας συνάρτησης ως μια μεταβλητή. Αυτή η μεταβλητή ονομάζεται μεταβλητή δείκτης-σε-συνάρτηση( pointer-to-function variable). Η σχέση μεταξύ συνάρτησης και του δείκτη-σε-συνάρτηση είναι ανάλογη με την σχέση αντικείμενο και δεικτη-σε-αντικείμενο.
+Αυτό σημαίνει ότι, τελικά, είναι απαραίτητη κάποιας μορφής ανακατεύθυνση(indirection) - που αντιμετωπίζει τη διεύθυνση της κληθείσας συνάρτησης ως μια μεταβλητή. Αυτή η μεταβλητή ονομάζεται μεταβλητή δείκτης-σε-συνάρτηση( pointer-to-function variable). Η σχέση μεταξύ συνάρτησης και του δείκτη-σε-συνάρτηση είναι ανάλογη με την σχέση αντικείμενο και δείκτη-σε-αντικείμενο.
 
 
 .. In C the canonical example of a pointer-to-function is a pointer-to-function-returning-integer (PFI). For a PFI taking one int parameter, this could be declared like,
-Στην C το κανονικό παράδειγμα ενός δείκτη-σε-συνάρτηση είναι ένας δείκτης-σε-συνάρτηση-που-επιστρέφει-ακεραιο(PFI). Για έναν PFI που δέχεται ένα ακέραιο όρισμα, η αντίστοιχη δήλωση έχει ως εξής::
+Στην C το κανονικό παράδειγμα ενός δείκτη-σε-συνάρτηση είναι ένας δείκτης-σε-συνάρτηση-που-επιστρέφει-ακέραιο(PFI). Για έναν PFI που δέχεται ένα ακέραιο όρισμα, η αντίστοιχη δήλωση έχει ως εξής::
 
   int (*pfi)(int arg) = 0;
 
@@ -99,26 +99,21 @@
   pfi = MyFunction;
 
 .. You can then call MyFunction indirectly using the more suggestive form of the call::
-Στην συνέχεια μπορείτε να καλείτε την συνάρτηση MyFunction έμμεσα χρησιμοποιώντας την δήλωση με την παρακάτω μορφή:: 
+Στην συνέχεια μπορείτε να καλείτε την συνάρτηση MyFunction έμμεσα χρησιμοποιώντας την περισσότερο υποδηλωτική μορφή της κλήσης της συνάρτησης:: 
 
   int result = (*pfi) (1234);
 
-This is suggestive since it looks like you are dereferencing the function
-pointer just like you would dereference any pointer. Typically, however, people
-take advantage of the fact that the compiler knows what is going on and will
-just use a shorter form::
+.. This is suggestive since it looks like you are dereferencing the function pointer just like you would dereference any pointer. Typically, however, people take advantage of the fact that the compiler knows what is going on and will just use a shorter form::
+Αυτή η μορφή είναι υποδηλωτική, δεδομένου ότι φαίνεται σαν πραγματοποιείται αποαναφοροποίηση του δείκτη συνάρτησης ακριβώς με τον ίδιο τρόπο που θα αποαναφοροποιούσαμε κάθε δείκτη. Συνήθως, όμως, οι άνθρωποι επωφελούνται από το γεγονός ότι ο μεταγλωττιστής γνωρίζει τι συμβαίνει και γι αυτό προτιμούν να χρησιμοποιήσουν μια συντομότερη μορφή ::
 
   int result = pfi (1234);
 
-Notice that the function pointer obeys value semantics, so you can pass it
-around like any other value. Typically, when you use an asynchronous interface
-you will pass some entity like this to a function which will perform an action
-and *call back* to let you know it completed. It calls back by following the
-indirection and executing the provided function.
+.. Notice that the function pointer obeys value semantics, so you can pass it around like any other value. Typically, when you use an asynchronous interface you will pass some entity like this to a function which will perform an action and *call back* to let you know it completed. It calls back by following the indirection and executing the provided function.
+Παρατηρήστε ότι ο δείκτης συνάρτησης μπορεί να ερμηνευθεί ως τιμή (υπακούει στην σημασίολογία της τιμής), ώστε να μπορείτε να την χρησιμοποιήσετε σαν οποιαδήποτε άλλη τιμή. Συνήθως, όταν χρησιμοποιείτε μια ασύγχρονη διεπαφή θα περάσετε κάποια οντότητα όπως αυτό στην συνάρτηση που θα εκτελέσει μια ενέργεια και *επανακαλέσει (call back)* ώστε για να ενημερώσει ότι ολοκληρώθηκεη εκτέλεσή της. Θα επανακαλέσει, ακολουθώντας την ανακατεύθυνση και εκτελώντας την παρεχόμενη συνάρτηση.
 
-In C++ you have the added complexity of objects. The analogy with the PFI above
-means you have a pointer to a member function returning an int (PMI) instead of
-the pointer to function returning an int (PFI).
+.. In C++ you have the added complexity of objects. The analogy with the PFI above means you have a pointer to a member function returning an int (PMI) instead of the pointer to function returning an int (PFI).
+
+Στη C++ υπισέρχεται και η επιπρόσθετη πολυπλοκότητα των αντικειμένων. Η αναλογία με την ΠΟΣ παραπάνω σημαίνει ότι έχετε ένα δείκτη σε μια συνάρτηση-μέλος επιστρέφει ένα int (PMI) αντί του δείκτη σε συνάρτηση που επιστρέφει ένα int (ΠΟΣ).
 
 The declaration of the variable providing the indirection looks only slightly
 different::

@@ -282,15 +282,17 @@
 1. Την δήλωση τύπου επανάκλησης: έναν τρόπο να δηλώσεις τον τύπο της επανακλησης με μία δεδομέν υπογραφή, και
 
 .. 2. callback instantiation: a way to instantiate a template-generated forwarding callback which can forward any calls to another C++ class member method or C++ function.
-2. Την συγκεκριμενοποίηση
+2. Δημιουργία στιγμιοτύπου επανάκλησης: ένας τρόπος να δημιουργήθεί ένας μηχανισμός προώθησης επανακλήσεων που μπορεί να προωθήσει κάθε κλήση σε κάποια μέθοδο μέλος μιας C++ κλάσης ή συνάτησης C++.
 
-This is best observed via walking through an example, based on
-``samples/main-callback.cc``.
+.. This is best observed via walking through an example, based on ``samples/main-callback.cc``.
+Αυτό παρατηρείται καλύτερα μέσω ενός παραδείγματος, που βασίζεται στο ``samples/main-callback.cc``.
 
-Using the Callback API with static functions
-++++++++++++++++++++++++++++++++++++++++++++
+.. Using the Callback API with static functions
+Χρησιμοποιώντας την API επανακλήσεων με στατικές συναρτήσεις
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Consider a function::
+.. Consider a function
+Θεωρήστε μία συνάρτηση ::
 
   static double
   CbOne (double a, double b)
@@ -299,7 +301,8 @@ Consider a function::
     return a;
   }
 
-Consider also the following main program snippet::
+.. Consider also the following main program snippet
+Θεωρήστε επίσης το παρακάτω απόσπασμα του κυρίως προγράμματος::
 
   int main (int argc, char *argv[])
   {
@@ -309,35 +312,20 @@ Consider also the following main program snippet::
     Callback<double, double, double> one;
   }
 
-This is an example of a C-style callback -- one which does not include or need
-a ``this`` pointer.  The function template ``Callback`` is essentially the
-declaration of the variable containing the pointer-to-function.  In the example
-above, we explicitly showed a pointer to a function that returned an integer and
-took a single integer as a parameter,  The ``Callback`` template function is
-a generic version of that -- it is used to declare the type of a callback.  
+.. This is an example of a C-style callback -- one which does not include or need a ``this`` pointer.  The function template ``Callback`` is essentially the declaration of the variable containing the pointer-to-function.  In the example above, we explicitly showed a pointer to a function that returned an integer and took a single integer as a parameter,  The ``Callback`` template function is a generic version of that -- it is used to declare the type of a callback.  
+Αυτό είναι ένα παράδειγμα επανάκλησης σε στυλ C -- το οποίο δεν περιλαμβάνει ή χρειάζεται ένα δείκτη ``this`` . Το πρότυπο της συνάρτησης ``Callback``  είναι ιδανικά η δήλωση της μεταβλητής που περιλαμβάνει τον δείκτη-σε-συνάρτηση. Στο παραπάνω παράδειγμα, δείξαμε ρητά έναν δείκτη σε συνάρτηση που επιστρέφει έναν ακέραιο και δέχεται έναν από ακέραιο σαν παράμετρο, το πρότυπο συνάρτηση ``Callback`` είναι μια γενική εκδοχή του προηγούμενου παραδείγματος -- χρησιμοποιείται για την δήλωση του τύπου της επανάκλησης.
 
-.. note:: Readers unfamiliar with C++ templates may consult `<http://www.cplusplus.com/doc/tutorial/templates/>`_.
+.. Readers unfamiliar with C++ templates may consult `<http://www.cplusplus.com/doc/tutorial/templates/>`_.
+.. note:: Οι αναγνώστες που δεν είναι εξοικειωμένοι με με τα πρότυπα της C++ μπορούν να συμβουλευτούν την ιστοσελίδα `<http://www.cplusplus.com/doc/tutorial/templates/>`_.
 
-The ``Callback`` template requires one mandatory argument (the return type 
-of the function to be assigned to this callback) and up to five optional 
-arguments, which each specify the type of the arguments (if your particular
-callback function has more than five arguments, then this can be handled
-by extending the callback implementation).
+.. The ``Callback`` template requires one mandatory argument (the return type of the function to be assigned to this callback) and up to five optional arguments, which each specify the type of the arguments (if your particular callback function has more than five arguments, then this can be handled by extending the callback implementation).
+Το πρότυπο ``Callback`` απαιτεί ένα υποχρεωτικό όρισμα (το τύπο επιστροφής της συνάρτησης που πρόκειται να ανατεθεί σε αυτή την επανάκληση) και μέχρι πέντε προαιρετικά ορίσματα, τα οποία μπορεί να καθορίζουν τον τύπο των ορισμάτων (εάν εάν η συνάρτηση επανακλησης που εξετάζουμε έχει περισσότερα από πέντε ορίσματα, τότε αυτό μπορεί να αντιμετωπιστεί με την επέκταση της υλοποίησης της επανακλησης). 
 
-So in the above example, we have a declared a callback named "one" that will
-eventually hold a function pointer.  The signature of the function that it will
-hold must return double and must support two double arguments.  If one tries 
-to pass a function whose signature does not match the declared callback, 
-a compilation error will occur.  Also, if one tries to assign to a callback
-an incompatible one, compilation will succeed but a run-time 
-NS_FATAL_ERROR will be raised.  The sample program 
-``src/core/examples/main-callback.cc`` demonstrates both of these error cases
-at the end of the ``main()`` program.
+.. So in the above example, we have a declared a callback named "one" that will eventually hold a function pointer.  The signature of the function that it will hold must return double and must support two double arguments.  If one tries to pass a function whose signature does not match the declared callback, a compilation error will occur.  Also, if one tries to assign to a callback an incompatible one, compilation will succeed but a run-time  NS_FATAL_ERROR will be raised.  The sample program ``src/core/examples/main-callback.cc`` demonstrates both of these error cases at the end of the ``main()`` program.
+Έτσι στο παραπάνω παράδειγμα, έχουμε δηλώσει μία επανάκληση με το όνομα "one" που τελικά θα κρατά έναν δείκτη συνάρτησης. Η υπογραφή της συνάρτησης που θα κρατά πρέπει να επιστρέφει double και να υποστηρίζει δύο ορίσματα double. Εάν κάποιος προσπαθήσει να περάσει μία συνάρτηση της οποίας η υπογραφή δεν ταιριάζει με την δηλωμένη επανάκληση, θα συμβεί ένα σφάλμα μεταγλώττισης. Επίσης, εάν κάποιος προσπαθήσει να αναθέσει σε μία επανάκληση μία μη συμβατή, τότε δεν θα προκληθεί σφάλμα μεταγλώττισης αλλά θα προκληθεί NS_FATAL_ERROR κατά τον χρόνο εκτέλεσης. Το πρόγραμμα-παράδειγμα στο αρχείο ``src/core/examples/main-callback.cc`` παρουσιάζει στο τέλος του προγράμματος ``main()`` και τις δύο περιπτώσεις λαθών που προαναφέρθηκαν. 
 
-Now, we need to tie together this callback instance and the actual target function
-(CbOne).  Notice above that CbOne has the same function signature types as the 
-callback-- this is important.  We can pass in any such properly-typed function 
-to this callback.  Let's look at this more closely::
+.. Now, we need to tie together this callback instance and the actual target function (CbOne).  Notice above that CbOne has the same function signature types as the callback-- this is important.  We can pass in any such properly-typed function  to this callback.  Let's look at this more closely
+Στην συνέχεια, θα ενώσουμε το στιγμιότυπο της επανάκλησης με την πραγματική συνάρτηση στόχο (CbOne). Παρατηρήστε παραπάνω ότι η CbOne έχει την ίδια υπογραφή συνάρτησης όπως και η επανάκληση-- αυτό είναι σημαντικό. Μπορούμε να περάσουμε σε αυτήν επανάκληση κάθε τέτοια συνάρτηση που διαθέτει κατάλληλο τύπο. Ας την εξετάσουμε με περισσότερη προσοχή::
 
   static   double CbOne (double a, double b) {}
              ^             ^         ^
@@ -345,9 +333,7 @@ to this callback.  Let's look at this more closely::
              |             |         | 
   Callback<double,       double,   double> one;
 
-You can only bind a function to a callback if they have the matching signature.
-The first template argument is the return type, and the additional template 
-arguments are the types of the arguments of the function signature.
+You can only bind a function to a callback if they have the matching signature. The first template argument is the return type, and the additional template arguments are the types of the arguments of the function signature.
 
 Now, let's bind our callback "one" to the function that matches its signature::
 

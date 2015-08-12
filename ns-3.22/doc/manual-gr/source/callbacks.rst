@@ -412,16 +412,14 @@
 Δημιουργώντας Null Επανακλήσεις
 +++++++++++++++++++++++++++++++
 
-It is possible for callbacks to be null; hence it may be wise to
-check before using them.  There is a special construct for a null
-callback, which is preferable to simply passing "0" as an argument;
-it is the ``MakeNullCallback<>`` construct::
+.. It is possible for callbacks to be null; hence it may be wise to check before using them.  There is a special construct for a null callback, which is preferable to simply passing "0" as an argument; it is the ``MakeNullCallback<>`` construct
+Υπάρχει η δυνατότητα οι επανακλήσεις να είναι null, συνεπώς θα ήταν σωστό να ελέγχονται πριν χρησιμοποιηθούν. Υπάρχει μία ειδική δομή για null επανακλήσεις, η οποία είναι προτιμότερη από το να περνάμε απλά την τιμή "0" ως όρισμα. Είναι η δομή ``MakeNullCallback<>`` ::
 
   two = MakeNullCallback<int, double> ();
   NS_ASSERT (two.IsNull ());
 
-Invoking a null callback is just like invoking a null function pointer: it will
-crash at runtime.
+.. Invoking a null callback is just like invoking a null function pointer: it will crash at runtime.
+Η κλήση μίας null επανάκλησης είναι σαν την κλήση ενός null δείκτη συνάρτησης: θα διακοπεί η λειτουργία του κατά το χρόνο εκτέλεσης.
 
 Bound Callbacks
 ***************

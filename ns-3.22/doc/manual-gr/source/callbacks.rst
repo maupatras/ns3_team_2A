@@ -333,40 +333,39 @@
              |             |         | 
   Callback<double,       double,   double> one;
 
-You can only bind a function to a callback if they have the matching signature. The first template argument is the return type, and the additional template arguments are the types of the arguments of the function signature.
+.. You can only bind a function to a callback if they have the matching signature. The first template argument is the return type, and the additional template arguments are the types of the arguments of the function signature.
+Μπορείς να προσδέσεις μία συνάρτηση σε μία επανάκληση εάν έχουν υπογραφή που να ταιριάζει. Το πρώτο όρισμα του προτύπου είναι ο τύπος επιστροφής, και τα επιπρόσθετα ορίσματα του προτύπου είναι οι τύποι των ορισμάτων της υπογραφής της συνάρτησης. 
 
-Now, let's bind our callback "one" to the function that matches its signature::
+.. Now, let's bind our callback "one" to the function that matches its signature
+Ας προσδέσουμε στην συνέχεια την επανάκληση "one" με την συνάρτηση που ταιριάζει στην υπογραφή της::
 
-  // build callback instance which points to cbOne function
+  .. build callback instance which points to cbOne function
+  //Δημιουργήστε ένα στιγμιότυπο της επανάκλησης που δείχνει στην συνάρτηση cbOne
   one = MakeCallback (&CbOne);
 
-This call to ``MakeCallback`` is, in essence, creating one of the specialized
-functors mentioned above.  The variable declared using the ``Callback`` 
-template function is going to be playing the part of the generic functor.  The
-assignment ``one = MakeCallback (&CbOne)`` is the cast that converts the 
-specialized functor known to the callee to a generic functor known to the caller.
+.. This call to ``MakeCallback`` is, in essence, creating one of the specialized functors mentioned above.  The variable declared using the ``Callback`` template function is going to be playing the part of the generic functor.  The assignment ``one = MakeCallback (&CbOne)`` is the cast that converts the specialized functor known to the callee to a generic functor known to the caller.
+Αυτή η κληση στο  ``MakeCallback`` στην ουσία δημιουργεί ένα από τους εξειδικευμένους functors που αναφέραμε παραπάνω. Η μεταβλητή που δηλώθηκε να χρησιμοποιεί το πρότυπο συνάρτησης ``Callback`` πρόκειται να παίξει τον ρόλο του γενικού functor. H ανάθεση ``one = MakeCallback (&CbOne)`` είναι η μετατροπή του εξειδικευμένου functor, που είναι γνωστό στον καλούμενο σε γενικό functor που είναι γνωστό στον καλούντα.
 
-Then, later in the program, if the callback is needed, it can be used as follows::
+.. Then, later in the program, if the callback is needed, it can be used as follows
+Στην συνέχεια του προγράμματος, εάν χρειαστεί η επανάκληση, μπορεί να χρησιμοποιηθεί ως εξής::
 
   NS_ASSERT (!one.IsNull ());
 
-  // invoke cbOne function through callback instance
+  .. invoke cbOne function through callback instance
+  //κάλεσε την συνάρτηση cbOne, μέσω του στιγμιοτύπου της επανάκλησης.
   double retOne;
   retOne = one (10.0, 20.0);
 
-The check for ``IsNull()`` ensures that the callback is not null -- that there 
-is a function to call behind this callback.  Then, ``one()`` executes the
-generic ``operator()`` which is really overloaded with a specific implementation
-of ``operator()`` and returns the same result as if ``CbOne()`` had been 
-called directly.
+.. The check for ``IsNull()`` ensures that the callback is not null -- that there is a function to call behind this callback.  Then, ``one()`` executes the generic ``operator()`` which is really overloaded with a specific implementation of ``operator()`` and returns the same result as if ``CbOne()`` had been called directly.
+Ο έλεγχος r ``IsNull()`` εξασφαλίζει ότι η επανάκληση δεν είναι null -- ότι υπάρχει μία συνάρτηση για να κληθεί πίσω από την επανάκληση. Στην συνέχεια η  ``one()`` εκτελεί τον γενικό ``operator()`` ο οποίος είναι υπερφορτωμένος με μία συγκεκριμένη υλοποίηση του ``operator()`` και επιστρέφει το ίδιο αποτέλεσμα σαν να είχε κληθεί απ ευθείας η ``CbOne()`` 
 
-Using the Callback API with member functions
-++++++++++++++++++++++++++++++++++++++++++++
+.. Using the Callback API with member functions
+Χρησιμοποιώντας την API επανακλήσεων με συναρτήσεις μέλη (κλάσεων)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Generally, you will not be calling static functions but instead public member 
-functions of an object.  In this case, an extra argument is needed to the 
-MakeCallback function, to tell the system on which object the function should be 
-invoked.  Consider this example, also from main-callback.cc::
+.. Generally, you will not be calling static functions but instead public member functions of an object.  In this case, an extra argument is needed to the MakeCallback function, to tell the system on which object the function should be invoked.  Consider this example, also from main-callback.cc
+Γενικά, δεν θα καλείτε στατικές συναρτήσεις αλλά κυρίως δημόσιες συναρτήσεις ενός αντικειμένου. Σε αυτή την περίπτωση, ένα επιπλέον όρισμα απαιτείται από την συνάρτηση MakeCallback, ώστε να ενημερώσει το σύστημα ποιο αντικείμενο πρέπει να κληθεί. Σκεφτείτε το αυτό το παράδειγμα, επίσης από το main-callback.cc::
+
 
   class MyCb {
   public:
@@ -388,29 +387,30 @@ invoked.  Consider this example, also from main-callback.cc::
     ...
   }
 
-Here, we pass an additional object pointer to the ``MakeCallback<>`` function.
-Recall from the background section above that ``Operator()`` will use the pointer to 
-member syntax when it executes on an object::
+.. Here, we pass an additional object pointer to the ``MakeCallback<>`` function. Recall from the background section above that ``Operator()`` will use the pointer to member syntax when it executes on an object
+Εδώ, περνάμε ένα επιπλέον δείκτη στην συνάρτηση  ``MakeCallback<>`` . Θυμηθείτε από την ενοτητα παρασκήνιο (bacground) ότι ο  ``Operator()`` θα χρησιμοποιήσει ένα δείκτη σε μέλος, όταν θα εκτελεστεί σε ένα αντικείμενο::
 
       virtual int operator() (ARG arg)
       {
         (*m_p.*m_pmi)(arg);
       }
 
-And so we needed to provide the two variables (``m_p`` and ``m_pmi``) when
-we made the specific functor.  The line::
+.. And so we needed to provide the two variables (``m_p`` and ``m_pmi``) when we made the specific functor.  The line
+Και έτσι χρειάζεται να παρέχουμε τις δυο μεταβλητές (``m_p`` and ``m_pmi``) όταν δημιουργήσουμε τον συγκεκριμένο functor. Η γραμμή::
 
     two = MakeCallback (&MyCb::CbTwo, &cb);
 
-does precisely that.  In this case, when ``two ()`` is invoked::
+.. does precisely that.  In this case, when ``two ()`` is invoked
+πραγματοποιεί ακριβώς αυτό, Σε αυτή την περίπτωση, όταν καλείται η ``two ()`` :: 
 
   int result = two (1.0);
 
-will result in a call tothe ``CbTwo`` member function (method) on the object 
-pointed to by ``&cb``.   
+.. will result in a call tothe ``CbTwo`` member function (method) on the object pointed to by ``&cb``.  
+θα έχει ως αποτέλεσμα την κλήση της συνάρτησης μέλους ``CbTwo`` του αντικειμένου που δείχνεται από τον ``&cb``.
 
-Building Null Callbacks
-+++++++++++++++++++++++
+.. Building Null Callbacks
+Δημιουργώντας Null Επανακλήσεις
++++++++++++++++++++++++++++++++
 
 It is possible for callbacks to be null; hence it may be wise to
 check before using them.  There is a special construct for a null

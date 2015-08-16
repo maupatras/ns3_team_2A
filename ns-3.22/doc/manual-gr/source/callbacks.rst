@@ -539,11 +539,10 @@
 .. This code uses
 Αυτός ο κώδικας χρησιμοποιεί:
 
+* Προεπιλεγμένα πρότυπα παραμέτρων ώστε να εξοικονομήσουν χρόνο στους χρήστες από το να καθορίσουν κενές παραμέτρους όταν το πληθος των παραμέτρων είναι μικρότερος από το μέγιστο υποστηριζόμενο πλήθος παραμέτρων.
+* Το ιδίωμα pimpl: 
 
-
-* default template parameters to saves users from having to
-  specify empty parameters when the number of parameters
-  is smaller than the maximum supported number
+..  default template parameters to saves users from having to  specify empty parameters when the number of parameters is smaller than the maximum supported number
 * the pimpl idiom: the Callback class is passed around by
   value and delegates the crux of the work to its pimpl pointer.
 * two pimpl implementations which derive from CallbackImpl
@@ -554,4 +553,4 @@
   value semantics.
 
 .. This code most notably departs from the Alexandrescu implementation in that it does not use type lists to specify and pass around the types of the callback arguments. Of course, it also does not use copy-destruction semantics and relies on a reference list rather than autoPtr to hold the pointer.
-Αυτός ο κώδικας 
+Αυτός ο κώδικας  κυρίως προκύπτει από την υλοποίηση του Alexandrescu καθώς δεν χρησιμοποιεί type lists ώστε να καθορίσει και να μεταδώσει τους τύπους των ορισμάτων της επανάκλησης. Προφανώς

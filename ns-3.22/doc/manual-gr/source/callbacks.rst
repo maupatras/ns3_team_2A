@@ -540,17 +540,17 @@
 Αυτός ο κώδικας χρησιμοποιεί:
 
 * Προεπιλεγμένα πρότυπα παραμέτρων ώστε να εξοικονομήσουν χρόνο στους χρήστες από το να καθορίσουν κενές παραμέτρους όταν το πληθος των παραμέτρων είναι μικρότερος από το μέγιστο υποστηριζόμενο πλήθος παραμέτρων.
-* Το ιδίωμα pimpl: 
+* το ιδίωμα pimpl: Η κλάση Callback μεταδίδεται με τιμή (by value) και αναθέτει την ουσία της εργασία στον δείκτη pimpl. 
+* δύο υλοποιήσεις pimpl που απορρέουν από την CallbackImpl:
+   η FunctorCallbackImpl μπορεί να χρησιμοποιηθεί με οποιοδήποτε τύπο functor
+   ενώ η MemPtrCallbackImpl μπορεί να χρησιμοποιηθεί με δείκτες σε συναρτήσεις-μέλη.
+* Μία υλοποίηση λίστας αναφορών για την υλοποίηση της σημασιολογικής τιμής της επανάκλησης(Callback).
 
 ..  default template parameters to saves users from having to  specify empty parameters when the number of parameters is smaller than the maximum supported number
-* the pimpl idiom: the Callback class is passed around by
-  value and delegates the crux of the work to its pimpl pointer.
-* two pimpl implementations which derive from CallbackImpl
-  FunctorCallbackImpl can be used with any functor-type
-  while MemPtrCallbackImpl can be used with pointers to
-  member functions.
-* a reference list implementation to implement the Callback's
-  value semantics.
+.. the pimpl idiom: the Callback class is passed around by  value and delegates the crux of the work to its pimpl pointer.
+.. two pimpl implementations which derive from CallbackImpl FunctorCallbackImpl can be used with any functor-type
+  while MemPtrCallbackImpl can be used with pointers to member functions.
+* a reference list implementation to implement the Callback's value semantics.
 
 .. This code most notably departs from the Alexandrescu implementation in that it does not use type lists to specify and pass around the types of the callback arguments. Of course, it also does not use copy-destruction semantics and relies on a reference list rather than autoPtr to hold the pointer.
-Αυτός ο κώδικας  κυρίως προκύπτει από την υλοποίηση του Alexandrescu καθώς δεν χρησιμοποιεί type lists ώστε να καθορίσει και να μεταδώσει τους τύπους των ορισμάτων της επανάκλησης. Προφανώς
+Αυτός ο κώδικας προκύπτει κυρίως, από την υλοποίηση του Alexandrescu καθώς δεν χρησιμοποιεί λίστες τύπων (type lists) ώστε να καθορίσει και να μεταδώσει τους τύπους των ορισμάτων της επανάκλησης. Φυσικά, δεν χρησιμοποιεί σημασιολογία copy-destruction και βασίζεται σε μία λίστα αναφορών αντί autoPtr για την αποθήκευση του δείκτη. 

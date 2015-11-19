@@ -13,7 +13,7 @@
 ************************
 
 .. Consider that you have two simulation models A and B, and you wish to have them pass information between them during the simulation. One way that you can do that is that you can make A and B each explicitly knowledgeable about the other, so that they can invoke methods on each other::
-Θεωρήστε ότι έχετε δύο μοντέλα προσομοίωησης A και B και επιθυμείτε να περάσετε πληροφορία μέσω αυτών κατά την διάρκεια μία προσομοίωσης. Ένας τρόπος για να το επιτύχετε είναι κάνετε το Α και Β να αποκτήσουν γνώση το ένα για το άλλο ρητά, ώστε να αποκτήσουν την δυνατότητα καλούν μεθόδους το ένα στο άλλο::   
+Θεωρήστε ότι έχετε δύο μοντέλα προσομοίωησης A και B και επιθυμείτε να περάσετε πληροφορία μέσω αυτών κατά την διάρκεια μία προσομοίωσης. Ένας τρόπος για να το επιτύχετε είναι κάνετε το Α και Β να αποκτήσουν γνώση το ένα για το άλλο ρητά, ώστε να αποκτήσουν την δυνατότητα να καλούν μεθόδους το ένα στο άλλο::   
 
   class A {
   public:
